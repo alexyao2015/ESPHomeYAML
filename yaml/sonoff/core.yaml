@@ -1,5 +1,8 @@
+esphome:
+  platform: ESP8266
+  board: esp01_1m
+
 packages:
-  platform: !include platform.yaml
   buttons: !include buttons.yaml
   led: !include led.yaml
   relay: !include relay.yaml
