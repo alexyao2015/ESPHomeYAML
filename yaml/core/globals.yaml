@@ -1,0 +1,25 @@
+globals:
+  - id: timer_time
+    type: int
+    restore_value: no
+    initial_value: '0'
+
+  - id: template_relay_id
+    type: int
+    restore_value: no
+    initial_value: '0'
+    
+  - id: relay_status # relay number if activated; else 0
+    type: int
+    restore_value: no
+    initial_value: '0'
+    
+  - id: connection_status # 0 if all fine, 1 wifi disconnected, 2 api disconnected
+    type: int
+    restore_value: no
+    initial_value: '0'
+    
+  - id: connection_progress_bar # looping progress indicator, visual only
+    type: int
+    restore_value: no
+    initial_value: '0'

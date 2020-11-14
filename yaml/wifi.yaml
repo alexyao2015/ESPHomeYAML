@@ -1,0 +1,5 @@
+wifi:
+  ssid: !secret ssid
+  password: !secret ssidpassword
+  ap:
+    ssid: "ESPHome ${real_devicename}"

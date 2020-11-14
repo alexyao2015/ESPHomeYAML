@@ -1,0 +1,15 @@
+interval:
+  - interval: 1s
+    then:
+      - if:
+          condition:
+            - lambda: 'return id(timer_time) > 0;'
+          then:
+            - lambda: |-
+                id(timer_time) -= 1;
+                ESP_LOGD("timer", "Time Remaining: %d", id(timer_time));
+            - if:
+                condition:
+                  - lambda: 'return id(timer_time) <= 0;'
+                then:
+                  - script.execute: timer_end_sequence

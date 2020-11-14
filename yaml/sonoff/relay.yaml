@@ -1,0 +1,45 @@
+script:
+  - id: turn_on_template_relay_id
+    then: # new if for each relay
+      - lambda: |-
+          if (id(template_relay_id) == 1) {
+            id(template_relay_1).turn_on();
+          }
+
+  - id: turn_off_template_relay_id
+    then:
+      - lambda: |-
+          if (id(template_relay_id) == 1) {
+            id(template_relay_1).turn_off();
+          }
+  
+  - id: update_relay_state
+    then:
+      - lambda: |-
+          if (id(template_relay_1).state) {
+            id(relay_status) = 1;
+          } else {
+            id(relay_status) = 0;
+          }
+
+switch:
+  - platform: gpio
+    pin: GPIO12
+    id: relay_1
+
+  - platform: template
+    name: "${real_devicename} Switch 1"
+    id: template_relay_1
+    lambda: |-
+      if (id(relay_1).state) {
+        return true;
+      } else {
+        return false;
+      }
+    turn_on_action:
+      then:
+      - switch.turn_on: relay_1
+      - script.execute: check_relay_then_turn_light_on_off
+    turn_off_action:
+      - switch.turn_off: relay_1
+      - script.execute: check_relay_then_turn_light_on_off

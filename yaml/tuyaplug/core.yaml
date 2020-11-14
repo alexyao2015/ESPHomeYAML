@@ -1,0 +1,5 @@
+packages:
+  platform: !include platform.yaml
+  buttons: !include buttons.yaml
+  led: !include led.yaml
+  relay: !include relay.yaml
