@@ -1,0 +1,12 @@
+i2c:
+  sda: 4
+  scl: 5
+  scan: True
+
+packages:
+  # buttons: !include buttons.yaml
+  display: !include display.yaml
+  led: !include led.yaml
+  buttons: !include buttons.yaml
+  platform: !include platform.yaml
+  relay: !include relay.yaml

@@ -1,0 +1,36 @@
+binary_sensor:
+    - platform: gpio
+      pin:
+        number: GPIO14
+        mode: INPUT_PULLUP
+      id: test
+      filters:
+        - invert:
+      on_press:
+        then:
+          - switch.turn_on: template_relay_1
+          - lambda: 'id(hold_screen) = 1;'
+          - display.page.show: page2
+          - component.update: display_1
+          - delay: 1s
+          - switch.turn_on: template_relay_2
+          - delay: 1s
+          - switch.turn_on: template_relay_3
+          - delay: 1s
+          - switch.turn_on: template_relay_4
+          - delay: 1s
+          - switch.turn_on: template_relay_5
+          - delay: 1s
+          - switch.turn_on: template_relay_6
+          - delay: 1s
+          - switch.turn_on: template_relay_7
+          - delay: 1s
+          - switch.turn_on: template_relay_8
+          - delay: 1s
+          - switch.turn_on: template_relay_9
+          - delay: 1s
+          - switch.turn_on: template_relay_10
+          - delay: 1s
+          - switch.turn_off: template_relay_10
+          - delay: 5s
+          - lambda: 'id(hold_screen) = 0;'

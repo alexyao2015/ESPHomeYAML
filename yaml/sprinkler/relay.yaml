@@ -1,0 +1,351 @@
+mcp23017:
+  - id: 'mcp23017_hub'
+    address: 0x20
+
+script:
+  - id: turn_on_template_relay_id
+    then: # new if for each relay
+      - lambda: |-
+          if (id(template_relay_id) == 1) {
+            id(template_relay_1).turn_on();
+          }
+          if (id(template_relay_id) == 2) {
+            id(template_relay_2).turn_on();
+          }
+          if (id(template_relay_id) == 3) {
+            id(template_relay_3).turn_on();
+          }
+          if (id(template_relay_id) == 4) {
+            id(template_relay_4).turn_on();
+          }
+          if (id(template_relay_id) == 5) {
+            id(template_relay_5).turn_on();
+          }
+          if (id(template_relay_id) == 6) {
+            id(template_relay_6).turn_on();
+          }
+          if (id(template_relay_id) == 7) {
+            id(template_relay_7).turn_on();
+          }
+          if (id(template_relay_id) == 8) {
+            id(template_relay_8).turn_on();
+          }
+          if (id(template_relay_id) == 9) {
+            id(template_relay_9).turn_on();
+          }
+          if (id(template_relay_id) == 10) {
+            id(template_relay_10).turn_on();
+          }
+
+  - id: turn_off_template_relay_id
+    then:
+      - lambda: |-
+          if (id(template_relay_id) == 1) {
+            id(template_relay_1).turn_off();
+          }
+          if (id(template_relay_id) == 2) {
+            id(template_relay_2).turn_off();
+          }
+          if (id(template_relay_id) == 3) {
+            id(template_relay_3).turn_off();
+          }
+          if (id(template_relay_id) == 4) {
+            id(template_relay_4).turn_off();
+          }
+          if (id(template_relay_id) == 5) {
+            id(template_relay_5).turn_off();
+          }
+          if (id(template_relay_id) == 6) {
+            id(template_relay_6).turn_off();
+          }
+          if (id(template_relay_id) == 7) {
+            id(template_relay_7).turn_off();
+          }
+          if (id(template_relay_id) == 8) {
+            id(template_relay_8).turn_off();
+          }
+          if (id(template_relay_id) == 9) {
+            id(template_relay_9).turn_off();
+          }
+          if (id(template_relay_id) == 10) {
+            id(template_relay_10).turn_off();
+          }
+  
+  - id: update_relay_state
+    then:
+      - lambda: |-
+          if (id(template_relay_1).state) {
+            id(relay_status) = 1;
+          } else if (id(template_relay_2).state) {
+            id(relay_status) = 2;
+          } else if (id(template_relay_3).state) {
+            id(relay_status) = 3;
+          } else if (id(template_relay_4).state) {
+            id(relay_status) = 4;
+          } else if (id(template_relay_5).state) {
+            id(relay_status) = 5;
+          } else if (id(template_relay_6).state) {
+            id(relay_status) = 6;
+          } else if (id(template_relay_7).state) {
+            id(relay_status) = 7;
+          } else if (id(template_relay_8).state) {
+            id(relay_status) = 8;
+          } else if (id(template_relay_9).state) {
+            id(relay_status) = 9;
+          } else if (id(template_relay_10).state) {
+            id(relay_status) = 10;
+          } else {
+            id(relay_status) = 0;
+          }
+
+switch:
+  - platform: gpio
+    id: relay_1
+    interlock: &interlock_group [relay_1, relay_2, relay_3, relay_4, relay_5, relay_6, relay_7, relay_8, relay_9, relay_10]
+    pin:
+      mcp23017: mcp23017_hub
+      number: 0
+      mode: OUTPUT
+      inverted: True
+  - platform: gpio
+    id: relay_2
+    interlock: *interlock_group
+    pin:
+      mcp23017: mcp23017_hub
+      number: 1
+      mode: OUTPUT
+      inverted: True
+  - platform: gpio
+    id: relay_3
+    interlock: *interlock_group
+    pin:
+      mcp23017: mcp23017_hub
+      number: 2
+      mode: OUTPUT
+      inverted: True
+  - platform: gpio
+    id: relay_4
+    interlock: *interlock_group
+    pin:
+      mcp23017: mcp23017_hub
+      number: 3
+      mode: OUTPUT
+      inverted: True
+  - platform: gpio
+    id: relay_5
+    interlock: *interlock_group
+    pin:
+      mcp23017: mcp23017_hub
+      number: 4
+      mode: OUTPUT
+      inverted: True
+  - platform: gpio
+    id: relay_6
+    interlock: *interlock_group
+    pin:
+      mcp23017: mcp23017_hub
+      number: 5
+      mode: OUTPUT
+      inverted: True
+  - platform: gpio
+    id: relay_7
+    interlock: *interlock_group
+    pin:
+      mcp23017: mcp23017_hub
+      number: 6
+      mode: OUTPUT
+      inverted: True
+  - platform: gpio
+    id: relay_8
+    interlock: *interlock_group
+    pin:
+      mcp23017: mcp23017_hub
+      number: 7
+      mode: OUTPUT
+      inverted: True
+  - platform: gpio
+    id: relay_9
+    interlock: *interlock_group
+    pin:
+      mcp23017: mcp23017_hub
+      number: 8
+      mode: OUTPUT
+      inverted: True
+  - platform: gpio
+    id: relay_10
+    interlock: *interlock_group
+    pin:
+      mcp23017: mcp23017_hub
+      number: 9
+      mode: OUTPUT
+      inverted: True
+
+  - platform: template
+    name: "Station 1"
+    id: template_relay_1
+    lambda: |-
+      if (id(relay_1).state) {
+        return true;
+      } else {
+        return false;
+      }
+    turn_on_action:
+      then:
+      - switch.turn_on: relay_1
+      - script.execute: check_relay_then_turn_light_on_off
+    turn_off_action:
+      - switch.turn_on: relay_1
+      - script.execute: check_relay_then_turn_light_on_off
+
+  - platform: template
+    name: "Station 2"
+    id: template_relay_2
+    lambda: |-
+      if (id(relay_2).state) {
+        return true;
+      } else {
+        return false;
+      }
+    turn_on_action:
+      then:
+      - switch.turn_on: relay_2
+      - script.execute: check_relay_then_turn_light_on_off
+    turn_off_action:
+      - switch.turn_on: relay_2
+      - script.execute: check_relay_then_turn_light_on_off
+
+  - platform: template
+    name: "Station 3"
+    id: template_relay_3
+    lambda: |-
+      if (id(relay_3).state) {
+        return true;
+      } else {
+        return false;
+      }
+    turn_on_action:
+      then:
+      - switch.turn_on: relay_3
+      - script.execute: check_relay_then_turn_light_on_off
+    turn_off_action:
+      - switch.turn_on: relay_3
+      - script.execute: check_relay_then_turn_light_on_off
+
+  - platform: template
+    name: "Station 4"
+    id: template_relay_4
+    lambda: |-
+      if (id(relay_4).state) {
+        return true;
+      } else {
+        return false;
+      }
+    turn_on_action:
+      then:
+      - switch.turn_on: relay_4
+      - script.execute: check_relay_then_turn_light_on_off
+    turn_off_action:
+      - switch.turn_on: relay_4
+      - script.execute: check_relay_then_turn_light_on_off
+
+  - platform: template
+    name: "Station 5"
+    id: template_relay_5
+    lambda: |-
+      if (id(relay_5).state) {
+        return true;
+      } else {
+        return false;
+      }
+    turn_on_action:
+      then:
+      - switch.turn_on: relay_5
+      - script.execute: check_relay_then_turn_light_on_off
+    turn_off_action:
+      - switch.turn_on: relay_5
+      - script.execute: check_relay_then_turn_light_on_off
+
+  - platform: template
+    name: "Station 6"
+    id: template_relay_6
+    lambda: |-
+      if (id(relay_6).state) {
+        return true;
+      } else {
+        return false;
+      }
+    turn_on_action:
+      then:
+      - switch.turn_on: relay_6
+      - script.execute: check_relay_then_turn_light_on_off
+    turn_off_action:
+      - switch.turn_on: relay_6
+      - script.execute: check_relay_then_turn_light_on_off
+
+  - platform: template
+    name: "Station 7"
+    id: template_relay_7
+    lambda: |-
+      if (id(relay_7).state) {
+        return true;
+      } else {
+        return false;
+      }
+    turn_on_action:
+      then:
+      - switch.turn_on: relay_7
+      - script.execute: check_relay_then_turn_light_on_off
+    turn_off_action:
+      - switch.turn_on: relay_7
+      - script.execute: check_relay_then_turn_light_on_off
+
+  - platform: template
+    name: "Station 8"
+    id: template_relay_8
+    lambda: |-
+      if (id(relay_8).state) {
+        return true;
+      } else {
+        return false;
+      }
+    turn_on_action:
+      then:
+      - switch.turn_on: relay_8
+      - script.execute: check_relay_then_turn_light_on_off
+    turn_off_action:
+      - switch.turn_on: relay_8
+      - script.execute: check_relay_then_turn_light_on_off
+
+  - platform: template
+    name: "Station 9"
+    id: template_relay_9
+    lambda: |-
+      if (id(relay_9).state) {
+        return true;
+      } else {
+        return false;
+      }
+    turn_on_action:
+      then:
+      - switch.turn_on: relay_9
+      - script.execute: check_relay_then_turn_light_on_off
+    turn_off_action:
+      - switch.turn_on: relay_9
+      - script.execute: check_relay_then_turn_light_on_off
+
+  - platform: template
+    name: "Station 10"
+    id: template_relay_10
+    lambda: |-
+      if (id(relay_10).state) {
+        return true;
+      } else {
+        return false;
+      }
+    turn_on_action:
+      then:
+      - switch.turn_on: relay_10
+      - script.execute: check_relay_then_turn_light_on_off
+    turn_off_action:
+      - switch.turn_on: relay_10
+      - script.execute: check_relay_then_turn_light_on_off

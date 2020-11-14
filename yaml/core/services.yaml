@@ -26,4 +26,5 @@ api:
         - script.execute: run_timer_seconds
     - service: cancel_timer
       then:
-        - script.execute: cancel_all
+        - lambda: 'id(timer_time) = 0;'
+        - lambda: 'id(template_relay_id) = 0;'

@@ -13,7 +13,7 @@ light:
     default_transition_length: 0s
 
 script:
-  - id: pulse_led_relay_on_api
+  - id: pulse_led_relay_on_wifi
     then:
       - light.turn_on:
           id: led_1
@@ -26,30 +26,6 @@ script:
           transition_length: 250ms
       - delay: 250ms
 
-  - id: pulse_led_standard_api
-    then:
-      - light.turn_on:
-          id: led_1
-          brightness: 100%
-          transition_length: 1s
-      - delay: 1s
-      - light.turn_off: 
-          id: led_1
-          transition_length: 750ms
-      - delay: 750ms
-
-  - id: pulse_led_relay_on_wifi
-    then:
-      - light.turn_on:
-          id: led_1
-          brightness: 100%
-          transition_length: 1s
-      - delay: 1s
-      - light.turn_off: 
-          id: led_1
-          transition_length: 750ms
-      - delay: 750ms
-
   - id: pulse_led_standard_wifi
     then:
       - light.turn_on:
@@ -61,6 +37,16 @@ script:
           id: led_1
           transition_length: 750ms
       - delay: 750ms
+
+  - id: pulse_led_relay_on_api
+    then:
+      - script.execute: pulse_led_relay_on_wifi
+      - script.wait: pulse_led_relay_on_wifi
+
+  - id: pulse_led_standard_api
+    then:
+      - script.execute: pulse_led_standard_wifi
+      - script.wait: pulse_led_standard_wifi
                       
   - id: check_relay_then_turn_light_on_off
     then:

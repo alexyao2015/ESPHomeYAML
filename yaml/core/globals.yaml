@@ -1,5 +1,5 @@
 globals:
-  - id: timer_time
+  - id: timer_time # time remaining in seconds, activated when a time call is made from HA
     type: int
     restore_value: no
     initial_value: '0'
@@ -19,7 +19,7 @@ globals:
     restore_value: no
     initial_value: '0'
     
-  - id: connection_progress_bar # looping progress indicator, visual only
+  - id: connection_progress_bar # looping progress indicator, visual only, 0 if connected, 1-4 looping
     type: int
     restore_value: no
     initial_value: '0'

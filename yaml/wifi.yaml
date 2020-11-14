@@ -3,3 +3,4 @@ wifi:
   password: !secret ssidpassword
   ap:
     ssid: "ESPHome ${real_devicename}"
+  domain: !secret wifidomain

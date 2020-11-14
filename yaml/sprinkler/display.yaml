@@ -1,0 +1,60 @@
+globals:
+   - id: hold_screen
+     type: int
+     restore_value: no
+     initial_value: '0'
+
+font:
+  - file: "arial.ttf"
+    id: arial
+    size: 12
+
+display:
+  - platform: ssd1306_i2c
+    model: "SSD1306 128x32"
+    address: 0x3C
+    id: display_1
+    pages:
+      - id: page1
+        lambda: |-
+          if (id(connection_progress_bar) == 0)
+          {
+            it.strftime(0, 0, id(arial), "%a %m-%d %I:%M:%S %p", id(homeassistant_time).now());
+          }
+          else
+          {
+            if (id(connection_progress_bar) == 2) {
+              it.print(0, 0, id(arial), "Connecting ---");
+            }
+            if (id(connection_progress_bar) == 2) {
+              it.print(0, 0, id(arial), "Connecting ------");
+            }
+            if (id(connection_progress_bar) == 3) {
+              it.print(0, 0, id(arial), "Connecting ---------");
+            }
+            if (id(connection_progress_bar) == 4) {
+              it.print(0, 0, id(arial), "Connecting ------------");
+            }
+          }
+      
+      - id: page2
+        lambda: |-
+          if (id(relay_status) != 0)
+          {
+            it.printf(0, 5, id(arial), "Station %d Running", id(relay_status));
+            it.printf(0, 18, id(arial), "Time Remaining %d", id(timer_time));
+          }
+          else
+          {
+            it.print(0, 0, id(arial), "All Stations Off");
+          }
+
+interval:
+  - interval: 5s
+    then:
+      - if:
+          condition:
+            - lambda: 'return id(hold_screen) == 0;'
+          then:
+            - display.page.show_next: display_1
+            - component.update: display_1

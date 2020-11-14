@@ -79,8 +79,3 @@ script:
        - script.execute: turn_off_template_relay_id
        - lambda: 'id(timer_time) = 0;'
        - lambda: 'id(template_relay_id) = 0;'
-       
-  - id: cancel_all
-    then:
-       - lambda: 'id(timer_time) = 0;'
-       - lambda: 'id(template_relay_id) = 0;'
