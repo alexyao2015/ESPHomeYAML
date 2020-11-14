@@ -1,0 +1,328 @@
+# Sonoff:
+# relay_gpio: GPIO12
+# button_gpio: GPIO0
+# led_gpio: GPIO13
+
+# Tuya:
+# button_gpio: GPIO1
+# relay_gpio: GPIO14
+# led_gpio: GPIO13
+esphome:
+  name: ${devicename}
+  platform: ESP8266
+  board: esp01_1m
+  on_loop:
+    then:
+      - if:
+          condition:
+            not:
+              - script.is_running: pulse_led
+          then:
+            - script.execute: pulse_led
+
+ota:
+  password: ""
+
+time:
+  - platform: homeassistant
+    id: homeassistant_time
+    
+wifi:
+  ssid: ""
+  password: ""
+  manual_ip:
+    static_ip: ${deviceip}
+    gateway: 192.168.1.1
+    subnet: 255.255.255.0
+  ap:
+    ssid: "ESPHome ${real_devicename}"
+  
+# Enable logging
+logger:
+  baud_rate: 0
+  # logs:
+  #   light: WARN
+
+# Enable Home Assistant API
+api:
+  password: ""
+  services:
+    - service: start_timer_seconds
+      variables:
+        timer: int
+        relay_run_id: int
+      then:
+        - lambda: 'id(timer_time) = timer;'
+        - lambda: 'id(template_relay_id) = relay_run_id;'
+        - script.execute: run_timer_seconds
+    - service: start_timer_minutes
+      variables:
+        timer: int
+        relay_run_id: int
+      then:
+        - lambda: 'id(timer_time) = timer*60;'
+        - lambda: 'id(template_relay_id) = relay_run_id;'
+        - script.execute: run_timer_seconds
+    - service: start_timer_hours
+      variables:
+        timer: int
+        relay_run_id: int
+      then:
+        - lambda: 'id(timer_time) = timer*60*60;'
+        - lambda: 'id(template_relay_id) = relay_run_id;'
+        - script.execute: run_timer_seconds
+    - service: cancel_timer
+      then:
+        - script.execute: cancel_all
+
+globals:
+  - id: timer_time
+    type: int
+    restore_value: no
+    initial_value: '0'
+
+  - id: template_relay_id
+    type: int
+    restore_value: no
+    initial_value: '0'
+    
+  - id: relay_status # relay number if activated; else 0
+    type: int
+    restore_value: no
+    initial_value: '0'
+    
+  - id: connection_status # 0 if all fine, 1 wifi disconnected, 2 api disconnected
+    type: int
+    restore_value: no
+    initial_value: '0'
+    
+  - id: connection_progress_bar # looping progress indicator, visual only
+    type: int
+    restore_value: no
+    initial_value: '0'
+     
+script:
+  - id: pulse_led
+    then:
+      - lambda: |-
+          if (!(wifi_wificomponent->is_connected())) {
+            id(connection_status) = 1;
+          } else if (!(api_apiserver->is_connected())) {
+            id(connection_status) = 2;
+          } else {
+            id(connection_status) = 0;
+          }
+          if (id(connection_status) != 0) {
+            if (id(connection_progress_bar) + 1 > 4) {
+              id(connection_progress_bar) = 2;
+            } else {
+              id(connection_progress_bar) += 1;
+            }
+          } else {
+            id(connection_progress_bar) = 0;
+          }
+      - if:
+          condition:
+            lambda: 'return (id(connection_status) == 1);'
+          then:
+            - if:
+                condition:
+                  lambda: 'return id(relay_status) != 0;'
+                then:
+                  - script.execute: pulse_led_relay_on_api
+                  - script.wait: pulse_led_relay_on_api
+                  - script.execute: check_relay_then_turn_light_on_off
+                  - script.wait: check_relay_then_turn_light_on_off
+                else:
+                  - script.execute: pulse_led_standard_api
+                  - script.wait: pulse_led_standard_api
+                  - script.execute: check_relay_then_turn_light_on_off
+                  - script.wait: check_relay_then_turn_light_on_off
+          else:
+            - if:
+                condition:
+                  lambda: 'return (id(connection_status) == 2);'
+                then:
+                  - if:
+                      condition:
+                        lambda: 'return id(relay_status) != 0;'
+                      then:
+                        - script.execute: pulse_led_relay_on_api
+                        - script.wait: pulse_led_relay_on_api
+                        - script.execute: check_relay_then_turn_light_on_off
+                        - script.wait: check_relay_then_turn_light_on_off
+                      else:
+                        - script.execute: pulse_led_standard_api
+                        - script.wait: pulse_led_standard_api
+                        - script.execute: check_relay_then_turn_light_on_off
+                        - script.wait: check_relay_then_turn_light_on_off
+                # else:
+                #   - script.execute: check_relay_then_turn_light_on_off
+                #   - script.wait: check_relay_then_turn_light_on_off
+
+  - id: pulse_led_relay_on_api
+    then:
+      - light.turn_on:
+          id: led_1
+          brightness: 100%
+          transition_length: 250ms
+      - delay: 250ms
+      - light.turn_on: 
+          id: led_1
+          brightness: 50%
+          transition_length: 250ms
+      - delay: 250ms
+
+  - id: pulse_led_standard_api
+    then:
+      - light.turn_on:
+          id: led_1
+          brightness: 100%
+          transition_length: 1s
+      - delay: 1s
+      - light.turn_off: 
+          id: led_1
+          transition_length: 750ms
+      - delay: 750ms
+      
+  - id: run_timer_seconds
+    then:
+       - if:
+            condition:
+               - lambda: 'return id(timer_time) > 0;'
+            then:
+               - logger.log:
+                    format: "Starting Relay"
+               - script.execute: turn_on_template_relay_id
+
+  - id: timer_end_sequence
+    then:
+       - script.execute: turn_off_template_relay_id
+       - lambda: 'id(timer_time) = 0;'
+       - lambda: 'id(template_relay_id) = 0;'
+       
+  - id: cancel_all
+    then:
+       - lambda: 'id(timer_time) = 0;'
+       - lambda: 'id(template_relay_id) = 0;'
+                      
+  - id: check_relay_then_turn_light_on_off
+    then:
+      - delay: 1ms
+      - script.execute: update_relay_state
+      - script.wait: update_relay_state
+      - if:
+          condition:
+            lambda: 'return id(relay_status) != 0;'
+          then:
+              - light.turn_on:
+                  id: led_1
+                  brightness: 100%
+          else:
+              - light.turn_off:
+                  id: led_1
+       
+  - id: turn_on_template_relay_id
+    then: # new if for each relay
+      - lambda: |-
+          if (id(template_relay_id) == 1) {
+            id(template_relay_1).turn_on();
+          }
+
+  - id: turn_off_template_relay_id
+    then:
+      - lambda: |-
+          if (id(template_relay_id) == 1) {
+            id(template_relay_1).turn_off();
+          }
+  
+  - id: update_relay_state
+    then:
+      - lambda: |-
+          if (id(template_relay_1).state) {
+            id(relay_status) = 1;
+          } else {
+            id(relay_status) = 0;
+          }
+
+# Button triggers template which turns on led and relay
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: ${button_gpio}
+      mode: INPUT_PULLUP
+      inverted: True
+    id: button
+    on_click:
+      - min_length: 50ms
+        max_length: 750ms
+        then:
+          - switch.toggle: template_relay_1
+      - min_length: 3000ms
+        max_length: 6000ms
+        then:
+          - switch.turn_on: "${devicename}_restart"
+
+switch:
+  - platform: gpio
+    pin: ${relay_gpio}
+    id: relay_1
+  #   interlock: &interlock_group [relay_1, relay_2]
+  # - platform: gpio
+  #   pin: ${relay_gpio}
+  #   id: relay_2
+  #   interlock: *interlock_group
+
+  - platform: restart
+    id: "${devicename}_restart"
+
+  - platform: template
+    name: "${real_devicename} Switch 1"
+    id: template_relay_1
+    lambda: |-
+      if (id(relay_1).state) {
+        return true;
+      } else {
+        return false;
+      }
+    turn_on_action:
+      then:
+      - switch.turn_on: relay_1
+      - script.execute: check_relay_then_turn_light_on_off
+    turn_off_action:
+      - switch.turn_off: relay_1
+      - script.execute: check_relay_then_turn_light_on_off
+
+# Define led output pin
+output:
+  - platform: esp8266_pwm
+    id: basic_led
+    inverted: True
+    pin: ${led_gpio}
+
+# Setup light
+light:
+  - platform: monochromatic
+    id: led_1
+    output: basic_led
+    default_transition_length: 0s
+
+interval:
+  - interval: 1s
+    then:
+      - if:
+          condition:
+            - lambda: 'return id(timer_time) > 0;'
+          then:
+            - lambda: |-
+                id(timer_time) -= 1;
+                ESP_LOGD("timer", "Time Remaining: %d", id(timer_time));
+            - if:
+                condition:
+                  - lambda: 'return id(timer_time) <= 0;'
+                then:
+                  - script.execute: timer_end_sequence
+
+#Built in webserver  
+web_server:
+  port: 80
