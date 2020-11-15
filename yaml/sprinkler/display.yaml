@@ -23,7 +23,7 @@ display:
           }
           else
           {
-            if (id(connection_progress_bar) == 2) {
+            if (id(connection_progress_bar) == 1) {
               it.print(0, 0, id(arial), "Connecting ---");
             } else if (id(connection_progress_bar) == 2) {
               it.print(0, 0, id(arial), "Connecting ------");

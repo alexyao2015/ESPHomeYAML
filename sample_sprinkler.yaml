@@ -1,0 +1,14 @@
+substitutions:
+  devicename: device_name_without_spaces
+  real_devicename: Im a cool device
+
+wifi:
+  manual_ip:
+    static_ip: 192.168.1.1
+    gateway: 192.168.1.1
+    subnet: 255.255.255.0
+
+packages:
+  device_base: !include yaml/core/core.yaml
+  device_model: !include yaml/sprinkler/core.yaml
+  wifi: !include yaml/wifi.yaml
