@@ -25,14 +25,11 @@ display:
           {
             if (id(connection_progress_bar) == 2) {
               it.print(0, 0, id(arial), "Connecting ---");
-            }
-            if (id(connection_progress_bar) == 2) {
+            } else if (id(connection_progress_bar) == 2) {
               it.print(0, 0, id(arial), "Connecting ------");
-            }
-            if (id(connection_progress_bar) == 3) {
+            } else if (id(connection_progress_bar) == 3) {
               it.print(0, 0, id(arial), "Connecting ---------");
-            }
-            if (id(connection_progress_bar) == 4) {
+            } else if (id(connection_progress_bar) == 4) {
               it.print(0, 0, id(arial), "Connecting ------------");
             }
           }
