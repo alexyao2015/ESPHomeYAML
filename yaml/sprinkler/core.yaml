@@ -11,5 +11,4 @@ packages:
   # buttons: !include buttons.yaml
   display: !include display.yaml
   led: !include led.yaml
-  buttons: !include buttons.yaml
   relay: !include relay.yaml

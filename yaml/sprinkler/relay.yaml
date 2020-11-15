@@ -8,32 +8,23 @@ script:
       - lambda: |-
           if (id(template_relay_id) == 1) {
             id(template_relay_1).turn_on();
-          }
-          if (id(template_relay_id) == 2) {
+          } else if (id(template_relay_id) == 2) {
             id(template_relay_2).turn_on();
-          }
-          if (id(template_relay_id) == 3) {
+          } else if (id(template_relay_id) == 3) {
             id(template_relay_3).turn_on();
-          }
-          if (id(template_relay_id) == 4) {
+          } else if (id(template_relay_id) == 4) {
             id(template_relay_4).turn_on();
-          }
-          if (id(template_relay_id) == 5) {
+          } else if (id(template_relay_id) == 5) {
             id(template_relay_5).turn_on();
-          }
-          if (id(template_relay_id) == 6) {
+          } else if (id(template_relay_id) == 6) {
             id(template_relay_6).turn_on();
-          }
-          if (id(template_relay_id) == 7) {
+          } else if (id(template_relay_id) == 7) {
             id(template_relay_7).turn_on();
-          }
-          if (id(template_relay_id) == 8) {
+          } else if (id(template_relay_id) == 8) {
             id(template_relay_8).turn_on();
-          }
-          if (id(template_relay_id) == 9) {
+          } else if (id(template_relay_id) == 9) {
             id(template_relay_9).turn_on();
-          }
-          if (id(template_relay_id) == 10) {
+          } else if (id(template_relay_id) == 10) {
             id(template_relay_10).turn_on();
           }
 
@@ -42,32 +33,23 @@ script:
       - lambda: |-
           if (id(template_relay_id) == 1) {
             id(template_relay_1).turn_off();
-          }
-          if (id(template_relay_id) == 2) {
+          } else if (id(template_relay_id) == 2) {
             id(template_relay_2).turn_off();
-          }
-          if (id(template_relay_id) == 3) {
+          } else if (id(template_relay_id) == 3) {
             id(template_relay_3).turn_off();
-          }
-          if (id(template_relay_id) == 4) {
+          } else if (id(template_relay_id) == 4) {
             id(template_relay_4).turn_off();
-          }
-          if (id(template_relay_id) == 5) {
+          } else if (id(template_relay_id) == 5) {
             id(template_relay_5).turn_off();
-          }
-          if (id(template_relay_id) == 6) {
+          } else if (id(template_relay_id) == 6) {
             id(template_relay_6).turn_off();
-          }
-          if (id(template_relay_id) == 7) {
+          } else if (id(template_relay_id) == 7) {
             id(template_relay_7).turn_off();
-          }
-          if (id(template_relay_id) == 8) {
+          } else if (id(template_relay_id) == 8) {
             id(template_relay_8).turn_off();
-          }
-          if (id(template_relay_id) == 9) {
+          } else if (id(template_relay_id) == 9) {
             id(template_relay_9).turn_off();
-          }
-          if (id(template_relay_id) == 10) {
+          } else if (id(template_relay_id) == 10) {
             id(template_relay_10).turn_off();
           }
   
@@ -194,7 +176,7 @@ switch:
       - switch.turn_on: relay_1
       - script.execute: check_relay_then_turn_light_on_off
     turn_off_action:
-      - switch.turn_on: relay_1
+      - switch.turn_off: relay_1
       - script.execute: check_relay_then_turn_light_on_off
 
   - platform: template
@@ -211,7 +193,7 @@ switch:
       - switch.turn_on: relay_2
       - script.execute: check_relay_then_turn_light_on_off
     turn_off_action:
-      - switch.turn_on: relay_2
+      - switch.turn_off: relay_2
       - script.execute: check_relay_then_turn_light_on_off
 
   - platform: template
@@ -228,7 +210,7 @@ switch:
       - switch.turn_on: relay_3
       - script.execute: check_relay_then_turn_light_on_off
     turn_off_action:
-      - switch.turn_on: relay_3
+      - switch.turn_off: relay_3
       - script.execute: check_relay_then_turn_light_on_off
 
   - platform: template
@@ -245,7 +227,7 @@ switch:
       - switch.turn_on: relay_4
       - script.execute: check_relay_then_turn_light_on_off
     turn_off_action:
-      - switch.turn_on: relay_4
+      - switch.turn_off: relay_4
       - script.execute: check_relay_then_turn_light_on_off
 
   - platform: template
@@ -262,7 +244,7 @@ switch:
       - switch.turn_on: relay_5
       - script.execute: check_relay_then_turn_light_on_off
     turn_off_action:
-      - switch.turn_on: relay_5
+      - switch.turn_off: relay_5
       - script.execute: check_relay_then_turn_light_on_off
 
   - platform: template
@@ -279,7 +261,7 @@ switch:
       - switch.turn_on: relay_6
       - script.execute: check_relay_then_turn_light_on_off
     turn_off_action:
-      - switch.turn_on: relay_6
+      - switch.turn_off: relay_6
       - script.execute: check_relay_then_turn_light_on_off
 
   - platform: template
@@ -296,7 +278,7 @@ switch:
       - switch.turn_on: relay_7
       - script.execute: check_relay_then_turn_light_on_off
     turn_off_action:
-      - switch.turn_on: relay_7
+      - switch.turn_off: relay_7
       - script.execute: check_relay_then_turn_light_on_off
 
   - platform: template
@@ -313,7 +295,7 @@ switch:
       - switch.turn_on: relay_8
       - script.execute: check_relay_then_turn_light_on_off
     turn_off_action:
-      - switch.turn_on: relay_8
+      - switch.turn_off: relay_8
       - script.execute: check_relay_then_turn_light_on_off
 
   - platform: template
@@ -330,7 +312,7 @@ switch:
       - switch.turn_on: relay_9
       - script.execute: check_relay_then_turn_light_on_off
     turn_off_action:
-      - switch.turn_on: relay_9
+      - switch.turn_off: relay_9
       - script.execute: check_relay_then_turn_light_on_off
 
   - platform: template
@@ -347,5 +329,5 @@ switch:
       - switch.turn_on: relay_10
       - script.execute: check_relay_then_turn_light_on_off
     turn_off_action:
-      - switch.turn_on: relay_10
+      - switch.turn_off: relay_10
       - script.execute: check_relay_then_turn_light_on_off
