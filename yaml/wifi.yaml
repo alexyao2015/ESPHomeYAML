@@ -4,3 +4,4 @@ wifi:
   ap:
     ssid: "ESPHome ${real_devicename}"
   domain: !secret wifidomain
+captive_portal:
