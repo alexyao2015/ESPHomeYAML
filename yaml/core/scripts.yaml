@@ -79,3 +79,53 @@ script:
        - script.execute: turn_off_template_relay_id
        - lambda: 'id(timer_time) = 0;'
        - lambda: 'id(template_relay_id) = 0;'
+
+  - id: turn_on_template_relay_id
+    then:
+      - lambda: |-
+          const std::vector<switch_::Switch *>& switch_list = App.get_switches();
+          String relay_id_tmp = String(id(template_relay_id));
+          std::string relay_id_str = relay_id_tmp.c_str();
+          std::string comparison = "template_relay_" + relay_id_str;
+
+          for (switch_::Switch* const switch_loop : switch_list) {
+            if (switch_loop->get_object_id() == comparison) {
+              switch_loop->turn_on();
+              break;
+            }
+          }
+
+  - id: turn_off_template_relay_id
+    then:
+      - lambda: |-
+          const std::vector<switch_::Switch *>& switch_list = App.get_switches();
+          String relay_id_tmp = String(id(template_relay_id));
+          std::string relay_id_str = relay_id_tmp.c_str();
+          std::string comparison = "template_relay_" + relay_id_str;
+
+          for (switch_::Switch* const switch_loop : switch_list) {
+            if (switch_loop->get_object_id() == comparison) {
+              switch_loop->turn_off();
+              break;
+            }
+          }
+
+  - id: update_relay_state
+    then:
+      - lambda: |-
+          const std::vector<switch_::Switch *>& switch_list = App.get_switches();
+          String relay_id_tmp = String(id(template_relay_id));
+          std::string relay_id_str = relay_id_tmp.c_str();
+          std::string comparison = "template_relay_" + relay_id_str;
+          bool found = false;
+
+          for (switch_::Switch* const switch_loop : switch_list) {
+            if (switch_loop->get_object_id() == comparison && switch_loop->state) {
+              id(relay_status) = id(template_relay_id);
+              found = true;
+              break;
+            }
+          }
+          if (!found) {
+            id(relay_status) = 0;
+          }
