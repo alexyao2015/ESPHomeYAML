@@ -343,7 +343,7 @@ private:
 	// this is a DiyHue entertainment call
 	void entertainment(AsyncUDPPacket &packet)
 	{
-		ESP_LOGD("DiyHueUDP", "Entertainment packet arrived");
+		// ESP_LOGD("DiyHueUDP", "Entertainment packet arrived");
 		auto call = white_led->turn_off(); //turn off white_led when entertainment starts
 		call.set_transition_length(0);
 		call.perform();
@@ -386,7 +386,7 @@ private:
 		uint8_t packetBuffer[packetSize];
 		memcpy(packetBuffer, packet.data(), packetSize);
 
-		ESP_LOGD("LIFXUDP", "Packet arrived");
+		// ESP_LOGD("LIFXUDP", "Packet arrived");
 		debug_println();
 		debug_print(F("Packet Arrived ("));
 		IPAddress remote_addr = (packet.remoteIP());
