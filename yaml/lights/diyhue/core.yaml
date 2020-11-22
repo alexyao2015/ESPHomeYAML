@@ -1,0 +1,42 @@
+esphome:
+  includes:
+    - "./yaml/lights/diyhue/diyhueasyncudp.h"
+    - "./yaml/lights/diyhue/alertswitch.h"
+  libraries:
+    - git+https://github.com/me-no-dev/ESPAsyncUDP.git#697c75a0255e5dccf91b4ef8b5cc28c569b3bac9
+
+custom_component:
+  - lambda: |-
+      auto diyhue = new diyhueudp();
+      return {diyhue};
+
+text_sensor:
+  - platform: template
+    name: "light_id"
+    id: light_id
+    lambda: |-
+      char response[100];
+      memset( response, 0, 100 );
+      strcat( response, "esphome_diyhue_light;");
+      strcat( response, WiFi.macAddress().c_str());
+      strcat( response, ";");
+      strcat( response, App.get_name().c_str());
+      std::string boost = ";" + to_string(id(CT_BOOST)) + ";" + to_string(id(RGB_BOOST));
+      strcat( response, boost.c_str() );
+      return { response };
+    update_interval: 24h
+             
+switch:
+  - platform: custom
+    lambda: |-
+        auto alertswitch = new alertSwitch();
+        App.register_component(alertswitch);
+        return {alertswitch};
+    switches:
+      name: alert
+      id: alert
+
+  - platform: template
+    name: entertainment_switch
+    id: entertainment_switch
+    optimistic: true

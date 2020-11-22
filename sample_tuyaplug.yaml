@@ -9,6 +9,5 @@ wifi:
     subnet: 255.255.255.0
 
 packages:
-  device_base: !include yaml/core/core.yaml
-  device_model: !include yaml/tuyaplug/core.yaml
+  device_model: !include yaml/switches/tuyaplug/core.yaml
   wifi: !include yaml/wifi.yaml

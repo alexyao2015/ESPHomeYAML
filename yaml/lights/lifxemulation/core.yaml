@@ -1,0 +1,9 @@
+esphome:
+  includes:
+    - "./yaml/lights/lifxemulation/lifx.h"
+  libraries:
+    - git+https://github.com/me-no-dev/ESPAsyncUDP.git#697c75a0255e5dccf91b4ef8b5cc28c569b3bac9
+
+time:
+  - platform: homeassistant
+    id: ha_time

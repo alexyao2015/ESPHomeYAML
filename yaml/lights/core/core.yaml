@@ -1,0 +1,15 @@
+esphome:
+  name: ${devicename}
+
+ota:
+  password: !secret otapassword
+
+api:
+  password: !secret apipassword
+  reboot_timeout: 0s
+
+logger:
+  baud_rate: 0
+    
+web_server:
+  port: 80
