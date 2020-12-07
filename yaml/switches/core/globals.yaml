@@ -9,7 +9,7 @@ globals:
     restore_value: no
     initial_value: '0'
     
-  - id: relay_status # relay number if activated; else 0
+  - id: relay_status # relay number if activated; else 0; currently only using 1 and 0 until figure out a solution to get relay number
     type: int
     restore_value: no
     initial_value: '0'

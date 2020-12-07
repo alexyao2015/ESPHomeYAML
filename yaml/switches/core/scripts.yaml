@@ -120,8 +120,8 @@ script:
           bool found = false;
 
           for (switch_::Switch* const switch_loop : switch_list) {
-            if (switch_loop->get_object_id() == comparison && switch_loop->state) {
-              id(relay_status) = id(template_relay_id);
+            if (switch_loop->state) {
+              id(relay_status) = 1;
               found = true;
               break;
             }
