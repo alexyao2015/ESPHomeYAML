@@ -50,7 +50,7 @@ script:
                       
   - id: check_relay_then_turn_light_on_off
     then:
-      - delay: 1ms
+      - delay: 20ms
       - script.execute: update_relay_state
       - script.wait: update_relay_state
       - if:
