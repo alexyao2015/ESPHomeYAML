@@ -126,23 +126,3 @@ script:
           if (!found) {
             id(relay_active) = false;
           }
-
-  # - id: update_relay_state
-  #   then:
-  #     - lambda: |-
-  #         const std::vector<switch_::Switch *>& switch_list = App.get_switches();
-  #         String relay_id_tmp = String(id(template_relay_id));
-  #         std::string relay_id_str = relay_id_tmp.c_str();
-  #         std::string comparison = "template_relay_" + relay_id_str;
-  #         bool found = false;
-
-  #         for (switch_::Switch* const switch_loop : switch_list) {
-  #           if (switch_loop->state) {
-  #             id(relay_status) = 1;
-  #             found = true;
-  #             break;
-  #           }
-  #         }
-  #         if (!found) {
-  #           id(relay_status) = 0;
-  #         }
