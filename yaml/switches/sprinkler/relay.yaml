@@ -87,6 +87,7 @@ switch:
   - platform: template
     name: "template_relay_1"
     id: template_relay_1
+    optimistic: true
     lambda: |-
       if (id(relay_1).state) {
         return true;
@@ -104,6 +105,7 @@ switch:
   - platform: template
     name: "template_relay_2"
     id: template_relay_2
+    optimistic: true
     lambda: |-
       if (id(relay_2).state) {
         return true;
@@ -121,6 +123,7 @@ switch:
   - platform: template
     name: "template_relay_3"
     id: template_relay_3
+    optimistic: true
     lambda: |-
       if (id(relay_3).state) {
         return true;
@@ -138,6 +141,7 @@ switch:
   - platform: template
     name: "template_relay_4"
     id: template_relay_4
+    optimistic: true
     lambda: |-
       if (id(relay_4).state) {
         return true;
@@ -155,6 +159,7 @@ switch:
   - platform: template
     name: "template_relay_5"
     id: template_relay_5
+    optimistic: true
     lambda: |-
       if (id(relay_5).state) {
         return true;
@@ -172,6 +177,7 @@ switch:
   - platform: template
     name: "template_relay_6"
     id: template_relay_6
+    optimistic: true
     lambda: |-
       if (id(relay_6).state) {
         return true;
@@ -189,6 +195,7 @@ switch:
   - platform: template
     name: "template_relay_7"
     id: template_relay_7
+    optimistic: true
     lambda: |-
       if (id(relay_7).state) {
         return true;
@@ -206,6 +213,7 @@ switch:
   - platform: template
     name: "template_relay_8"
     id: template_relay_8
+    optimistic: true
     lambda: |-
       if (id(relay_8).state) {
         return true;
@@ -223,6 +231,7 @@ switch:
   - platform: template
     name: "template_relay_9"
     id: template_relay_9
+    optimistic: true
     lambda: |-
       if (id(relay_9).state) {
         return true;
@@ -240,6 +249,7 @@ switch:
   - platform: template
     name: "template_relay_10"
     id: template_relay_10
+    optimistic: true
     lambda: |-
       if (id(relay_10).state) {
         return true;

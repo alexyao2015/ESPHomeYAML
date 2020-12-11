@@ -6,6 +6,7 @@ switch:
   - platform: template
     name: "template_relay_1"
     id: template_relay_1
+    optimistic: true
     lambda: |-
       if (id(relay_1).state) {
         return true;

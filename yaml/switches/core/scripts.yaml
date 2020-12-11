@@ -21,7 +21,7 @@ script:
           }
           if (id(connection_status) != 0) {
             if (id(connection_progress_bar) + 1 > 4) {
-              id(connection_progress_bar) = 2;
+              id(connection_progress_bar) = 1;
             } else {
               id(connection_progress_bar) += 1;
             }
@@ -34,10 +34,10 @@ script:
           then:
             - if:
                 condition:
-                  lambda: 'return id(relay_status) != 0;'
+                  lambda: 'return id(relay_active);'
                 then:
-                  - script.execute: pulse_led_relay_on_wifi
-                  - script.wait: pulse_led_relay_on_wifi
+                  - script.execute: pulse_led_relay_on_wifi # we pulse a different led depending on the current connection status
+                  - script.wait: pulse_led_relay_on_wifi # wifi if wifi isn't connected and api if api isn't connected
                   - script.execute: check_relay_then_turn_light_on_off
                   - script.wait: check_relay_then_turn_light_on_off
                 else:
@@ -52,7 +52,7 @@ script:
                 then:
                   - if:
                       condition:
-                        lambda: 'return id(relay_status) != 0;'
+                        lambda: 'return id(relay_active);'
                       then:
                         - script.execute: pulse_led_relay_on_api
                         - script.wait: pulse_led_relay_on_api
@@ -110,22 +110,39 @@ script:
             }
           }
 
-  - id: update_relay_state
+  - id: update_relay_active # updates variable 'relay_active' to ensure relay on led is accurate
     then:
       - lambda: |-
           const std::vector<switch_::Switch *>& switch_list = App.get_switches();
-          String relay_id_tmp = String(id(template_relay_id));
-          std::string relay_id_str = relay_id_tmp.c_str();
-          std::string comparison = "template_relay_" + relay_id_str;
           bool found = false;
 
           for (switch_::Switch* const switch_loop : switch_list) {
             if (switch_loop->state) {
-              id(relay_status) = 1;
+              id(relay_active) = true;
               found = true;
               break;
             }
           }
           if (!found) {
-            id(relay_status) = 0;
+            id(relay_active) = false;
           }
+
+  # - id: update_relay_state
+  #   then:
+  #     - lambda: |-
+  #         const std::vector<switch_::Switch *>& switch_list = App.get_switches();
+  #         String relay_id_tmp = String(id(template_relay_id));
+  #         std::string relay_id_str = relay_id_tmp.c_str();
+  #         std::string comparison = "template_relay_" + relay_id_str;
+  #         bool found = false;
+
+  #         for (switch_::Switch* const switch_loop : switch_list) {
+  #           if (switch_loop->state) {
+  #             id(relay_status) = 1;
+  #             found = true;
+  #             break;
+  #           }
+  #         }
+  #         if (!found) {
+  #           id(relay_status) = 0;
+  #         }
