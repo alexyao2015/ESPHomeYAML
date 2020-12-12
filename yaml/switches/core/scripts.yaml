@@ -1,5 +1,5 @@
-esphome:
-  on_loop:
+interval:
+  - interval: 20ms
     then:
       - if:
           condition:
