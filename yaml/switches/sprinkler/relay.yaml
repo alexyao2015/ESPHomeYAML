@@ -1,3 +1,8 @@
+i2c:
+  sda: 4
+  scl: 5
+  scan: True
+
 mcp23017:
   - id: 'mcp23017_hub'
     address: 0x20
