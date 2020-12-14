@@ -14,12 +14,12 @@ output:
 light:
   - platform: monochromatic
     id: wifi_led
-    output: led_1
+    output: led_2
     default_transition_length: 0s
 
   - platform: monochromatic
     id: relay_led
-    output: led_2
+    output: led_1
     default_transition_length: 0s
 
 script:
