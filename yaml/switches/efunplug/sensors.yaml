@@ -1,0 +1,29 @@
+sensor:
+  # https://esphome.io/components/sensor/hlw8012.html
+  - platform: hlw8012
+    change_mode_every: 3
+    update_interval: 3s
+    sel_pin:
+      number: GPIO12
+      inverted: true
+    cf_pin: GPIO5
+    cf1_pin: GPIO14
+    current_resistor: 0.009
+    voltage_divider: 940
+    current:
+      name: current
+      unit_of_measurement: A
+    voltage:
+      name: voltage
+      unit_of_measurement: V
+    power:
+      name: power
+      id: wattage
+      unit_of_measurement: W
+
+  - platform: total_daily_energy
+    name: total_daily_energy
+    power_id: wattage
+    filters:
+      - multiply: 0.001
+    unit_of_measurement: kWh
