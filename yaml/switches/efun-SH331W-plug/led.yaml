@@ -43,13 +43,20 @@ script:
 
   - id: pulse_led_relay_on_api
     then:
-      - script.execute: pulse_led_standard_wifi
-      - script.wait: pulse_led_standard_wifi
+      - script.execute: pulse_led_standard_api
+      - script.wait: pulse_led_standard_api
 
   - id: pulse_led_standard_api
     then:
-      - script.execute: pulse_led_standard_wifi
-      - script.wait: pulse_led_standard_wifi
+      - light.turn_on:
+          id: wifi_led
+          brightness: 100%
+          transition_length: 250ms
+      - delay: 250ms
+      - light.turn_off:
+          id: wifi_led
+          transition_length: 250ms
+      - delay: 250ms
                       
   - id: check_relay_then_turn_light_on_off
     then:
