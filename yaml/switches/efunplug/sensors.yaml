@@ -15,8 +15,8 @@ sensor:
       filters:
         # https://esphome.io/components/sensor/index.html#calibrate-linear
         - calibrate_linear:
-          - 0.0000 -> 0.0110 # Relay off no load
-          - 0.0097 -> 0.0260 # Relay on no load
+          # - 0.0000 -> 0.0110 # Relay off no load
+          # - 0.0097 -> 0.0260 # Relay on no load
           - 0.9270 -> 0.7570
           - 2.0133 -> 1.6330
           - 2.9307 -> 2.3750
@@ -24,7 +24,7 @@ sensor:
           - 8.4308 -> 6.8330
           - 9.9171 -> 7.9830
         # Normalize for plug load
-        - lambda: if (x < 0.0260) return 0; else return (x - 0.0260);
+        # - lambda: if (x < 0.0260) return 0; else return (x - 0.0260);
     voltage:
       name: voltage
       unit_of_measurement: V
@@ -44,8 +44,8 @@ sensor:
       unit_of_measurement: W
       filters:
         - calibrate_linear:
-          - 0.0000 -> 0.5900 # Relay off no load
-          - 0.0000 -> 1.5600 # Relay on no load
+          # - 0.0000 -> 0.5900 # Relay off no load
+          # - 0.0000 -> 1.5600 # Relay on no load
           - 198.5129 -> 87.8300
           - 434.2469 -> 189.5000
           - 628.6241 -> 273.9000
@@ -53,7 +53,7 @@ sensor:
           - 1619.8098 -> 699.2000
           - 2043.0282 -> 885.0000
         # Normalize for plug load
-        - lambda: if (x < 1.5600) return 0; else return (x - 1.5600);
+        # - lambda: if (x < 1.5600) return 0; else return (x - 1.5600);
 
   # https://esphome.io/components/sensor/total_daily_energy.html
   - platform: total_daily_energy
