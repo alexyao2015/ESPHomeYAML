@@ -10,3 +10,6 @@ wifi:
 captive_portal:
 
 ota:
+
+logger:
+  level: NONE
