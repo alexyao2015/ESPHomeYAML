@@ -11,6 +11,7 @@ light:
     id: led_1
     output: basic_led
     default_transition_length: 0s
+    restore_mode: ALWAYS_OFF
 
 script:
   - id: pulse_led_relay_on_wifi

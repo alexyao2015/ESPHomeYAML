@@ -16,11 +16,13 @@ light:
     id: wifi_led
     output: led_1
     default_transition_length: 0s
+    restore_mode: ALWAYS_OFF
 
   - platform: monochromatic
     id: relay_led
     output: led_2
     default_transition_length: 0s
+    restore_mode: ALWAYS_OFF
 
 script:
   # Don't need different pulse patterns since we have multiple leds here
