@@ -49,19 +49,10 @@ script:
           brightness: 50%
           transition_length: 250ms
       - delay: 250ms
-                      
+
+  # do not need to update active relay since the onboard led is hard wired
+  # simply turn off so led is off after pulse cycle
   - id: check_relay_then_turn_light_on_off
     then:
-      - delay: 1ms
-      - script.execute: update_relay_active
-      - script.wait: update_relay_active
-      - if:
-          condition:
-            lambda: 'return id(relay_active);'
-          then:
-            - light.turn_on:
-                id: led_1
-                brightness: 100%
-          else:
-            - light.turn_off:
-                id: led_1
+      - light.turn_off:
+          id: led_1
