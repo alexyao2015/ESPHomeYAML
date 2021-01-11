@@ -1,0 +1,54 @@
+sm16716:
+  data_pin: GPIO14
+  clock_pin: GPIO4
+  num_channels: 3
+  num_chips: 1
+
+output:
+  - platform: esp8266_pwm
+    pin: GPIO5
+    id: output_cold_white
+    frequency: 1000 Hz
+    inverted: False
+    min_power: 0
+    max_power: 0.7
+    
+  - platform: esp8266_pwm
+    pin: GPIO12
+    id: output_warm_white
+    frequency: 1000 Hz
+    inverted: False
+    min_power: 0
+    max_power: 0.7
+
+  - platform: sm16716
+    id: output_red
+    channel: 0
+    power_supply: rgb_power
+
+  - platform: sm16716
+    id: output_green
+    channel: 1
+    power_supply: rgb_power
+
+  - platform: sm16716
+    id: output_blue
+    channel: 2
+    power_supply: rgb_power
+
+power_supply:
+  - id: rgb_power
+    pin: GPIO13
+
+light:
+  - platform: rgbww
+    name: rgbww_led
+    id: rgbww_led
+    red: output_red
+    green: output_green
+    blue: output_blue
+    cold_white: output_cold_white
+    warm_white: output_warm_white
+    cold_white_color_temperature: 6500 K
+    warm_white_color_temperature: 2700 K
+    color_interlock: true

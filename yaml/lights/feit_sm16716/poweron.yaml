@@ -1,0 +1,7 @@
+esphome:
+  on_boot:
+    then:
+      - light.turn_on:
+          id: rgbww_led
+          brightness: 100%
+          color_temperature: 4000 K
