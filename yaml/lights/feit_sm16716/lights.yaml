@@ -42,9 +42,9 @@ output:
     inverted: True
 
 light:
-  - platform: rgbww
-    name: rgbww_led
-    id: rgbww_led
+  - platform: rgbct
+    name: rgbct_led
+    id: rgbct_led
     red: output_red
     green: output_green
     blue: output_blue
@@ -52,4 +52,4 @@ light:
     warm_white: output_warm_white
     cold_white_color_temperature: 6500 K
     warm_white_color_temperature: 2700 K
-    color_interlock: true
+    default_transition_length: 0.4s

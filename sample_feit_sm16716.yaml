@@ -1,3 +1,7 @@
+# Requires custom component from 
+# https://github.com/hass-emulated-hue/esphome-components
+# to operate
+
 substitutions:
   devicename: device_name_without_spaces
   real_devicename: Im a cool device

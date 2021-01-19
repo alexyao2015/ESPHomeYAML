@@ -4,4 +4,4 @@ esphome:
       - light.turn_on:
           id: rgbww_led
           brightness: 100%
-          color_temperature: 4000 K
+          color_temperature: 2700 K
