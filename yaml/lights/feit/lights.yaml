@@ -1,7 +1,7 @@
 output:
   - platform: esp8266_pwm
     pin: GPIO5
-    id: cold_white_gpio
+    id: output_cold_white
     frequency: 1000 Hz
     inverted: False
     min_power: 0
@@ -9,23 +9,36 @@ output:
     
   - platform: esp8266_pwm
     pin: GPIO12
-    id: warm_white_gpio
+    id: output_warm_white
     frequency: 1000 Hz
     inverted: False
     min_power: 0
     max_power: 0.7
-    
+
+# Invert power supply to leave on always
+# Using power supply causes light flashing when
+# Turning on light
   - platform: gpio
     pin: GPIO13
     id: fast_led_pwr
     inverted: True
     
 light:
+  - platform: rgbct
+    name: rgbct_led
+    id: rgbct_led
+    rgb_light: color_led
+    cold_white: output_cold_white
+    warm_white: output_warm_white
+    cold_white_color_temperature: 6500 K
+    warm_white_color_temperature: 2700 K
+    default_transition_length: 0.4s
+
   - platform: cwww
     id: white_led
     name: "white_led"
-    cold_white: cold_white_gpio
-    warm_white: warm_white_gpio
+    cold_white: output_cold_white
+    warm_white: output_warm_white
     cold_white_color_temperature: 6500 K
     warm_white_color_temperature: 2000 K
     gamma_correct: 0.8
@@ -39,8 +52,9 @@ light:
     num_leds: 1
     rgb_order: BGR
     name: "color_led"
-    default_transition_length: 0.4s
-    gamma_correct: 2.6
+    # Kept at 0 for intermediary light
+    default_transition_length: 0
+    gamma_correct: 0
     effects:
       - random:
           name: Random Effect With Custom Values

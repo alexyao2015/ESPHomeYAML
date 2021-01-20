@@ -2,6 +2,6 @@ esphome:
   on_boot:
     then:
       - light.turn_on:
-          id: white_led
+          id: rgbct_led
           brightness: 100%
-          color_temperature: 4000 K
+          color_temperature: 3500 K
