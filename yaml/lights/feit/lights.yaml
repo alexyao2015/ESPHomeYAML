@@ -53,7 +53,9 @@ light:
     rgb_order: BGR
     name: "color_led"
     # Kept at 0 for intermediary light
-    default_transition_length: 0
+    # Overwritten by custom component if not set
+    default_transition_length: 0s
+    # Same with gamma_correct
     gamma_correct: 0
     effects:
       - random:
