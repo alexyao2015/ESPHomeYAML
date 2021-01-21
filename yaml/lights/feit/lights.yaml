@@ -1,3 +1,9 @@
+sm16716:
+  data_pin: GPIO14
+  clock_pin: GPIO4
+  num_channels: 3
+  num_chips: 1
+
 output:
   - platform: esp8266_pwm
     pin: GPIO5
@@ -5,7 +11,7 @@ output:
     frequency: 1000 Hz
     inverted: False
     min_power: 0
-    max_power: 0.6
+    max_power: 0.5
     
   - platform: esp8266_pwm
     pin: GPIO12
@@ -13,52 +19,42 @@ output:
     frequency: 1000 Hz
     inverted: False
     min_power: 0
-    max_power: 0.6
+    max_power: 0.5
+
+  - platform: sm16716
+    id: output_red
+    channel: 0
+
+  - platform: sm16716
+    id: output_green
+    channel: 1
+
+  - platform: sm16716
+    id: output_blue
+    channel: 2
 
 # Invert power supply to leave on always
 # Using power supply causes light flashing when
 # Turning on light
   - platform: gpio
     pin: GPIO13
-    id: fast_led_pwr
+    id: rgb_power
     inverted: True
-    
+
 light:
+  - platform: rgb
+    id: rgb_internal
+    internal: true
+    red: output_red
+    green: output_green
+    blue: output_blue
+
   - platform: rgbct
     name: rgbct_led
     id: rgbct_led
-    rgb_light: color_led
+    rgb_light: rgb_internal
     cold_white: output_cold_white
     warm_white: output_warm_white
     cold_white_color_temperature: 6500 K
     warm_white_color_temperature: 2700 K
     default_transition_length: 0.4s
-
-  - platform: cwww
-    id: white_led
-    name: "white_led"
-    cold_white: output_cold_white
-    warm_white: output_warm_white
-    cold_white_color_temperature: 6500 K
-    warm_white_color_temperature: 2000 K
-    gamma_correct: 0.8
-    default_transition_length: 0.4s
-
-  - platform: fastled_spi
-    id: color_led
-    chipset: SM16716
-    data_pin: GPIO14
-    clock_pin: GPIO4
-    num_leds: 1
-    rgb_order: BGR
-    name: "color_led"
-    # Kept at 0 for intermediary light
-    # Overwritten by custom component if not set
-    default_transition_length: 0s
-    # Same with gamma_correct
-    gamma_correct: 0
-    effects:
-      - random:
-          name: Random Effect With Custom Values
-          transition_length: 5s
-          update_interval: 3s
