@@ -1,0 +1,10 @@
+# remote_transmitter:
+#   - id: ir_trasmitter
+#     pin: GPIO14
+
+remote_receiver:
+  - id: ir_receiver
+    pin: 
+      number: GPIO05
+      inverted: true
+    dump: all

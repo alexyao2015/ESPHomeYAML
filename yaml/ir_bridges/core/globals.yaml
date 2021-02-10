@@ -1,0 +1,5 @@
+globals:    
+  - id: connection_status # 0 if all fine, 1 wifi disconnected, 2 api disconnected
+    type: int
+    restore_value: no
+    initial_value: '0'

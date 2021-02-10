@@ -1,0 +1,27 @@
+esphome:
+  name: ${devicename}
+
+ota:
+  password: !secret otapassword
+
+api:
+  password: !secret apipassword
+
+time:
+  - platform: homeassistant
+    id: homeassistant_time
+
+logger:
+  baud_rate: 0
+
+switch:
+  - platform: restart
+    id: "${devicename}_restart"
+
+web_server:
+  port: 80
+
+packages:
+  globals: !include globals.yaml
+  scripts: !include scripts.yaml
+  services: !include services.yaml
