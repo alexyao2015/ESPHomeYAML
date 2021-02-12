@@ -7,3 +7,4 @@ packages:
   buttons: !include buttons.yaml
   led: !include led.yaml
   remote: !include remote.yaml
+  switches: !include switches.yaml

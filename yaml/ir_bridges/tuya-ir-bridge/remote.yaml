@@ -7,4 +7,21 @@ remote_receiver:
     pin: 
       number: GPIO05
       inverted: true
+      mode: INPUT_PULLUP
     dump: all
+    # on_raw:
+    #   then:
+    #     - lambda: |-
+    #         if (x.size() == 16) {
+              
+    #         }
+    #         for (int const raw_value : x) {
+    #           if (switch_loop->get_object_id() == comparison) {
+    #             switch_loop->turn_off();
+    #             break;
+    #           }
+    #         }
+
+remote_transmitter:
+  pin: GPIO14
+  carrier_duty_percent: 50%
