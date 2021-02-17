@@ -43,13 +43,13 @@ optional<GiCableData> GiCableProtocol::decode(RemoteReceiveData src) {
   
   // Check if full packet
   if (!src.expect_item(HEADER_HIGH_US, HEADER_LOW_US) && src.size() != TOTAL_LENGTH) {
-    if (millis() - last_received_time_ > 100)
+    if (millis() - this->last_received_time_ > 100)
       return {};
     // Check if repeat packet
     src.reset();
     if (src.size() == 3 && src.expect_item(HEADER_HIGH_US, BIT_ZERO_LOW_US) && src.expect_mark(BIT_HIGH_US)) {
-      last_received_time_ = millis();
-      return last_data_received_;
+      this->last_received_time_ = millis();
+      return this->last_data_received_;
     } else {
       return {};
     }
@@ -77,8 +77,8 @@ optional<GiCableData> GiCableProtocol::decode(RemoteReceiveData src) {
 
   src.expect_mark(BIT_HIGH_US);
   data.repeat = 0;
-  last_data_received_ = data;
-  last_received_time_ = millis();
+  this->last_data_received_ = data;
+  this->last_received_time_ = millis();
   return data;
 }
 void GiCableProtocol::dump(const GiCableData &data) {
