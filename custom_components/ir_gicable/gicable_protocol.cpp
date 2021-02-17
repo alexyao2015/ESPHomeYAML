@@ -14,6 +14,12 @@ static const uint32_t BIT_ZERO_LOW_US = 2205;
 static const uint8_t TOTAL_BITS = 16;
 static const uint8_t TOTAL_LENGTH = 35;
 
+static GiCableData last_data_received_ = {
+      .command = 0,
+      .repeat = 0,
+  };
+static uint32_t last_received_time_ = 0;
+
 void GiCableProtocol::encode(RemoteTransmitData *dst, const GiCableData &data) {
   // dst->reserve(68);
   // dst->set_carrier_frequency(38000);
@@ -43,13 +49,13 @@ optional<GiCableData> GiCableProtocol::decode(RemoteReceiveData src) {
   
   // Check if full packet
   if (!src.expect_item(HEADER_HIGH_US, HEADER_LOW_US) && src.size() != TOTAL_LENGTH) {
-    if (millis() - this->last_received_time_ > 100)
+    if (millis() - last_received_time_ > 100)
       return {};
     // Check if repeat packet
     src.reset();
-    if (src.size() == 3 && src.expect_item(HEADER_HIGH_US, BIT_ZERO_LOW_US) && src.expect_mark(BIT_HIGH_US)) {
-      this->last_received_time_ = millis();
-      return this->last_data_received_;
+    if (src.size() == 4 && src.expect_item(HEADER_HIGH_US, BIT_ZERO_LOW_US) && src.expect_mark(BIT_HIGH_US)) {
+      last_received_time_ = millis();
+      return last_data_received_;
     } else {
       return {};
     }
@@ -77,8 +83,9 @@ optional<GiCableData> GiCableProtocol::decode(RemoteReceiveData src) {
 
   src.expect_mark(BIT_HIGH_US);
   data.repeat = 0;
-  this->last_data_received_ = data;
-  this->last_received_time_ = millis();
+  last_data_received_ = data;
+  last_data_received_.repeat = 1;
+  last_received_time_ = millis();
   return data;
 }
 void GiCableProtocol::dump(const GiCableData &data) {
