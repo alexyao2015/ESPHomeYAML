@@ -42,7 +42,7 @@ optional<GiCableData> GiCableProtocol::decode(RemoteReceiveData src) {
   if (!src.expect_item(HEADER_HIGH_US, HEADER_LOW_US) && src.size() != TOTAL_LENGTH)
     return {};
 
-  for (uint32_t mask = 1UL << TOTAL_BITS; mask != 0; mask >>= 1) {
+  for (uint32_t mask = 1UL << (TOTAL_BITS - 1); mask != 0; mask >>= 1) {
     if (src.expect_item(BIT_HIGH_US, BIT_ONE_LOW_US)) {
       data.command |= mask;
     } else if (src.expect_item(BIT_HIGH_US, BIT_ZERO_LOW_US)) {
