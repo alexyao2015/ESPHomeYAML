@@ -1,3 +1,18 @@
+api:
+  services:
+    - service: send_code
+      variables:
+        codes: int[]
+        frequency: int
+      then:
+        - lambda: !lambda |-
+            int32_t* int32_arr = &codes[0];
+            remote_base::RawAction<> *action = new remote_base::RawAction<>();
+            action->set_parent(id(ir_transmitter));
+            action->set_code_static(int32_arr, codes.size());
+            action->set_carrier_frequency(frequency);
+            action->play();
+
 switch:
   - platform: template
     name: "template_relay_1"
