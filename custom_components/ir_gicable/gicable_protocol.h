@@ -7,8 +7,9 @@ namespace remote_base {
 
 struct GiCableData {
   uint16_t command;
+  uint8_t repeat;
 
-  bool operator==(const GiCableData &rhs) const { return command == rhs.command; }
+  bool operator==(const GiCableData &rhs) const { return command == rhs.command && repeat == rhs.repeat; }
 };
 
 class GiCableProtocol : public RemoteProtocol<GiCableData> {
@@ -16,6 +17,10 @@ class GiCableProtocol : public RemoteProtocol<GiCableData> {
   void encode(RemoteTransmitData *dst, const GiCableData &data) override;
   optional<GiCableData> decode(RemoteReceiveData src) override;
   void dump(const GiCableData &data) override;
+
+ protected:
+  GiCableData last_data_received_;
+  uint32_t last_received_time_{0};
 };
 
 DECLARE_REMOTE_PROTOCOL(GiCable)
@@ -23,10 +28,12 @@ DECLARE_REMOTE_PROTOCOL(GiCable)
 template<typename... Ts> class GiCableAction : public RemoteTransmitterActionBase<Ts...> {
  public:
   TEMPLATABLE_VALUE(uint16_t, command)
+  TEMPLATABLE_VALUE(uint8_t, repeat)
 
   void encode(RemoteTransmitData *dst, Ts... x) override {
     GiCableData data{};
     data.command = this->command_.value(x...);
+    data.repeat = this->repeat_.value(x...);
     GiCableProtocol().encode(dst, data);
   }
 };
