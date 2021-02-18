@@ -2,6 +2,9 @@
 #   - id: ir_trasmitter
 #     pin: GPIO14
 
+# Initializes custom platform
+ir_gicable:
+
 remote_receiver:
   - id: ir_receiver
     pin: 
@@ -9,6 +12,16 @@ remote_receiver:
       inverted: true
       mode: INPUT_PULLUP
     dump: all
+    idle: 15ms
+    on_gicable:
+      then:
+        - homeassistant.event:
+            event: esphome.button_pressed
+            data:
+              title: !lambda |-
+                char formatted[100];
+                sprintf(formatted, "Received GiCable: command=0x%04X, repeat=%d", x.command, x.repeat);
+                return std::string(formatted);
     # on_raw:
     #   then:
     #     - lambda: |-

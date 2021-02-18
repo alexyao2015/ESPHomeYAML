@@ -1,17 +1,13 @@
 api:
   services:
-    - service: send_code
+    - service: raw_command
       variables:
-        codes: int[]
+        code: int[]
         frequency: int
       then:
-        - lambda: !lambda |-
-            int32_t* int32_arr = &codes[0];
-            remote_base::RawAction<> *action = new remote_base::RawAction<>();
-            action->set_parent(id(ir_transmitter));
-            action->set_code_static(int32_arr, codes.size());
-            action->set_carrier_frequency(frequency);
-            action->play();
+        - remote_transmitter.transmit_raw:
+            code: !lambda 'return code;'
+            carrier_frequency: !lambda 'return frequency;'
 
 switch:
   - platform: template

@@ -12,7 +12,7 @@ static const uint32_t BIT_HIGH_US = 490;
 static const uint32_t BIT_ONE_LOW_US = 4410;
 static const uint32_t BIT_ZERO_LOW_US = 2205;
 static const uint8_t TOTAL_BITS = 16;
-static const uint8_t TOTAL_LENGTH = 35;
+static const uint8_t TOTAL_LENGTH = 36;
 
 GiCableData GiCableProtocol::last_data_received_ = {
     .command = 0,
@@ -48,7 +48,7 @@ optional<GiCableData> GiCableProtocol::decode(RemoteReceiveData src) {
   };
   
   // Check if full packet
-  if (!src.expect_item(HEADER_HIGH_US, HEADER_LOW_US) && src.size() != TOTAL_LENGTH) {
+  if (!src.expect_item(HEADER_HIGH_US, HEADER_LOW_US) || src.size() != TOTAL_LENGTH) {
     if (millis() - this->last_received_time_ > 125)
       return {};
     // Check if repeat packet
