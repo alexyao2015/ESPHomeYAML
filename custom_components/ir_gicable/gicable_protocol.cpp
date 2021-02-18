@@ -49,7 +49,7 @@ optional<GiCableData> GiCableProtocol::decode(RemoteReceiveData src) {
   
   // Check if full packet
   if (!src.expect_item(HEADER_HIGH_US, HEADER_LOW_US) || src.size() != TOTAL_LENGTH) {
-    if (millis() - this->last_received_time_ > 125)
+    if (millis() - this->last_received_time_ > 150)
       return {};
     // Check if repeat packet
     src.reset();
