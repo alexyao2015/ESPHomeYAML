@@ -17,6 +17,10 @@ class GiCableProtocol : public RemoteProtocol<GiCableData> {
   void encode(RemoteTransmitData *dst, const GiCableData &data) override;
   optional<GiCableData> decode(RemoteReceiveData src) override;
   void dump(const GiCableData &data) override;
+
+ protected:
+  static GiCableData last_data_received_;
+  static uint32_t last_received_time_;
 };
 
 DECLARE_REMOTE_PROTOCOL(GiCable)
