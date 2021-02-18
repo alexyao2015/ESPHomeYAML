@@ -1,7 +1,3 @@
-# remote_transmitter:
-#   - id: ir_trasmitter
-#     pin: GPIO14
-
 # Initializes custom platform
 ir_gicable:
 
@@ -22,18 +18,6 @@ remote_receiver:
                 char formatted[100];
                 sprintf(formatted, "Received GiCable: command=0x%04X, repeat=%d", x.command, x.repeat);
                 return std::string(formatted);
-    # on_raw:
-    #   then:
-    #     - lambda: |-
-    #         if (x.size() == 16) {
-              
-    #         }
-    #         for (int const raw_value : x) {
-    #           if (switch_loop->get_object_id() == comparison) {
-    #             switch_loop->turn_off();
-    #             break;
-    #           }
-    #         }
 
 remote_transmitter:
   pin: GPIO14

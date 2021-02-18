@@ -25,18 +25,5 @@ class GiCableProtocol : public RemoteProtocol<GiCableData> {
 
 DECLARE_REMOTE_PROTOCOL(GiCable)
 
-template<typename... Ts> class GiCableAction : public RemoteTransmitterActionBase<Ts...> {
- public:
-  TEMPLATABLE_VALUE(uint16_t, command)
-  TEMPLATABLE_VALUE(uint8_t, repeat)
-
-  void encode(RemoteTransmitData *dst, Ts... x) override {
-    GiCableData data{};
-    data.command = this->command_.value(x...);
-    data.repeat = this->repeat_.value(x...);
-    GiCableProtocol().encode(dst, data);
-  }
-};
-
 }  // namespace remote_base
 }  // namespace esphome

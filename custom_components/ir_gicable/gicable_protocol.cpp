@@ -20,27 +20,8 @@ GiCableData GiCableProtocol::last_data_received_ = {
 };
 uint32_t GiCableProtocol::last_received_time_ = 0;
 
-void GiCableProtocol::encode(RemoteTransmitData *dst, const GiCableData &data) {
-  // dst->reserve(68);
-  // dst->set_carrier_frequency(38000);
+void encode(RemoteTransmitData *dst, const GiCableData &data) {}
 
-  // dst->item(HEADER_HIGH_US, HEADER_LOW_US);
-  // for (uint32_t mask = 1UL << 15; mask; mask >>= 1) {
-  //   if (data.address & mask)
-  //     dst->item(BIT_HIGH_US, BIT_ONE_LOW_US);
-  //   else
-  //     dst->item(BIT_HIGH_US, BIT_ZERO_LOW_US);
-  // }
-
-  // for (uint32_t mask = 1UL << 15; mask; mask >>= 1) {
-  //   if (data.command & mask)
-  //     dst->item(BIT_HIGH_US, BIT_ONE_LOW_US);
-  //   else
-  //     dst->item(BIT_HIGH_US, BIT_ZERO_LOW_US);
-  // }
-
-  // dst->mark(BIT_HIGH_US);
-}
 optional<GiCableData> GiCableProtocol::decode(RemoteReceiveData src) {
   GiCableData data{
       .command = 0,
@@ -70,16 +51,6 @@ optional<GiCableData> GiCableProtocol::decode(RemoteReceiveData src) {
       return {};
     }
   }
-
-  // for (uint8_t nbits = 0; nbits < TOTAL_BITS; nbits++) {
-  //   if (src.expect_item(BIT_HIGH_US, BIT_ONE_LOW_US)) {
-  //     data.command |= (data.command << 1) | 1;
-  //   } else if (src.expect_item(BIT_HIGH_US, BIT_ZERO_LOW_US)) {
-  //     data.command &= (data.command << 1) | 0;
-  //   } else {
-  //     return {};
-  //   }
-  // }
 
   src.expect_mark(BIT_HIGH_US);
   data.repeat = 0;

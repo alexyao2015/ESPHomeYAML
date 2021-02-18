@@ -30,12 +30,4 @@ def gicable_trigger(var, config):
 def gicable_dumper(var, config):
     pass
 
-
-@register_action('gicable', GiCableAction, GiCable_SCHEMA)
-def gicable_action(var, config, args):
-    template_ = yield cg.templatable(config[CONF_ADDRESS], args, cg.uint16)
-    cg.add(var.set_address(template_))
-    template_ = yield cg.templatable(config[CONF_COMMAND], args, cg.uint16)
-    cg.add(var.set_command(template_))
-
 CONFIG_SCHEMA = cv.Schema({})
