@@ -1,5 +1,5 @@
-# Initializes custom platform
-ir_gicable:
+# Initializes custom platforms
+custom_ir_protocols:
 
 remote_receiver:
   - id: ir_receiver

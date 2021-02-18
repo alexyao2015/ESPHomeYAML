@@ -16,16 +16,16 @@ static const uint8_t TOTAL_LENGTH = 36;
 
 GiCableData GiCableProtocol::last_data_received_ = {
     .command = 0,
-    .repeat = 0,
+    .repeat = false,
 };
 uint32_t GiCableProtocol::last_received_time_ = 0;
 
-void encode(RemoteTransmitData *dst, const GiCableData &data) {}
+void GiCableProtocol::encode(RemoteTransmitData *dst, const GiCableData &data) {}
 
 optional<GiCableData> GiCableProtocol::decode(RemoteReceiveData src) {
   GiCableData data{
       .command = 0,
-      .repeat = 0,
+      .repeat = false,
   };
   
   // Check if full packet
@@ -53,9 +53,8 @@ optional<GiCableData> GiCableProtocol::decode(RemoteReceiveData src) {
   }
 
   src.expect_mark(BIT_HIGH_US);
-  data.repeat = 0;
   this->last_data_received_ = data;
-  this->last_data_received_.repeat = 1;
+  this->last_data_received_.repeat = true;
   this->last_received_time_ = millis();
   return data;
 }

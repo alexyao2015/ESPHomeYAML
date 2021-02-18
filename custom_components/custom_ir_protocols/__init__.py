@@ -9,7 +9,7 @@ CONF_REPEAT = 'repeat'
 GiCableData, GiCableBinarySensor, GiCableTrigger, GiCableAction, GiCableDumper = declare_protocol('GiCable')
 GiCable_SCHEMA = cv.Schema({
     cv.Required(CONF_COMMAND): cv.hex_uint16_t,
-    cv.Required(CONF_REPEAT): cv.uint8_t,
+    cv.Required(CONF_REPEAT): cv.boolean,
 })
 
 @register_binary_sensor('gicable', GiCableBinarySensor, GiCable_SCHEMA)
@@ -17,7 +17,7 @@ def gicable_binary_sensor(var, config):
     cg.add(var.set_data(cg.StructInitializer(
         GiCableData,
         ('command', config[CONF_COMMAND]),
-        ('repeat', config[CONF_REPEAT])
+        ('repeat', config[CONF_REPEAT]),
     )))
 
 
@@ -28,6 +28,32 @@ def gicable_trigger(var, config):
 
 @register_dumper('gicable', GiCableDumper)
 def gicable_dumper(var, config):
+    pass
+
+NEC2Data, NEC2BinarySensor, NEC2Trigger, NEC2Action, NEC2Dumper = declare_protocol('NEC2')
+NEC2_SCHEMA = cv.Schema({
+    cv.Required(CONF_ADDRESS): cv.hex_uint16_t,
+    cv.Required(CONF_COMMAND): cv.hex_uint16_t,
+    cv.Required(CONF_REPEAT): cv.boolean,
+})
+
+@register_binary_sensor('nec2', NEC2BinarySensor, NEC2_SCHEMA)
+def nec2_binary_sensor(var, config):
+    cg.add(var.set_data(cg.StructInitializer(
+        NEC2Data,
+        ('address', config[CONF_ADDRESS]),
+        ('command', config[CONF_COMMAND]),
+        ('repeat', config[CONF_REPEAT]),
+    )))
+
+
+@register_trigger('nec2', NEC2Trigger, NEC2Data)
+def nec2_trigger(var, config):
+    pass
+
+
+@register_dumper('nec2', NEC2Dumper)
+def nec2_dumper(var, config):
     pass
 
 CONFIG_SCHEMA = cv.Schema({})

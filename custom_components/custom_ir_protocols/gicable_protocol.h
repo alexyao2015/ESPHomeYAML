@@ -7,7 +7,7 @@ namespace remote_base {
 
 struct GiCableData {
   uint16_t command;
-  uint8_t repeat;
+  bool repeat;
 
   bool operator==(const GiCableData &rhs) const { return command == rhs.command && repeat == rhs.repeat; }
 };
