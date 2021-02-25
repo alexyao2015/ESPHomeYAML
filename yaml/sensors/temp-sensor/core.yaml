@@ -1,0 +1,8 @@
+esphome:
+  platform: ESP8266
+  board: esp12e
+
+packages:
+  core: !include ../core/core.yaml
+  led: !include led.yaml
+  sensor: !include sensor.yaml

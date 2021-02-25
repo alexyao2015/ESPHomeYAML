@@ -1,0 +1,18 @@
+i2c:
+  sda: 4
+  scl: 5
+  scan: True
+
+sensor:
+  - platform: bme680
+    temperature:
+      name: "${real_devicename} Temperature"
+      oversampling: 16x
+    pressure:
+      name: "${real_devicename} Pressure"
+    humidity:
+      name: "${real_devicename} Humidity"
+    gas_resistance:
+      name: "${real_devicename} Gas Resistance"
+    address: 0x77
+    update_interval: 3s

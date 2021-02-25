@@ -24,4 +24,3 @@ web_server:
 packages:
   globals: !include globals.yaml
   scripts: !include scripts.yaml
-  services: !include services.yaml

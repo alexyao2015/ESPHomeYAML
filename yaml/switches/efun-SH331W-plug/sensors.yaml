@@ -10,7 +10,7 @@ sensor:
     current_resistor: 0.001
     voltage_divider: 940
     current:
-      name: current
+      name: "${real_devicename} Current"
       unit_of_measurement: A
       filters:
         # https://esphome.io/components/sensor/index.html#calibrate-linear
@@ -26,7 +26,7 @@ sensor:
         # Normalize for plug load
         # - lambda: if (x < 0.0260) return 0; else return (x - 0.0260);
     voltage:
-      name: voltage
+      name: "${real_devicename} Voltage"
       unit_of_measurement: V
       filters:
         - calibrate_linear:
@@ -39,7 +39,7 @@ sensor:
           - 118.2908 -> 117.0000
           - 119.2711 -> 117.0000
     power:
-      name: power
+      name: "${real_devicename} Power"
       id: wattage
       unit_of_measurement: W
       filters:
@@ -57,7 +57,7 @@ sensor:
 
   # https://esphome.io/components/sensor/total_daily_energy.html
   - platform: total_daily_energy
-    name: total_daily_energy
+    name: "${real_devicename} Total Daily Energy"
     power_id: wattage
     filters:
       - multiply: 0.001
