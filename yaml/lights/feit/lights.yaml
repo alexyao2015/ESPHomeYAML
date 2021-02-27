@@ -2,7 +2,7 @@ output:
   - platform: esp8266_pwm
     pin: GPIO5
     id: output_cold_white
-    frequency: 1000 Hz
+    frequency: 2000 Hz
     inverted: False
     min_power: 0
     max_power: 0.5
@@ -10,7 +10,7 @@ output:
   - platform: esp8266_pwm
     pin: GPIO12
     id: output_warm_white
-    frequency: 1000 Hz
+    frequency: 2000 Hz
     inverted: False
     min_power: 0
     max_power: 0.5
