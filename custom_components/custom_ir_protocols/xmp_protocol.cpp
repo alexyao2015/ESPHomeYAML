@@ -35,22 +35,6 @@ XMPData XMPProtocol::last_data_received_ = {
 };
 uint32_t XMPProtocol::last_received_time_ = 0;
 
-uint16_t calcRepeatOffset(const uint16_t nbits) {
-  return (nbits < 3 * kNibbleSize) ? 0
-                                    : (nbits / kXmpSections) -
-                                      (3 * kNibbleSize);
-}
-
-bool isRepeat(const uint64_t data, const uint16_t nbits) {
-  switch (GETBITS64(data, calcRepeatOffset(nbits), kNibbleSize)) {
-    case kXmpRepeatCode:
-    case kXmpRepeatCodeAlt:
-      return true;
-    default:
-      return false;
-  }
-}
-
 void XMPProtocol::encode(RemoteTransmitData *dst, const XMPData &data) {}
 
 optional<XMPData> XMPProtocol::decode(RemoteReceiveData src) {
@@ -95,7 +79,7 @@ optional<XMPData> XMPProtocol::decode(RemoteReceiveData src) {
   return data;
 }
 void XMPProtocol::dump(const XMPData &data) {
-  ESP_LOGD(TAG, "Received XMP: command=0x%"PRIu64", repeat=%d", data.command, data.repeat);
+  ESP_LOGD(TAG, "Received XMP: command=0x%016" PRIX64", repeat=%d", data.command, data.repeat);
 }
 
 }  // namespace remote_base
