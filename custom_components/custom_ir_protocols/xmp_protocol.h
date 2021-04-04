@@ -6,10 +6,10 @@ namespace esphome {
 namespace remote_base {
 
 struct XMPData {
-  uint64_t command;
-  bool repeat;
+  uint32_t address;
+  uint32_t command;
 
-  bool operator==(const XMPData &rhs) const { return command == rhs.command && repeat == rhs.repeat; }
+  bool operator==(const XMPData &rhs) const { return address == rhs.address && command == rhs.command; }
 };
 
 class XMPProtocol : public RemoteProtocol<XMPData> {
