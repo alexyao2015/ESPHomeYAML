@@ -6,7 +6,7 @@ namespace remote_base {
 
 static const char *TAG = "remote.xmp";
 
-static const uint16_t BIT_LOW_ZERO = 786; // Base Value
+static const uint16_t BIT_LOW_ZERO = 791; // Base Value
 static const uint16_t BIT_LOW_STEP = 137; // Step increment
 static const uint16_t HEADER_HIGH_US = 180;
 static const uint16_t FOOTER_HIGH_US = HEADER_HIGH_US;
