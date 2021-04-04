@@ -31,49 +31,34 @@ optional<XMPData> XMPProtocol::decode(RemoteReceiveData src) {
     return {};
   }
 
-  // first section
-  for (uint16_t section_bits = 0; section_bits < TOTAL_BITS / 2; section_bits += 1) {
-    if (!src.expect_mark(HEADER_HIGH_US)) return {};
-    uint8_t value = 0;
-    bool found = false;
-    for (; value <= 15; value++) {
-      // Use static tolerances rather than percentage base tolerances
-      if (src.peek() <= 0 &&
-          src.peek() >= -(kXmpBaseSpace + value * kXmpSpaceStep + kXmpSpaceStep / 2) &&
-          src.peek() <= -(kXmpBaseSpace + value * kXmpSpaceStep - kXmpSpaceStep / 2)) {
-        found = true;
-        break;
+  for (uint8_t sections = 0; sections < 2; sections += 1) {
+    // first section
+    for (uint16_t section_bits = 0; section_bits < TOTAL_BITS / 2; section_bits += 1) {
+      if (!src.expect_mark(HEADER_HIGH_US)) return {};
+      uint8_t value = 0;
+      bool found = false;
+      for (; value <= 15; value++) {
+        // Use static tolerances rather than percentage base tolerances
+        if (src.peek() <= 0 &&
+            src.peek() >= -(kXmpBaseSpace + value * kXmpSpaceStep + kXmpSpaceStep / 2) &&
+            src.peek() <= -(kXmpBaseSpace + value * kXmpSpaceStep - kXmpSpaceStep / 2)) {
+          found = true;
+          break;
+        }
       }
-    }
-    if (!found) return {};  // Failure.
-    data.address <<= kXmpWordSize;
-    data.address += value;
-    src.advance();
-  }
-  // Section Footer
-  if (!src.expect_item(FOOTER_HIGH_US, FOOTER_LOW_US)) return {};
-
-  // next section
-  for (uint16_t section_bits = 0; section_bits < TOTAL_BITS / 2; section_bits += 1) {
-    if (!src.expect_mark(HEADER_HIGH_US)) return {};
-    uint8_t value = 0;
-    bool found = false;
-    for (; value <= 15; value++) {
-      // this is used as a fixed tolarance instead of a percentage kXmpSpaceStep / 2
-      if (src.peek() <= 0 &&
-          src.peek() >= -(kXmpBaseSpace + value * kXmpSpaceStep + kXmpSpaceStep / 2) &&
-          src.peek() <= -(kXmpBaseSpace + value * kXmpSpaceStep - kXmpSpaceStep / 2)) {
-        found = true;
-        break;
+      if (!found) return {};  // Failure.
+      if (sections == 0) {
+        data.address <<= kXmpWordSize;
+        data.address += value;
+      } else {
+        data.command <<= kXmpWordSize;
+        data.command += value;
       }
+      src.advance();
     }
-    if (!found) return {};  // Failure.
-    data.command <<= kXmpWordSize;
-    data.command += value;
-    src.advance();
+    // Section Footer
+    if (!src.expect_item(FOOTER_HIGH_US, FOOTER_LOW_US)) return {};
   }
-  // Section Footer
-  if (!src.expect_mark(FOOTER_HIGH_US, FOOTER_LOW_US)) return {};
 
   return data;
 }
