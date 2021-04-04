@@ -58,16 +58,16 @@ def nec2_dumper(var, config):
 
 XMPData, XMPBinarySensor, XMPTrigger, XMPAction, XMPDumper = declare_protocol('XMP')
 XMP_SCHEMA = cv.Schema({
-    cv.Required(CONF_COMMAND): cv.hex_uint16_t,
-    cv.Required(CONF_REPEAT): cv.boolean,
+    cv.Required(CONF_ADDRESS): cv.hex_uint32_t,
+    cv.Required(CONF_COMMAND): cv.hex_uint32_t,
 })
 
 @register_binary_sensor('xmp', XMPBinarySensor, XMP_SCHEMA)
 def xmp_binary_sensor(var, config):
     cg.add(var.set_data(cg.StructInitializer(
         XMPData,
+        ('address', config[CONF_ADDRESS]),
         ('command', config[CONF_COMMAND]),
-        ('repeat', config[CONF_REPEAT]),
     )))
 
 
