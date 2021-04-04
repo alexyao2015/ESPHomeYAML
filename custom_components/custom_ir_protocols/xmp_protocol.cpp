@@ -34,7 +34,12 @@ optional<XMPData> XMPProtocol::decode(RemoteReceiveData src) {
   for (uint8_t sections = 0; sections < 2; sections += 1) {
     // first section
     for (uint16_t section_bits = 0; section_bits < TOTAL_BITS / 2; section_bits += 1) {
-      if (!src.expect_mark(HEADER_HIGH_US)) return {};
+      // if (!src.expect_mark(HEADER_HIGH_US)) return {};
+      if (!(src.peek() <= HEADER_HIGH_US + 100 &&
+          src.peek() >= HEADER_HIGH_US - 100)) {
+        return {};
+      }
+      src.advance();
       uint8_t value = 0;
       bool found = false;
       for (; value <= 15; value++) {
@@ -57,7 +62,23 @@ optional<XMPData> XMPProtocol::decode(RemoteReceiveData src) {
       src.advance();
     }
     // Section Footer
-    if (!src.expect_item(FOOTER_HIGH_US, FOOTER_LOW_US)) return {};
+    if (!(src.peek() <= FOOTER_HIGH_US + 100 &&
+        src.peek() >= FOOTER_HIGH_US - 100)) {
+      return {};
+    }
+    src.advance();
+    if (sections == 0) {
+      if (!(src.peek() >= -(FOOTER_LOW_US + 100) &&
+          src.peek() <= -(FOOTER_LOW_US - 100))) {
+        return {};
+      }
+    } else {
+      if (!(src.peek() <= -(FOOTER_LOW_US - 100))) {
+        return {};
+      }
+    }
+    src.advance();
+    // if (!src.expect_item(FOOTER_HIGH_US, FOOTER_LOW_US)) return {};
   }
 
   return data;
