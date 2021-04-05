@@ -182,18 +182,6 @@ binary_sensor:
       then:
         - switch.turn_on: xiaomi_ok
 
-  # - platform: remote_receiver
-  #   name: "NEC2 Vol Up -> Xiaomi Vol UP"
-  #   nec2:
-  #     address: 0x20DF
-  #     command: 0x40BF
-  #     repeat: false
-  #   on_press:
-  #     then:
-  #       - remote_transmitter.transmit_raw:
-  #           carrier_frequency: 36kHz
-  #           code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-1160,580,-580,580,-580,580,-12180]
-
   - platform: remote_receiver
     name: "NEC2 Vol Up Repeat -> Xiaomi Vol UP"
     nec2:
@@ -203,19 +191,6 @@ binary_sensor:
     on_press:
       then:
         - switch.turn_on: xiaomi_vol_up
-
-  # - platform: remote_receiver
-  #   name: "NEC2 Vol Down -> Xiaomi Vol Down"
-  #   nec2:
-  #     address: 0x20DF
-  #     command: 0xC03F
-  #     repeat: false
-  #   on_press:
-  #     then:
-  #       - remote_transmitter.transmit_raw:
-  #           carrier_frequency: 36kHz
-  #           code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-1450,580,-580,580,-870,580,-12180]
-
 
   - platform: remote_receiver
     name: "NEC2 Vol Down Repeat -> Xiaomi Vol Down"
