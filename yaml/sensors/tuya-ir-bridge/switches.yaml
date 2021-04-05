@@ -11,21 +11,138 @@ api:
 
 switch:
   - platform: template
-    name: "template_relay_1"
-    id: template_relay_1
+    name: "Xiaomi Home"
+    id: xiaomi_home
     optimistic: false
     restore_state: false
     turn_on_action:
       then:
         - remote_transmitter.transmit_raw:
-            carrier_frequency: 38kHz
-            code: [4500, -4506, 500, -531, 474, -532, 476, -531, 474, -532, 474, -1538, 474, -1538, 476, -531, 473, -533, 474, -1537, 475, -1537, 478, -1533, 476, -1538, 476, -530, 475, -532, 475, -529, 476, -533, 473, -4520, 496, -532, 476, -531, 476, -531, 475, -531, 475, -532, 475, -531, 475, -532, 474, -535, 469, -1539, 474, -1539, 474, -1537, 475, -532, 474, -1538, 474, -1538, 474, -1536, 478, -1537, 473, -532, 475, -531, 475, -532, 474, -1538, 474]
-        - switch.turn_off: template_relay_1
+            carrier_frequency: 36kHz
+            code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1160,580,-580,580,-870,580,-1160,580,-12180]
+        - switch.turn_off: xiaomi_home
 
 binary_sensor:
   - platform: remote_receiver
-    name: "Test Remote Input"
-    gicable:
-      command: 0xAC01
-      repeat: false
+    name: "XMP Guide Button -> Xiaomi Home"
+    xmp:
+      address: 0x170F443E
+      command: 0x16002700
+    on_press:
+      then:
+        - switch.turn_on: xiaomi_home
 
+  - platform: remote_receiver
+    name: "XMP Last -> Xiaomi Back"
+    xmp:
+      address: 0x170F443E
+      command: 0x19005100
+    on_press:
+      then:
+        - remote_transmitter.transmit_raw:
+            carrier_frequency: 36kHz
+            code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-870,580,-1450,580,-1160,580,-870,580,-12180]
+
+  - platform: remote_receiver
+    name: "XMP UP -> Xiaomi UP"
+    xmp:
+      address: 0x170F443E
+      command: 0x1C002100
+    on_press:
+      then:
+        - remote_transmitter.transmit_raw:
+            carrier_frequency: 36kHz
+            code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-870,580,-870,580,-1160,580,-1450,580,-12180]
+
+  - platform: remote_receiver
+    name: "XMP Left -> Xiaomi Left"
+    xmp:
+      address: 0x170F443E
+      command: 0x1A002300
+    on_press:
+      then:
+        - remote_transmitter.transmit_raw:
+            carrier_frequency: 36kHz
+            code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1160,580,-1450,580,-870,580,-870,580,-12180]
+
+  - platform: remote_receiver
+    name: "XMP Right -> Xiaomi Right"
+    xmp:
+      address: 0x170F443E
+      command: 0x19002400
+    on_press:
+      then:
+        - remote_transmitter.transmit_raw:
+            carrier_frequency: 36kHz
+            code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-580,580,-580,580,-1160,580,-12180]
+
+  - platform: remote_receiver
+    name: "XMP Down -> Xiaomi Down"
+    xmp:
+      address: 0x170F443E
+      command: 0x1B002200
+    on_press:
+      then:
+        - remote_transmitter.transmit_raw:
+            carrier_frequency: 36kHz
+            code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-870,580,-1160,580,-1160,580,-580,580,-12180]
+
+  - platform: remote_receiver
+    name: "XMP Select -> Xiaomi Ok"
+    xmp:
+      address: 0x170F443E
+      command: 0x18002500
+    on_press:
+      then:
+        - remote_transmitter.transmit_raw:
+            carrier_frequency: 36kHz
+            code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-870,580,-580,580,-1450,580,-12180]
+
+  # - platform: remote_receiver
+  #   name: "NEC2 Vol Up -> Xiaomi Vol UP"
+  #   nec2:
+  #     address: 0x20DF
+  #     command: 0x40BF
+  #     repeat: false
+  #   on_press:
+  #     then:
+  #       - remote_transmitter.transmit_raw:
+  #           carrier_frequency: 36kHz
+  #           code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-1160,580,-580,580,-580,580,-12180]
+
+  - platform: remote_receiver
+    name: "NEC2 Vol Up Repeat -> Xiaomi Vol UP"
+    nec2:
+      address: 0x20DF
+      command: 0x40BF
+      repeat: true
+    on_press:
+      then:
+        - remote_transmitter.transmit_raw:
+            carrier_frequency: 36kHz
+            code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-1160,580,-580,580,-580,580,-12180,1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-1160,580,-580,580,-580,580,-12180]
+
+  # - platform: remote_receiver
+  #   name: "NEC2 Vol Down -> Xiaomi Vol Down"
+  #   nec2:
+  #     address: 0x20DF
+  #     command: 0xC03F
+  #     repeat: false
+  #   on_press:
+  #     then:
+  #       - remote_transmitter.transmit_raw:
+  #           carrier_frequency: 36kHz
+  #           code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-1450,580,-580,580,-870,580,-12180]
+
+
+  - platform: remote_receiver
+    name: "NEC2 Vol Down Repeat -> Xiaomi Vol Down"
+    nec2:
+      address: 0x20DF
+      command: 0xC03F
+      repeat: true
+    on_press:
+      then:
+        - remote_transmitter.transmit_raw:
+            carrier_frequency: 36kHz
+            code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-1450,580,-580,580,-870,580,-12180,1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-1450,580,-580,580,-870,580,-12180]
