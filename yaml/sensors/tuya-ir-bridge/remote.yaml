@@ -18,6 +18,15 @@ remote_receiver:
                 char formatted[100];
                 sprintf(formatted, "Received GiCable: command=0x%04X, repeat=%d", x.command, x.repeat);
                 return std::string(formatted);
+    on_xmp:
+      then:
+        - homeassistant.event:
+            event: esphome.button_pressed
+            data:
+              title: !lambda |-
+                char formatted[100];
+                sprintf(formatted, "Received XMP: address=0x%08X, command=0x%08X", x.address, x.command);
+                return std::string(formatted);
 
 remote_transmitter:
   pin: GPIO14
