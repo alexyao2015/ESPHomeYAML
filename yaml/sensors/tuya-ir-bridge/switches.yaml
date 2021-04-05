@@ -22,6 +22,102 @@ switch:
             code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1160,580,-580,580,-870,580,-1160,580,-12180]
         - switch.turn_off: xiaomi_home
 
+  - platform: template
+    name: "Xiaomi Back"
+    id: xiaomi_back
+    optimistic: false
+    restore_state: false
+    turn_on_action:
+      then:
+        - remote_transmitter.transmit_raw:
+            carrier_frequency: 36kHz
+            code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-870,580,-1450,580,-1160,580,-870,580,-12180]
+        - switch.turn_off: xiaomi_back
+
+  - platform: template
+    name: "Xiaomi Up"
+    id: xiaomi_up
+    optimistic: false
+    restore_state: false
+    turn_on_action:
+      then:
+        - remote_transmitter.transmit_raw:
+            carrier_frequency: 36kHz
+            code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-870,580,-870,580,-1160,580,-1450,580,-12180]
+        - switch.turn_off: xiaomi_up
+
+  - platform: template
+    name: "Xiaomi Left"
+    id: xiaomi_left
+    optimistic: false
+    restore_state: false
+    turn_on_action:
+      then:
+        - remote_transmitter.transmit_raw:
+            carrier_frequency: 36kHz
+            code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1160,580,-1450,580,-870,580,-870,580,-12180]
+        - switch.turn_off: xiaomi_back
+
+  - platform: template
+    name: "Xiaomi Right"
+    id: xiaomi_right
+    optimistic: false
+    restore_state: false
+    turn_on_action:
+      then:
+        - remote_transmitter.transmit_raw:
+            carrier_frequency: 36kHz
+            code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-580,580,-580,580,-1160,580,-12180]
+        - switch.turn_off: xiaomi_back
+
+  - platform: template
+    name: "Xiaomi Down"
+    id: xiaomi_down
+    optimistic: false
+    restore_state: false
+    turn_on_action:
+      then:
+        - remote_transmitter.transmit_raw:
+            carrier_frequency: 36kHz
+            code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-870,580,-1160,580,-1160,580,-580,580,-12180]
+        - switch.turn_off: xiaomi_down
+
+  - platform: template
+    name: "Xiaomi Ok"
+    id: xiaomi_ok
+    optimistic: false
+    restore_state: false
+    turn_on_action:
+      then:
+        - remote_transmitter.transmit_raw:
+            carrier_frequency: 36kHz
+            code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-870,580,-580,580,-1450,580,-12180]
+        - switch.turn_off: xiaomi_ok
+
+  - platform: template
+    name: "Xiaomi Vol Up"
+    id: xiaomi_vol_up
+    optimistic: false
+    restore_state: false
+    turn_on_action:
+      then:
+        - remote_transmitter.transmit_raw:
+            carrier_frequency: 36kHz
+            code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-1160,580,-580,580,-580,580,-12180,1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-1160,580,-580,580,-580,580,-12180]
+        - switch.turn_off: xiaomi_back
+
+  - platform: template
+    name: "Xiaomi Vol Down"
+    id: xiaomi_vol_down
+    optimistic: false
+    restore_state: false
+    turn_on_action:
+      then:
+        - remote_transmitter.transmit_raw:
+            carrier_frequency: 36kHz
+            code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-1450,580,-580,580,-870,580,-12180,1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-1450,580,-580,580,-870,580,-12180]
+        - switch.turn_off: xiaomi_vol_down
+
 binary_sensor:
   - platform: remote_receiver
     name: "XMP Guide Button -> Xiaomi Home"
@@ -39,53 +135,43 @@ binary_sensor:
       command: 0x19005100
     on_press:
       then:
-        - remote_transmitter.transmit_raw:
-            carrier_frequency: 36kHz
-            code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-870,580,-1450,580,-1160,580,-870,580,-12180]
+        - switch.turn_on: xiaomi_back
 
   - platform: remote_receiver
-    name: "XMP UP -> Xiaomi UP"
+    name: "XMP UP Repeat -> Xiaomi UP"
     xmp:
       address: 0x170F443E
-      command: 0x1C002100
+      command: 0x14802100
     on_press:
       then:
-        - remote_transmitter.transmit_raw:
-            carrier_frequency: 36kHz
-            code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-870,580,-870,580,-1160,580,-1450,580,-12180]
+        - switch.turn_on: xiaomi_up
 
   - platform: remote_receiver
-    name: "XMP Left -> Xiaomi Left"
+    name: "XMP Left Repeat -> Xiaomi Left"
     xmp:
       address: 0x170F443E
-      command: 0x1A002300
+      command: 0x12802300
     on_press:
       then:
-        - remote_transmitter.transmit_raw:
-            carrier_frequency: 36kHz
-            code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1160,580,-1450,580,-870,580,-870,580,-12180]
+        - switch.turn_on: xiaomi_left
 
   - platform: remote_receiver
-    name: "XMP Right -> Xiaomi Right"
+    name: "XMP Right Repeat -> Xiaomi Right"
     xmp:
       address: 0x170F443E
-      command: 0x19002400
+      command: 0x11802400
     on_press:
       then:
-        - remote_transmitter.transmit_raw:
-            carrier_frequency: 36kHz
-            code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-580,580,-580,580,-1160,580,-12180]
+        - switch.turn_on: xiaomi_right
 
   - platform: remote_receiver
-    name: "XMP Down -> Xiaomi Down"
+    name: "XMP Down Repeat -> Xiaomi Down"
     xmp:
       address: 0x170F443E
-      command: 0x1B002200
+      command: 0x13802200
     on_press:
       then:
-        - remote_transmitter.transmit_raw:
-            carrier_frequency: 36kHz
-            code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-870,580,-1160,580,-1160,580,-580,580,-12180]
+        - switch.turn_on: xiaomi_down
 
   - platform: remote_receiver
     name: "XMP Select -> Xiaomi Ok"
@@ -94,9 +180,7 @@ binary_sensor:
       command: 0x18002500
     on_press:
       then:
-        - remote_transmitter.transmit_raw:
-            carrier_frequency: 36kHz
-            code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-870,580,-580,580,-1450,580,-12180]
+        - switch.turn_on: xiaomi_ok
 
   # - platform: remote_receiver
   #   name: "NEC2 Vol Up -> Xiaomi Vol UP"
@@ -118,9 +202,7 @@ binary_sensor:
       repeat: true
     on_press:
       then:
-        - remote_transmitter.transmit_raw:
-            carrier_frequency: 36kHz
-            code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-1160,580,-580,580,-580,580,-12180,1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-1160,580,-580,580,-580,580,-12180]
+        - switch.turn_on: xiaomi_vol_up
 
   # - platform: remote_receiver
   #   name: "NEC2 Vol Down -> Xiaomi Vol Down"
@@ -143,6 +225,4 @@ binary_sensor:
       repeat: true
     on_press:
       then:
-        - remote_transmitter.transmit_raw:
-            carrier_frequency: 36kHz
-            code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-1450,580,-580,580,-870,580,-12180,1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-1450,580,-580,580,-870,580,-12180]
+        - switch.turn_on: xiaomi_vol_down
