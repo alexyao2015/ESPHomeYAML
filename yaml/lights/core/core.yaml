@@ -8,6 +8,9 @@ api:
   password: !secret apipassword
   reboot_timeout: 0s
 
+wifi:
+  reboot_timeout: 0s
+
 logger:
   baud_rate: 0
     
