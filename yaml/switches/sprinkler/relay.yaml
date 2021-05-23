@@ -12,7 +12,7 @@ switch:
     id: relay_1
     interlock: &interlock_group [relay_1, relay_2, relay_3, relay_4, relay_5, relay_6, relay_7, relay_8, relay_9, relay_10]
     pin:
-      mcp23017: mcp23017_hub
+      mcp23xxx: mcp23017_hub
       number: 0
       mode: OUTPUT
       inverted: True
@@ -20,7 +20,7 @@ switch:
     id: relay_2
     interlock: *interlock_group
     pin:
-      mcp23017: mcp23017_hub
+      mcp23xxx: mcp23017_hub
       number: 1
       mode: OUTPUT
       inverted: True
@@ -28,7 +28,7 @@ switch:
     id: relay_3
     interlock: *interlock_group
     pin:
-      mcp23017: mcp23017_hub
+      mcp23xxx: mcp23017_hub
       number: 2
       mode: OUTPUT
       inverted: True
@@ -36,7 +36,7 @@ switch:
     id: relay_4
     interlock: *interlock_group
     pin:
-      mcp23017: mcp23017_hub
+      mcp23xxx: mcp23017_hub
       number: 3
       mode: OUTPUT
       inverted: True
@@ -44,7 +44,7 @@ switch:
     id: relay_5
     interlock: *interlock_group
     pin:
-      mcp23017: mcp23017_hub
+      mcp23xxx: mcp23017_hub
       number: 4
       mode: OUTPUT
       inverted: True
@@ -52,7 +52,7 @@ switch:
     id: relay_6
     interlock: *interlock_group
     pin:
-      mcp23017: mcp23017_hub
+      mcp23xxx: mcp23017_hub
       number: 5
       mode: OUTPUT
       inverted: True
@@ -60,7 +60,7 @@ switch:
     id: relay_7
     interlock: *interlock_group
     pin:
-      mcp23017: mcp23017_hub
+      mcp23xxx: mcp23017_hub
       number: 6
       mode: OUTPUT
       inverted: True
@@ -68,7 +68,7 @@ switch:
     id: relay_8
     interlock: *interlock_group
     pin:
-      mcp23017: mcp23017_hub
+      mcp23xxx: mcp23017_hub
       number: 7
       mode: OUTPUT
       inverted: True
@@ -76,7 +76,7 @@ switch:
     id: relay_9
     interlock: *interlock_group
     pin:
-      mcp23017: mcp23017_hub
+      mcp23xxx: mcp23017_hub
       number: 8
       mode: OUTPUT
       inverted: True
@@ -84,7 +84,7 @@ switch:
     id: relay_10
     interlock: *interlock_group
     pin:
-      mcp23017: mcp23017_hub
+      mcp23xxx: mcp23017_hub
       number: 9
       mode: OUTPUT
       inverted: True
