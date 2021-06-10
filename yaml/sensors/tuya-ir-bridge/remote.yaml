@@ -1,5 +1,11 @@
 # Initializes custom platforms
-custom_ir_protocols:
+external_components:
+  - source:
+      type: git
+      url: https://github.com/alexyao2015/ESPHomeYAML
+      ref: main
+    components: [ custom_ir_protocols ]
+
 
 remote_receiver:
   - id: ir_receiver
