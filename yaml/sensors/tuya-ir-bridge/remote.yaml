@@ -5,7 +5,7 @@ external_components:
       url: https://github.com/alexyao2015/ESPHomeYAML
       ref: main
     components: [ custom_ir_protocols ]
-
+custom_ir_protocols:
 
 remote_receiver:
   - id: ir_receiver
