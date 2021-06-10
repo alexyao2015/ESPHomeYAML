@@ -1,7 +1,5 @@
-# Requires custom component from 
+# Uses custom component from 
 # https://github.com/hass-emulated-hue/esphome-components
-# to operate
-# MUST use the rgblight-output branch
 
 substitutions:
   devicename: device_name_without_spaces
