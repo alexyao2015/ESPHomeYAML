@@ -3,7 +3,7 @@ external_components:
       type: git
       url: https://github.com/hass-emulated-hue/esphome-components
       ref: main
-    components: [ rgbct ]
+    components: [ rgbcct ]
 
 sm16716:
   data_pin: GPIO14
@@ -43,7 +43,7 @@ output:
     inverted: False
     
 light:
-  - platform: rgbct
+  - platform: rgbcct
     name: rgbct_led
     id: rgbct_led
     red: output_red
