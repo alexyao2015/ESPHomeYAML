@@ -54,5 +54,5 @@ light:
     cold_white_color_temperature: 6500 K
     warm_white_color_temperature: 2700 K
     constant_brightness: true
-    max_combined_white_level: 0.3
+    max_combined_white_level: 0.25
     default_transition_length: 0.4s
