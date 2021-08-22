@@ -6,10 +6,13 @@ esphome:
     then:
       - lambda: |-
           id(boot_count) += 1;
-          global_preferences.sync();
           if (id(boot_count) >= 3) {
             id(emergency_light_enable).execute();
           }
+      # Need a delay for globals loop to save before committing
+      - delay: 40ms
+      - lambda: |-
+          global_preferences.sync();
       - delay: 30sec
       - lambda: |-
           id(boot_count) = 0;
