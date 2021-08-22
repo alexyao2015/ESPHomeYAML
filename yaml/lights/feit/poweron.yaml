@@ -1,4 +1,6 @@
 esphome:
+  flash_write_interval: 10s
+  esp8266_restore_from_flash: true
   on_boot:
     priority: 399
     then:
