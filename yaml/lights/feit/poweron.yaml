@@ -5,9 +5,10 @@ esphome:
     priority: 399
     then:
       - lambda: |-
-          id(boot_count) += 1;
           if (id(boot_count) >= 3) {
             id(emergency_light_enable).execute();
+          } else {
+            id(boot_count) += 1;
           }
       # Need a delay for globals loop to save before committing
       - delay: 40ms
