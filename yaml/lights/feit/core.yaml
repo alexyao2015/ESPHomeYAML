@@ -4,6 +4,5 @@ esphome:
 
 packages:
   core: !include ../core/core.yaml
-  globals: !include globals.yaml
   lights: !include lights.yaml
   poweron: !include poweron.yaml

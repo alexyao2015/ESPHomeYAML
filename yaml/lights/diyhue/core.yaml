@@ -40,3 +40,14 @@ switch:
     name: entertainment_switch
     id: entertainment_switch
     optimistic: true
+
+globals:
+  - id: CT_BOOST # CT_BOOST, 0 to disable
+    type: int
+    restore_value: no
+    initial_value: '0'
+
+  - id: RGB_BOOST # RGB_BOOST, 0 to disable
+    type: int
+    restore_value: no
+    initial_value: '75'
