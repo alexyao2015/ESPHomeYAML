@@ -57,3 +57,4 @@ light:
     constant_brightness: true
     max_combined_white_level: 0.25
     default_transition_length: 0.4s
+    flash_transition_length: 0.4s
