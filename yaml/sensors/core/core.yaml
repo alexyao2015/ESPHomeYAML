@@ -16,7 +16,7 @@ logger:
 
 switch:
   - platform: restart
-    id: "${devicename}_restart"
+    id: restart_switch
 
 web_server:
   port: 80

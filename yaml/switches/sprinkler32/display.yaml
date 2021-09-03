@@ -1,0 +1,97 @@
+i2c:
+  sda: GPIO4
+  scl: GPIO13
+  scan: True
+
+globals:
+  - id: hold_screen
+    type: int
+    restore_value: no
+    initial_value: '0'
+
+  - id: relay_status # relay number if activated; else 0; currently only using 1 and 0 until figure out a solution to get relay number
+    type: int
+    restore_value: no
+    initial_value: '0'
+
+font:
+  - file: "arial.ttf"
+    id: arial
+    size: 12
+
+script:
+  - id: update_relay_state
+    then:
+      - lambda: |-
+          if (id(template_relay_1).state) {
+            id(relay_status) = 1;
+          } else if (id(template_relay_2).state) {
+            id(relay_status) = 2;
+          } else if (id(template_relay_3).state) {
+            id(relay_status) = 3;
+          } else if (id(template_relay_4).state) {
+            id(relay_status) = 4;
+          } else if (id(template_relay_5).state) {
+            id(relay_status) = 5;
+          } else if (id(template_relay_6).state) {
+            id(relay_status) = 6;
+          } else if (id(template_relay_7).state) {
+            id(relay_status) = 7;
+          } else if (id(template_relay_8).state) {
+            id(relay_status) = 8;
+          } else if (id(template_relay_9).state) {
+            id(relay_status) = 9;
+          } else if (id(template_relay_10).state) {
+            id(relay_status) = 10;
+          } else {
+            id(relay_status) = 0;
+          }
+
+display:
+  - platform: ssd1306_i2c
+    model: "SSD1306 128x32"
+    address: 0x3C
+    id: display_1
+    pages:
+      - id: page1
+        lambda: |-
+          if (id(connection_progress_bar) == 0)
+          {
+            it.strftime(0, 0, id(arial), "%a %m-%d %I:%M:%S %p", id(homeassistant_time).now());
+          }
+          else
+          {
+            if (id(connection_progress_bar) == 1) {
+              it.print(0, 0, id(arial), "Connecting ---");
+            } else if (id(connection_progress_bar) == 2) {
+              it.print(0, 0, id(arial), "Connecting ------");
+            } else if (id(connection_progress_bar) == 3) {
+              it.print(0, 0, id(arial), "Connecting ---------");
+            } else if (id(connection_progress_bar) == 4) {
+              it.print(0, 0, id(arial), "Connecting ------------");
+            }
+          }
+      
+      - id: page2
+        lambda: |-
+          if (id(relay_status) != 0)
+          {
+            it.printf(0, 5, id(arial), "Station %d Running", id(relay_status));
+            it.printf(0, 18, id(arial), "Time Remaining %d", id(timer_time));
+          }
+          else
+          {
+            it.print(0, 0, id(arial), "All Stations Off");
+          }
+
+interval:
+  - interval: 5s
+    then:
+      - if:
+          condition:
+            - lambda: 'return id(hold_screen) == 0;'
+          then:
+            - script.execute: update_relay_state
+            - script.wait: update_relay_state
+            - display.page.show_next: display_1
+            - component.update: display_1

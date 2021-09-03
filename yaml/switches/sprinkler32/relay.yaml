@@ -1,0 +1,251 @@
+switch:
+  - platform: gpio
+    id: relay_1
+    interlock: &interlock_group [relay_1, relay_2, relay_3, relay_4, relay_5, relay_6, relay_7, relay_8, relay_9, relay_10]
+    pin:
+      number: GPIO16
+      mode: OUTPUT
+      inverted: True
+  - platform: gpio
+    id: relay_2
+    interlock: *interlock_group
+    pin:
+      number: GPIO17
+      mode: OUTPUT
+      inverted: True
+  - platform: gpio
+    id: relay_3
+    interlock: *interlock_group
+    pin:
+      number: GPIO18
+      mode: OUTPUT
+      inverted: True
+  - platform: gpio
+    id: relay_4
+    interlock: *interlock_group
+    pin:
+      number: GPIO19
+      mode: OUTPUT
+      inverted: True
+  - platform: gpio
+    id: relay_5
+    interlock: *interlock_group
+    pin:
+      number: GPIO21
+      mode: OUTPUT
+      inverted: True
+  - platform: gpio
+    id: relay_6
+    interlock: *interlock_group
+    pin:
+      number: GPIO22
+      mode: OUTPUT
+      inverted: True
+  - platform: gpio
+    id: relay_7
+    interlock: *interlock_group
+    pin:
+      number: GPIO23
+      mode: OUTPUT
+      inverted: True
+  - platform: gpio
+    id: relay_8
+    interlock: *interlock_group
+    pin:
+      number: GPIO25
+      mode: OUTPUT
+      inverted: True
+  - platform: gpio
+    id: relay_9
+    interlock: *interlock_group
+    pin:
+      number: GPIO26
+      mode: OUTPUT
+      inverted: True
+  - platform: gpio
+    id: relay_10
+    interlock: *interlock_group
+    pin:
+      number: GPIO27
+      mode: OUTPUT
+      inverted: True
+
+  - platform: template
+    name: "template_relay_1"
+    id: template_relay_1
+    optimistic: true
+    lambda: |-
+      if (id(relay_1).state) {
+        return true;
+      } else {
+        return false;
+      }
+    turn_on_action:
+      then:
+      - switch.turn_on: relay_1
+      - script.execute: check_relay_then_turn_light_on_off
+    turn_off_action:
+      - switch.turn_off: relay_1
+      - script.execute: check_relay_then_turn_light_on_off
+
+  - platform: template
+    name: "template_relay_2"
+    id: template_relay_2
+    optimistic: true
+    lambda: |-
+      if (id(relay_2).state) {
+        return true;
+      } else {
+        return false;
+      }
+    turn_on_action:
+      then:
+      - switch.turn_on: relay_2
+      - script.execute: check_relay_then_turn_light_on_off
+    turn_off_action:
+      - switch.turn_off: relay_2
+      - script.execute: check_relay_then_turn_light_on_off
+
+  - platform: template
+    name: "template_relay_3"
+    id: template_relay_3
+    optimistic: true
+    lambda: |-
+      if (id(relay_3).state) {
+        return true;
+      } else {
+        return false;
+      }
+    turn_on_action:
+      then:
+      - switch.turn_on: relay_3
+      - script.execute: check_relay_then_turn_light_on_off
+    turn_off_action:
+      - switch.turn_off: relay_3
+      - script.execute: check_relay_then_turn_light_on_off
+
+  - platform: template
+    name: "template_relay_4"
+    id: template_relay_4
+    optimistic: true
+    lambda: |-
+      if (id(relay_4).state) {
+        return true;
+      } else {
+        return false;
+      }
+    turn_on_action:
+      then:
+      - switch.turn_on: relay_4
+      - script.execute: check_relay_then_turn_light_on_off
+    turn_off_action:
+      - switch.turn_off: relay_4
+      - script.execute: check_relay_then_turn_light_on_off
+
+  - platform: template
+    name: "template_relay_5"
+    id: template_relay_5
+    optimistic: true
+    lambda: |-
+      if (id(relay_5).state) {
+        return true;
+      } else {
+        return false;
+      }
+    turn_on_action:
+      then:
+      - switch.turn_on: relay_5
+      - script.execute: check_relay_then_turn_light_on_off
+    turn_off_action:
+      - switch.turn_off: relay_5
+      - script.execute: check_relay_then_turn_light_on_off
+
+  - platform: template
+    name: "template_relay_6"
+    id: template_relay_6
+    optimistic: true
+    lambda: |-
+      if (id(relay_6).state) {
+        return true;
+      } else {
+        return false;
+      }
+    turn_on_action:
+      then:
+      - switch.turn_on: relay_6
+      - script.execute: check_relay_then_turn_light_on_off
+    turn_off_action:
+      - switch.turn_off: relay_6
+      - script.execute: check_relay_then_turn_light_on_off
+
+  - platform: template
+    name: "template_relay_7"
+    id: template_relay_7
+    optimistic: true
+    lambda: |-
+      if (id(relay_7).state) {
+        return true;
+      } else {
+        return false;
+      }
+    turn_on_action:
+      then:
+      - switch.turn_on: relay_7
+      - script.execute: check_relay_then_turn_light_on_off
+    turn_off_action:
+      - switch.turn_off: relay_7
+      - script.execute: check_relay_then_turn_light_on_off
+
+  - platform: template
+    name: "template_relay_8"
+    id: template_relay_8
+    optimistic: true
+    lambda: |-
+      if (id(relay_8).state) {
+        return true;
+      } else {
+        return false;
+      }
+    turn_on_action:
+      then:
+      - switch.turn_on: relay_8
+      - script.execute: check_relay_then_turn_light_on_off
+    turn_off_action:
+      - switch.turn_off: relay_8
+      - script.execute: check_relay_then_turn_light_on_off
+
+  - platform: template
+    name: "template_relay_9"
+    id: template_relay_9
+    optimistic: true
+    lambda: |-
+      if (id(relay_9).state) {
+        return true;
+      } else {
+        return false;
+      }
+    turn_on_action:
+      then:
+      - switch.turn_on: relay_9
+      - script.execute: check_relay_then_turn_light_on_off
+    turn_off_action:
+      - switch.turn_off: relay_9
+      - script.execute: check_relay_then_turn_light_on_off
+
+  - platform: template
+    name: "template_relay_10"
+    id: template_relay_10
+    optimistic: true
+    lambda: |-
+      if (id(relay_10).state) {
+        return true;
+      } else {
+        return false;
+      }
+    turn_on_action:
+      then:
+      - switch.turn_on: relay_10
+      - script.execute: check_relay_then_turn_light_on_off
+    turn_off_action:
+      - switch.turn_off: relay_10
+      - script.execute: check_relay_then_turn_light_on_off

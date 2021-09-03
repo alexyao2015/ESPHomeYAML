@@ -13,4 +13,4 @@ binary_sensor:
       - min_length: 3000ms
         max_length: 6000ms
         then:
-          - switch.turn_on: "${devicename}_restart"
+          - switch.turn_on: restart_switch

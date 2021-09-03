@@ -1,0 +1,10 @@
+esphome:
+  platform: ESP32
+  board: node32s
+
+packages:
+  # buttons: !include buttons.yaml
+  core: !include ../core/core.yaml
+  display: !include display.yaml
+  led: !include led.yaml
+  relay: !include relay.yaml
