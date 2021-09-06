@@ -3,8 +3,18 @@ esphome:
   board: esp01_1m
 
 packages:
-  core: !include ../core/core.yaml
-  buttons: !include buttons.yaml
-  led: !include led.yaml
-  relay: !include relay.yaml
-  sensors: !include sensors.yaml
+  core:
+    refresh: 0s
+    ref: remote-packages
+    url: https://github.com/alexyao2015/ESPHomeYAML
+    files:
+      - yaml/switches/core/core.yaml
+  efun-SH331W-plug:
+    refresh: 0s
+    ref: remote-packages
+    url: https://github.com/alexyao2015/ESPHomeYAML
+    files:
+      - yaml/switches/efun-SH331W-plug/buttons.yaml
+      - yaml/switches/efun-SH331W-plug/led.yaml
+      - yaml/switches/efun-SH331W-plug/relay.yaml
+      - yaml/switches/efun-SH331W-plug/sensors.yaml

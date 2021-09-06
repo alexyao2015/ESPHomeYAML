@@ -3,7 +3,17 @@ esphome:
   board: esp01_1m
 
 packages:
-  core: !include ../core/core.yaml
-  globals: !include globals.yaml
-  lights: !include lights.yaml
-  poweron: !include poweron.yaml
+  core:
+    refresh: 0s
+    ref: remote-packages
+    url: https://github.com/alexyao2015/ESPHomeYAML
+    files:
+      - yaml/lights/core/core.yaml
+  feit:
+    refresh: 0s
+    ref: remote-packages
+    url: https://github.com/alexyao2015/ESPHomeYAML
+    files:
+      - yaml/lights/feit/globals.yaml
+      - yaml/lights/feit/lights.yaml
+      - yaml/lights/feit/poweron.yaml

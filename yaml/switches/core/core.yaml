@@ -22,7 +22,12 @@ web_server:
   port: 80
 
 packages:
-  globals: !include globals.yaml
-  interval: !include interval.yaml
-  scripts: !include scripts.yaml
-  services: !include services.yaml
+  core:
+    refresh: 0s
+    ref: remote-packages
+    url: https://github.com/alexyao2015/ESPHomeYAML
+    files:
+      - yaml/switches/core/globals.yaml
+      - yaml/switches/core/interval.yaml
+      - yaml/switches/core/scripts.yaml
+      - yaml/switches/core/services.yaml
