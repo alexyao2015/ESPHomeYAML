@@ -13,7 +13,7 @@ wifi:
   reboot_timeout: 0s
 
 logger:
-  baud_rate: 0
+  # baud_rate: 0
     
 web_server:
   port: 80
