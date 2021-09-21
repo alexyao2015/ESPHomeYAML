@@ -4,6 +4,16 @@ esphome:
   esp8266_restore_from_flash: true
 
 packages:
-  core: !include ../core/core.yaml
-  lights: !include lights.yaml
-  poweron: !include poweron.yaml
+  core:
+    refresh: 0s
+    ref: remote-packages
+    url: https://github.com/alexyao2015/ESPHomeYAML
+    files:
+      - yaml/lights/core/core.yaml
+  feit:
+    refresh: 0s
+    ref: remote-packages
+    url: https://github.com/alexyao2015/ESPHomeYAML
+    files:
+      - yaml/lights/feit/lights.yaml
+      - yaml/lights/feit/poweron.yaml

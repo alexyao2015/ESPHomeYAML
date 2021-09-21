@@ -4,6 +4,16 @@ esphome:
   esp8266_restore_from_flash: true
 
 packages:
-  core: !include ../core/core.yaml
-  led: !include led.yaml
-  sensor: !include sensor.yaml
+  core:
+    refresh: 0s
+    ref: remote-packages
+    url: https://github.com/alexyao2015/ESPHomeYAML
+    files:
+      - yaml/sensors/core/core.yaml
+  temp-sensor:
+    refresh: 0s
+    ref: remote-packages
+    url: https://github.com/alexyao2015/ESPHomeYAML
+    files:
+      - yaml/sensors/temp-sensor/led.yaml
+      - yaml/sensors/temp-sensor/sensor.yaml

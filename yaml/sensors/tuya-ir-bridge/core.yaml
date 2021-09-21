@@ -4,8 +4,18 @@ esphome:
   esp8266_restore_from_flash: true
 
 packages:
-  core: !include ../core/core.yaml
-  buttons: !include buttons.yaml
-  led: !include led.yaml
-  remote: !include remote.yaml
-  switches: !include switches.yaml
+  core:
+    refresh: 0s
+    ref: remote-packages
+    url: https://github.com/alexyao2015/ESPHomeYAML
+    files:
+      - yaml/sensors/core/core.yaml
+  tuya-ir-bridge:
+    refresh: 0s
+    ref: remote-packages
+    url: https://github.com/alexyao2015/ESPHomeYAML
+    files:
+      - yaml/sensors/tuya-ir-bridge/buttons.yaml
+      - yaml/sensors/tuya-ir-bridge/led.yaml
+      - yaml/sensors/tuya-ir-bridge/remote.yaml
+      - yaml/sensors/tuya-ir-bridge/switches.yaml
