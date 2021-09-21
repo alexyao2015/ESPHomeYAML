@@ -1,14 +1,14 @@
 # Define led output pin
 output:
-  - platform: esp8266_pwm # Red Led
+  - platform: esp8266_pwm # Green Led
     id: led_1
     inverted: True
-    pin: GPIO2
+    pin: GPIO16
   
-  - platform: esp8266_pwm # Blue Led
+  - platform: esp8266_pwm # Red Led
     id: led_2
     inverted: True
-    pin: GPIO16
+    pin: GPIO2
 
 # Setup light
 light:

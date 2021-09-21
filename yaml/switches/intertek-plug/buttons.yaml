@@ -3,6 +3,7 @@ binary_sensor:
     pin:
       number: GPIO0
       mode: INPUT_PULLUP
+      inverted: true
     id: button
     on_click:
       - min_length: 50ms

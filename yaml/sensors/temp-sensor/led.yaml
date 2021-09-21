@@ -15,10 +15,12 @@ light:
     id: led_1
     output: esp_12led
     default_transition_length: 0s
+    restore_mode: ALWAYS_OFF
   - platform: monochromatic
     id: led_2
     output: nodemcu_led
     default_transition_length: 0s
+    restore_mode: ALWAYS_OFF
 
 script:
   - id: pulse_led_standard_wifi

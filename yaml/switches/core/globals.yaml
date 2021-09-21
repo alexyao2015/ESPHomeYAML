@@ -1,12 +1,12 @@
 globals:
   - id: timer_time # time remaining in seconds, activated when a time call is made from HA
     type: int
-    restore_value: no
+    restore_value: yes
     initial_value: '0'
 
   - id: template_relay_id
     type: int
-    restore_value: no
+    restore_value: yes
     initial_value: '0'
 
   - id: relay_active # true if any relay is on; else false
