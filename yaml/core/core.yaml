@@ -1,0 +1,36 @@
+esphome:
+  name: ${devicename}
+  flash_write_interval: 1min
+
+ota:
+  password: !secret ota-password
+
+api:
+  password: !secret api-password
+
+time:
+  - platform: homeassistant
+    id: homeassistant_time
+
+logger:
+  # baud_rate: 0
+
+switch:
+  - platform: restart
+    id: restart_switch
+
+web_server:
+  port: 80
+  auth:
+    username: !secret web-user
+    password: !secret web-password
+
+wifi:
+  ssid: !secret ssid
+  password: !secret ssid-password
+  ap:
+    ssid: "ESPHome ${real_devicename}"
+    password: !secret ap-password
+  domain: !secret wifi-domain
+
+captive_portal:
