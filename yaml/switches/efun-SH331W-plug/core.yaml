@@ -5,13 +5,11 @@ esphome:
 
 packages:
   core:
-    refresh: 0s
     ref: remote-packages
     url: https://github.com/alexyao2015/ESPHomeYAML
     files:
       - yaml/switches/core/core.yaml
   efun-SH331W-plug:
-    refresh: 0s
     ref: remote-packages
     url: https://github.com/alexyao2015/ESPHomeYAML
     files:
