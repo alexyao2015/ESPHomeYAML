@@ -18,7 +18,6 @@ packages:
     url: https://github.com/alexyao2015/ESPHomeYAML
     files:
       - yaml/lights/feit/core.yaml
-      - yaml/wifi.yaml
 #   diyhue: !include yaml/lights/diyhue/core.yaml
 #   lifx: !include yaml/lights/lifxemulation/core.yaml
 

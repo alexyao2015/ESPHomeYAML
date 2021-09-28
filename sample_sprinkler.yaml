@@ -15,4 +15,3 @@ packages:
     url: https://github.com/alexyao2015/ESPHomeYAML
     files:
       - yaml/switches/sprinkler/core.yaml
-      - yaml/wifi.yaml
