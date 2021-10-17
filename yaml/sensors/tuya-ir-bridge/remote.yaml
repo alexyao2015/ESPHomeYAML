@@ -15,10 +15,17 @@ remote_receiver:
       mode: INPUT_PULLUP
     dump: all
     idle: 15ms
+    on_raw:
+      then:
+        - homeassistant.event:
+            event: esphome.${devicename}-raw-received
+            data:
+              title: !lambda |-
+                return x;
     on_gicable:
       then:
         - homeassistant.event:
-            event: esphome.${devicename}-gicable-pressed
+            event: esphome.${devicename}-gicable-received
             data:
               title: !lambda |-
                 char formatted[100];
@@ -27,7 +34,7 @@ remote_receiver:
     on_xmp:
       then:
         - homeassistant.event:
-            event: esphome.${devicename}-xmp-pressed
+            event: esphome.${devicename}-xmp-received
             data:
               title: !lambda |-
                 char formatted[100];
