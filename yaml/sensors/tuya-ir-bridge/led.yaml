@@ -1,9 +1,9 @@
 # Define led output pin
-output:
-  - platform: esp8266_pwm
-    id: basic_led
-    inverted: True
-    pin: GPIO4
+# output:
+#   - platform: esp8266_pwm
+#     id: basic_led
+#     inverted: True
+#     pin: GPIO4
 
 # Setup light
 light:

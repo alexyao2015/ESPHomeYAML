@@ -10,6 +10,12 @@ packages:
     files:
       - yaml/sensors/tuya-ir-bridge/core.yaml
 
+output:
+  - platform: esp8266_pwm
+    id: basic_led
+    inverted: True
+    pin: GPIO4
+
 switch:
   - platform: template
     name: "Xiaomi Home"
