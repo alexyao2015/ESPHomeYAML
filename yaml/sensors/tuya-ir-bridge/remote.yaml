@@ -19,7 +19,7 @@ remote_receiver:
       then:
         - homeassistant.event:
             event: esphome.${devicename}-raw-received
-            data:
+            data_template:
               title: !lambda |-
                 return x;
     on_gicable:
