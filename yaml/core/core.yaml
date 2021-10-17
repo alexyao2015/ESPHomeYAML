@@ -8,6 +8,8 @@ ota:
 
 api:
   password: !secret api-password
+  # encryption:
+  #   key: !secret api-encryption-key
 
 time:
   - platform: homeassistant
