@@ -1,14 +1,14 @@
 substitutions:
   devicename: ir-bridge-1
   real_devicename: IR Bridge 1
-  button_inverted: true
+  button_inverted: "true"
   button_gpio: GPIO13
-  led_inverted: true
+  led_inverted: "true"
   led_gpio: GPIO4
   ir_receiver_gpio: GPIO05
-  ir_receiver_inverted: true
+  ir_receiver_inverted: "true"
   ir_transmitter_gpio: GPIO14
-  ir_transmitter_inverted: false
+  ir_transmitter_inverted: "false"
 
 packages:
   device:
