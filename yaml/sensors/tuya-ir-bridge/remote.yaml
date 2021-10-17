@@ -10,8 +10,8 @@ custom_ir_protocols:
 remote_receiver:
   - id: ir_receiver
     pin: 
-      number: GPIO05
-      inverted: true
+      number: ${ir_receiver_gpio}
+      inverted: ${ir_receiver_inverted}
       mode: INPUT_PULLUP
     dump: all
     idle: 15ms
@@ -35,5 +35,7 @@ remote_receiver:
                 return std::string(formatted);
 
 remote_transmitter:
-  pin: GPIO14
+  pin: 
+    number: ${ir_transmitter_gpio}
+    inverted: ${ir_transmitter_inverted}
   carrier_duty_percent: 50%

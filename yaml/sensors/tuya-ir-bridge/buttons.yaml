@@ -1,9 +1,9 @@
 binary_sensor:
   - platform: gpio
     pin:
-      number: GPIO13
+      number: ${button_gpio}
       mode: INPUT_PULLUP
-      inverted: True
+      inverted: ${button_inverted}
     id: button
     on_click:
       # - min_length: 50ms
