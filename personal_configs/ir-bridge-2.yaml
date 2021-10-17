@@ -2,7 +2,7 @@ substitutions:
   devicename: ir-bridge-2
   real_devicename: IR Bridge 2
   button_inverted: "true"
-  button_gpio: GPIO4
+  button_gpio: GPIO13
   led_inverted: "false"
   led_gpio: GPIO4
   ir_receiver_gpio: GPIO05
@@ -17,8 +17,3 @@ packages:
     url: https://github.com/alexyao2015/ESPHomeYAML
     files:
       - yaml/sensors/tuya-ir-bridge/core.yaml
-      
-output:
-  - platform: esp8266_pwm
-    id: basic_led
-    pin: GPIO4
