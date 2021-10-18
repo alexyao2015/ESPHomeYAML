@@ -17,3 +17,25 @@ packages:
     url: https://github.com/alexyao2015/ESPHomeYAML
     files:
       - yaml/sensors/tuya-ir-bridge/core.yaml
+
+script:
+  - id: on_gicable
+    mode: queued
+    then:
+      - lambda: |-
+          return true;
+
+  - id: on_xmp
+    mode: queued
+    then:
+      - lambda: |-
+          return true;
+
+  - id: on_raw
+    mode: queued
+    then:
+      - homeassistant.event:
+          event: esphome.ir-bridge-2-raw-received
+          data_template:
+            title: !lambda |-
+              return id(raw_data).front();

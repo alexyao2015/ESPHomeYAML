@@ -7,6 +7,14 @@ external_components:
     components: [ custom_ir_protocols ]
 custom_ir_protocols:
 
+globals:
+  - id: gicable_data
+    type: remote_base::GiCableData
+  - id: xmp_data
+    type: remote_base::XMPData
+  - id: raw_data
+    type: std::vector<int>
+
 remote_receiver:
   - id: ir_receiver
     pin: 
@@ -15,24 +23,30 @@ remote_receiver:
       mode: INPUT_PULLUP
     dump: all
     idle: 15ms
+    on_raw:
+      then:
+        - wait_until:
+            not:
+              script.is_running: on_raw
+        - lambda: |-
+            id(raw_data) =  x;
+        - script.execute: on_raw
     on_gicable:
       then:
-        - homeassistant.event:
-            event: esphome.${devicename}-gicable-received
-            data:
-              title: !lambda |-
-                char formatted[100];
-                sprintf(formatted, "Received GiCable: command=0x%04X, repeat=%d", x.command, x.repeat);
-                return std::string(formatted);
+        - wait_until:
+            not:
+              script.is_running: on_gicable
+        - lambda: |-
+            id(gicable_data) =  x;
+        - script.execute: on_gicable
     on_xmp:
       then:
-        - homeassistant.event:
-            event: esphome.${devicename}-xmp-received
-            data:
-              title: !lambda |-
-                char formatted[100];
-                sprintf(formatted, "Received XMP: address=0x%08X, command=0x%08X", x.address, x.command);
-                return std::string(formatted);
+        - wait_until:
+            not:
+              script.is_running: on_xmp
+        - lambda: |-
+            id(xmp_data) =  x;
+        - script.execute: on_xmp
 
 remote_transmitter:
   pin: 
