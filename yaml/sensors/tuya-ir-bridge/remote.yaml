@@ -15,13 +15,6 @@ remote_receiver:
       mode: INPUT_PULLUP
     dump: all
     idle: 15ms
-    on_raw:
-      then:
-        - homeassistant.event:
-            event: esphome.${devicename}-raw-received
-            data_template:
-              title: !lambda |-
-                return x;
     on_gicable:
       then:
         - homeassistant.event:
