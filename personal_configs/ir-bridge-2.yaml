@@ -23,13 +23,13 @@ script:
     mode: queued
     then:
       - lambda: |-
-          return true;
+          return;
 
   - id: on_xmp
     mode: queued
     then:
       - lambda: |-
-          return true;
+          return;
 
   - id: on_raw
     mode: queued
@@ -38,4 +38,11 @@ script:
           event: esphome.ir-bridge-2-raw-received
           data_template:
             title: !lambda |-
-              return id(raw_data).front();
+              std::string result = "[";
+              auto it = id(raw_data).begin();
+              result = result + to_string(*it++);
+              for (; it != id(raw_data).end(); it++) {
+                  result = result + "," + to_string(*it);
+              }
+              result = result + "]";
+              return result;

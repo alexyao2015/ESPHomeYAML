@@ -244,4 +244,4 @@ script:
     mode: queued
     then:
       - lambda: |-
-          return true;
+          return;
