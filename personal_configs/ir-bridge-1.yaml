@@ -219,7 +219,6 @@ binary_sensor:
 
 script:
   - id: on_gicable
-    mode: queued
     then:
       - homeassistant.event:
           event: esphome.${devicename}-gicable-received
@@ -230,7 +229,6 @@ script:
               return std::string(formatted);
 
   - id: on_xmp
-    mode: queued
     then:
       - homeassistant.event:
           event: esphome.${devicename}-xmp-received
@@ -241,7 +239,3 @@ script:
               return std::string(formatted);
 
   - id: on_raw
-    mode: queued
-    then:
-      - lambda: |-
-          return;
