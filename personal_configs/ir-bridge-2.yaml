@@ -30,7 +30,7 @@ script:
       - homeassistant.event:
           event: esphome.${devicename}-raw-received
           data_template:
-            title: !lambda |-
+            code: !lambda |-
               char buf[20];
               std::string res;
               res += "[";
