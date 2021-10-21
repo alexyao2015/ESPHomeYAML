@@ -39,4 +39,4 @@ for plot_idx, data_points in data_plot.items():
     axs[plot_idx].set_ylim(-1.5, 1.5)
     axs[plot_idx].set_xticks(np.arange(min(data_points["data_x"]),max(data_points["data_x"]),TICK_INTERVAL))
 current_time = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-fig.savefig(f'plot-{current_time}.jpg', dpi=250)
+fig.savefig(f'plot-{current_time}.jpg', dpi=100)
