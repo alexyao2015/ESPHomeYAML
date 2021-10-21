@@ -7,9 +7,9 @@ ota:
   password: !secret ota-password
 
 api:
-  # password: !secret api-password
-  encryption:
-    key: !secret api-encryption-key
+  password: !secret api-password
+  # encryption:
+  #   key: !secret api-encryption-key
 
 time:
   - platform: homeassistant
