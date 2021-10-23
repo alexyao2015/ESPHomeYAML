@@ -11,7 +11,7 @@ from esphome.components.remote_base import (
 CONF_REPEAT = "repeat"
 CONF_LONG_SIGNAL = "long_signal"
 
-ATTData, ATTBinarySensor, ATTTrigger, ATTDumper = declare_protocol("ATT")
+ATTData, ATTBinarySensor, ATTTrigger, ATTAction, ATTDumper = declare_protocol("ATT")
 ATT_SCHEMA = cv.Schema(
     {
         cv.Required(CONF_COMMAND): cv.hex_uint32_t,
@@ -47,6 +47,7 @@ def ATT_dumper(var, config):
     GiCableData,
     GiCableBinarySensor,
     GiCableTrigger,
+    GiCableAction,
     GiCableDumper,
 ) = declare_protocol("GiCable")
 GiCable_SCHEMA = cv.Schema(
@@ -80,7 +81,9 @@ def gicable_dumper(var, config):
     pass
 
 
-NEC2Data, NEC2BinarySensor, NEC2Trigger, NEC2Dumper = declare_protocol("NEC2")
+NEC2Data, NEC2BinarySensor, NEC2Trigger, NEC2Action, NEC2Dumper = declare_protocol(
+    "NEC2"
+)
 NEC2_SCHEMA = cv.Schema(
     {
         cv.Required(CONF_ADDRESS): cv.hex_uint16_t,
@@ -114,7 +117,7 @@ def nec2_dumper(var, config):
     pass
 
 
-XMPData, XMPBinarySensor, XMPTrigger, XMPDumper = declare_protocol("XMP")
+XMPData, XMPBinarySensor, XMPTrigger, XMPAction, XMPDumper = declare_protocol("XMP")
 XMP_SCHEMA = cv.Schema(
     {
         cv.Required(CONF_ADDRESS): cv.hex_uint32_t,
