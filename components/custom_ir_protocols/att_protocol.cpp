@@ -12,7 +12,7 @@ static const uint32_t HEADER_LOW_STEP = 260;
 static const uint32_t FOOTER_HIGH_US = 180;
 // static const uint32_t BIT_FIXED_TOLERANCE = 100;
 static const uint32_t BIT_HIGH_US = 180;
-static const uint32_t BIT_LOW_STEP = 225;
+static const uint32_t BIT_LOW_STEP = 250;
 static const uint8_t BIT_SIZE = 2;
 static const uint8_t TOTAL_BITS = 4;
 static const uint8_t TOTAL_LENGTH = 36;
@@ -81,7 +81,7 @@ optional<ATTData> ATTProtocol::decode(RemoteReceiveData src) {
   return data;
 }
 void ATTProtocol::dump(const ATTData &data) {
-  ESP_LOGD(TAG, "Received ATT: command=0x%04X, long_signal=%d", data.command, data.long_signal);
+  ESP_LOGD(TAG, "Received ATT: command=0x%02X, long_signal=%d", data.command, data.long_signal);
 }
 
 }  // namespace remote_base
