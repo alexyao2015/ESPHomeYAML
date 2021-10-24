@@ -6,7 +6,7 @@ namespace esphome {
 namespace remote_base {
 
 struct ATTData {
-  uint16_t command;
+  uint8_t command;
   bool long_signal;
 
   bool operator==(const ATTData &rhs) const { return command == rhs.command && long_signal == rhs.long_signal; }

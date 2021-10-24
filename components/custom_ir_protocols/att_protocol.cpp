@@ -6,13 +6,10 @@ namespace remote_base {
 
 static const char *TAG = "remote.att";
 
-static const uint32_t FIRST_HEADER_HIGH_US = 430;
-static const uint32_t HEADER_HIGH_US = 180;
-static const uint32_t HEADER_LOW_STEP = 260;
-static const uint32_t FOOTER_HIGH_US = 180;
-// static const uint32_t BIT_FIXED_TOLERANCE = 100;
+static const uint32_t HEADER_HIGH_US = 400;
 static const uint32_t BIT_HIGH_US = 180;
-static const uint32_t BIT_LOW_STEP = 250;
+static const uint32_t BIT_ZERO_US = 250;
+static const uint32_t BIT_LOW_STEP = 180;
 static const uint8_t BIT_SIZE = 2;
 static const uint8_t TOTAL_BITS = 4;
 static const uint8_t TOTAL_LENGTH = 36;
@@ -24,45 +21,44 @@ optional<ATTData> ATTProtocol::decode(RemoteReceiveData src) {
       .command = 0,
       .long_signal = true,
   };
-
   // Check if full packet
   if (src.size() != TOTAL_LENGTH) {
     return {};
   }
   // Check initial header
-  if (!(src.expect_item(FIRST_HEADER_HIGH_US, HEADER_LOW_STEP) && src.expect_item(HEADER_HIGH_US, HEADER_LOW_STEP) &&
-        src.expect_item(HEADER_HIGH_US, HEADER_LOW_STEP * 2) && src.expect_item(HEADER_HIGH_US, HEADER_LOW_STEP) &&
-        src.expect_item(HEADER_HIGH_US, HEADER_LOW_STEP * 3) && src.expect_item(HEADER_HIGH_US, HEADER_LOW_STEP * 2) &&
-        src.expect_item(HEADER_HIGH_US, HEADER_LOW_STEP) && src.expect_item(HEADER_HIGH_US, HEADER_LOW_STEP) &&
-        src.expect_item(HEADER_HIGH_US, HEADER_LOW_STEP))) {
+  if (!(src.expect_item(HEADER_HIGH_US, BIT_ZERO_US) && src.expect_item(BIT_HIGH_US, BIT_ZERO_US) &&
+        src.expect_item(BIT_HIGH_US, BIT_ZERO_US + 2 * BIT_LOW_STEP) && src.expect_item(BIT_HIGH_US, BIT_ZERO_US) &&
+        src.expect_item(BIT_HIGH_US, BIT_ZERO_US + 3 * BIT_LOW_STEP) &&
+        src.expect_item(BIT_HIGH_US, BIT_ZERO_US + 1 * BIT_LOW_STEP) && src.expect_item(BIT_HIGH_US, BIT_ZERO_US) &&
+        src.expect_item(BIT_HIGH_US, BIT_ZERO_US) && src.expect_item(BIT_HIGH_US, BIT_ZERO_US))) {
     return {};
   }
   // check if long head
-  if (src.expect_item(HEADER_HIGH_US, HEADER_LOW_STEP * 2)) {
+  if (src.expect_item(BIT_HIGH_US, BIT_ZERO_US + 2 * BIT_LOW_STEP)) {
     // is long
     data.long_signal = true;
-  } else if (src.expect_item(HEADER_HIGH_US, HEADER_LOW_STEP)) {
+  } else if (src.expect_item(BIT_HIGH_US, BIT_ZERO_US)) {
     // is short
     data.long_signal = false;
   } else {
     return {};
   }
   // finish header check
-  if (!(src.expect_item(HEADER_HIGH_US, HEADER_LOW_STEP * 2) &&
-        src.expect_item(HEADER_HIGH_US, HEADER_LOW_STEP * 1.6) &&
-        src.expect_item(HEADER_HIGH_US, HEADER_LOW_STEP * 2.25))) {
+  if (!(src.expect_item(BIT_HIGH_US, BIT_ZERO_US + 2 * BIT_LOW_STEP) &&
+        src.expect_item(BIT_HIGH_US, BIT_ZERO_US + 1 * BIT_LOW_STEP) &&
+        src.expect_item(BIT_HIGH_US, BIT_ZERO_US + 2 * BIT_LOW_STEP))) {
     return {};
   }
   for (uint8_t bits = 0; bits < TOTAL_BITS; bits++) {
     if (!src.expect_mark(BIT_HIGH_US)) {
       return {};
     }
-    uint8_t value = 1;
+    uint8_t value = 0;
     bool found = false;
     for (; value <= 3; value++) {
       // Use static tolerances rather than percentage base tolerances
-      if (src.peek() <= 0 && src.peek() >= -(value * BIT_LOW_STEP + BIT_LOW_STEP / 2) &&
-          src.peek() <= -(value * BIT_LOW_STEP - BIT_LOW_STEP / 2)) {
+      if (src.peek() <= 0 && src.peek() >= -(BIT_ZERO_US + value * BIT_LOW_STEP + BIT_LOW_STEP / 2) &&
+          src.peek() <= -(BIT_ZERO_US + value * BIT_LOW_STEP - BIT_LOW_STEP / 2)) {
         found = true;
         break;
       }
@@ -70,14 +66,14 @@ optional<ATTData> ATTProtocol::decode(RemoteReceiveData src) {
     if (!found) {
       return {};  // Failure.
     }
-    value--;
     data.command <<= BIT_SIZE;
     data.command += value;
 
     src.advance();
   }
 
-  src.expect_mark(FOOTER_HIGH_US);
+  // footer
+  src.expect_mark(BIT_HIGH_US);
   return data;
 }
 void ATTProtocol::dump(const ATTData &data) {

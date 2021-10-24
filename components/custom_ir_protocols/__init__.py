@@ -14,7 +14,7 @@ CONF_LONG_SIGNAL = "long_signal"
 ATTData, ATTBinarySensor, ATTTrigger, ATTAction, ATTDumper = declare_protocol("ATT")
 ATT_SCHEMA = cv.Schema(
     {
-        cv.Required(CONF_COMMAND): cv.hex_uint16_t,
+        cv.Required(CONF_COMMAND): cv.hex_uint8_t,
         cv.Required(CONF_LONG_SIGNAL): cv.boolean,
     }
 )
