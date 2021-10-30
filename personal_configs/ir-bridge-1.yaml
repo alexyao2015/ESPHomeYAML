@@ -219,7 +219,7 @@ script:
           data:
             code: !lambda |-
               char formatted[100];
-              sprintf(formatted, "Received GiCable: command=0x%04X, repeat=%d", x.command, x.repeat);
+              sprintf(formatted, "Received GiCable: command=0x%04X, repeat=%d", id(gicable_data).command, id(gicable_data).repeat);
               return std::string(formatted);
 
   - id: on_xmp
@@ -229,7 +229,7 @@ script:
           data:
             code: !lambda |-
               char formatted[100];
-              sprintf(formatted, "Received XMP: address=0x%08X, command=0x%08X", x.address, x.command);
+              sprintf(formatted, "Received XMP: address=0x%08X, command=0x%08X", id(xmp_data).address, id(xmp_data).command);
               return std::string(formatted);
 
   - id: on_raw
