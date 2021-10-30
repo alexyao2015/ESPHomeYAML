@@ -239,3 +239,22 @@ script:
               return std::string(formatted);
 
   - id: on_raw
+    then:
+      - homeassistant.event:
+          event: esphome.${devicename}-raw-received
+          data_template:
+            code: !lambda |-
+              char buf[20];
+              std::string res;
+              res += "[";
+              size_t len = id(raw_data).size();
+              for (int i = 0; i < len; i++) {
+                if (i + 1 != len) {
+                  sprintf(buf, "%d,", id(raw_data).at(i));
+                } else {
+                  sprintf(buf, "%d ", id(raw_data).at(i));
+                }
+                res += buf;
+              }
+              res += "]";
+              return res;
