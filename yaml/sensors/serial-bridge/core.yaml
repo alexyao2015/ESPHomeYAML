@@ -1,0 +1,19 @@
+esphome:
+  platform: ESP32
+  board: node32s
+
+logger:
+  baud_rate: 0
+
+packages:
+  core:
+    ref: remote-packages
+    url: https://github.com/alexyao2015/ESPHomeYAML
+    files:
+      - yaml/sensors/core/core.yaml
+  sprinkler32:
+    ref: remote-packages
+    url: https://github.com/alexyao2015/ESPHomeYAML
+    files:
+      - yaml/switches/serial-bridge/bridge.yaml
+      - yaml/switches/serial-bridge/led.yaml
