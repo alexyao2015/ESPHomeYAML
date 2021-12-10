@@ -9,7 +9,7 @@ uart:
    id: uart_bus
    tx_pin: GPIO1
    rx_pin: GPIO3
-   baud_rate: 115200
+   baud_rate: 250000
 
 stream_server:
   uart_id: uart_bus
