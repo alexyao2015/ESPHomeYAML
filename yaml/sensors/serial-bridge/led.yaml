@@ -14,11 +14,6 @@ light:
     restore_mode: ALWAYS_OFF
 
 script:
-  - id: pulse_led_relay_on_wifi
-    then:
-      - script.execute: pulse_led_standard_wifi
-      - script.wait: pulse_led_standard_wifi
-
   - id: pulse_led_standard_wifi
     then:
       - light.turn_on:
@@ -31,35 +26,18 @@ script:
           transition_length: 750ms
       - delay: 750ms
 
-  - id: pulse_led_relay_on_api
-    then:
-      - script.execute: pulse_led_standard_api
-      - script.wait: pulse_led_standard_api
-
   - id: pulse_led_standard_api
     then:
       - light.turn_on:
           id: led_1
           brightness: 100%
-          transition_length: 1s
-      - delay: 1s
+          transition_length: 250ms
+      - delay: 250ms
+      - light.turn_on: 
+          id: led_1
+          brightness: 50%
+          transition_length: 250ms
+      - delay: 250ms
       - light.turn_off: 
           id: led_1
           transition_length: 750ms
-      - delay: 750ms
-                      
-  - id: check_relay_then_turn_light_on_off
-    then:
-      - delay: 1ms
-      - script.execute: update_relay_active
-      - script.wait: update_relay_active
-      - if:
-          condition:
-            lambda: 'return id(relay_active);'
-          then:
-            - light.turn_on:
-                id: led_1
-                brightness: 100%
-          else:
-            - light.turn_off:
-                id: led_1
