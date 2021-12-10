@@ -2,7 +2,7 @@
 output:
   - platform: ledc
     id: nodemcu_led
-    inverted: True
+    inverted: False
     pin: GPIO2
 
 # Setup light
