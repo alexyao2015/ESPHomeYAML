@@ -34,7 +34,6 @@ optional<NEC2Data> NEC2Protocol::decode(RemoteReceiveData src) {
     if (millis() - this->last_received_time_ > 150)
       return {};
     // Check if repeat packet
-    src.reset();
     if (src.size() == 4 && src.expect_item(HEADER_HIGH_US, BIT_LOW_REPEAT) && src.expect_mark(BIT_HIGH_US)) {
       this->last_received_time_ = millis();
       return this->last_data_received_;

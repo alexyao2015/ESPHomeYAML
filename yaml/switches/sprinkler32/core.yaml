@@ -3,8 +3,16 @@ esphome:
   board: node32s
 
 packages:
-  # buttons: !include buttons.yaml
-  core: !include ../core/core.yaml
-  display: !include display.yaml
-  led: !include led.yaml
-  relay: !include relay.yaml
+  core:
+    ref: remote-packages
+    url: https://github.com/alexyao2015/ESPHomeYAML
+    files:
+      - yaml/switches/core/core.yaml
+  sprinkler32:
+    ref: remote-packages
+    url: https://github.com/alexyao2015/ESPHomeYAML
+    files:
+      # - yaml/switches/sprinkler/buttons.yaml
+      - yaml/switches/sprinkler32/display.yaml
+      - yaml/switches/sprinkler32/led.yaml
+      - yaml/switches/sprinkler32/relay.yaml

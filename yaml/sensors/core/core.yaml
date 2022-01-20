@@ -1,26 +1,16 @@
-esphome:
-  name: ${devicename}
-
-ota:
-  password: !secret otapassword
-
-api:
-  password: !secret apipassword
-
-time:
-  - platform: homeassistant
-    id: homeassistant_time
-
-logger:
-  baud_rate: 0
-
-switch:
-  - platform: restart
-    id: restart_switch
-
-web_server:
-  port: 80
+# logger:
+#   baud_rate: 0
 
 packages:
-  globals: !include globals.yaml
-  scripts: !include scripts.yaml
+  base-core:
+    ref: remote-packages
+    url: https://github.com/alexyao2015/ESPHomeYAML
+    files:
+      - yaml/core/core.yaml
+
+  core:
+    ref: remote-packages
+    url: https://github.com/alexyao2015/ESPHomeYAML
+    files:
+      - yaml/sensors/core/globals.yaml
+      - yaml/sensors/core/scripts.yaml

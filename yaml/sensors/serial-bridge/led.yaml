@@ -1,16 +1,15 @@
 # Define led output pin
 output:
-  - platform: esp8266_pwm
-    id: basic_led
-    pin: 
-      number: ${led_gpio}
-      inverted: ${led_inverted}
+  - platform: ledc
+    id: nodemcu_led
+    inverted: False
+    pin: GPIO2
 
 # Setup light
 light:
   - platform: monochromatic
     id: led_1
-    output: basic_led
+    output: nodemcu_led
     default_transition_length: 0s
     restore_mode: ALWAYS_OFF
 

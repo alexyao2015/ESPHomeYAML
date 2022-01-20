@@ -3,7 +3,7 @@ external_components:
       type: git
       url: https://github.com/hass-emulated-hue/esphome-components
       ref: main
-    components: [ rgbcct ]
+    components: [rgbcct]
 
 sm16716:
   data_pin: GPIO14
@@ -29,19 +29,20 @@ output:
   - platform: sm16716
     id: output_blue
     channel: 2
+    power_supply: rgb_power
 
   - platform: esp8266_pwm
     pin: GPIO5
     id: output_cold_white
     frequency: 2000 Hz
     inverted: False
-    
+
   - platform: esp8266_pwm
     pin: GPIO12
     id: output_warm_white
     frequency: 2000 Hz
     inverted: False
-    
+
 light:
   - platform: rgbcct
     name: rgbct_led
@@ -56,3 +57,4 @@ light:
     constant_brightness: true
     max_combined_white_level: 0.25
     default_transition_length: 0.4s
+    flash_transition_length: 0.4s

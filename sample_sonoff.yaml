@@ -2,9 +2,6 @@ substitutions:
   devicename: device_name_without_spaces
   real_devicename: Im a cool device
 
-esphome:
-  esp8266_restore_from_flash: true
-
 wifi:
   manual_ip:
     static_ip: 192.168.1.1
@@ -12,5 +9,9 @@ wifi:
     subnet: 255.255.255.0
 
 packages:
-  device_model: !include yaml/switches/sonoff/core.yaml
-  wifi: !include yaml/wifi.yaml
+  device:
+    refresh: 0s
+    ref: remote-packages
+    url: https://github.com/alexyao2015/ESPHomeYAML
+    files:
+      - yaml/switches/sonoff/core.yaml

@@ -1,77 +1,64 @@
 # Define led output pin
 output:
-  - platform: esp8266_pwm
-    id: esp_12led
-    inverted: True
-    pin: GPIO2
-  - platform: esp8266_pwm
-    id: nodemcu_led
+  - platform: esp8266_pwm # Green Led
+    id: led_1
     inverted: True
     pin: GPIO16
+  
+  - platform: esp8266_pwm # Red Led
+    id: led_2
+    inverted: True
+    pin: GPIO2
 
 # Setup light
 light:
   - platform: monochromatic
-    id: led_1
-    output: esp_12led
+    id: wifi_led
+    output: led_1
     default_transition_length: 0s
     restore_mode: ALWAYS_OFF
+
   - platform: monochromatic
-    id: led_2
-    output: nodemcu_led
+    id: relay_led
+    output: led_2
     default_transition_length: 0s
     restore_mode: ALWAYS_OFF
 
 script:
+  # Don't need different pulse patterns since we have multiple leds here
   - id: pulse_led_relay_on_wifi
     then:
-      - light.turn_on:
-          id: led_1
-          brightness: 100%
-          transition_length: 250ms
-      - delay: 250ms
-      - light.turn_on: 
-          id: led_1
-          brightness: 50%
-          transition_length: 250ms
-      - delay: 250ms
+      - script.execute: pulse_led_standard_wifi
+      - script.wait: pulse_led_standard_wifi
 
   - id: pulse_led_standard_wifi
     then:
       - light.turn_on:
-          id: led_1
+          id: wifi_led
           brightness: 100%
           transition_length: 1s
       - delay: 1s
       - light.turn_off: 
-          id: led_1
+          id: wifi_led
           transition_length: 750ms
       - delay: 750ms
 
   - id: pulse_led_relay_on_api
     then:
-      - light.turn_on:
-          id: led_2
-          brightness: 100%
-          transition_length: 250ms
-      - delay: 250ms
-      - light.turn_on: 
-          id: led_2
-          brightness: 50%
-          transition_length: 250ms
-      - delay: 250ms
+      - script.execute: pulse_led_standard_api
+      - script.wait: pulse_led_standard_api
 
   - id: pulse_led_standard_api
     then:
       - light.turn_on:
-          id: led_2
+          id: wifi_led
           brightness: 100%
-          transition_length: 1s
-      - delay: 1s
-      - light.turn_off: 
-          id: led_2
-          transition_length: 750ms
-      - delay: 750ms
+          transition_length: 250ms
+      - delay: 250ms
+      - light.turn_off:
+          id: wifi_led
+          transition_length: 250ms
+      - delay: 250ms
                       
   - id: check_relay_then_turn_light_on_off
     then:
@@ -83,8 +70,8 @@ script:
             lambda: 'return id(relay_active);'
           then:
             - light.turn_on:
-                id: led_1
+                id: relay_led
                 brightness: 100%
           else:
             - light.turn_off:
-                id: led_1
+                id: relay_led

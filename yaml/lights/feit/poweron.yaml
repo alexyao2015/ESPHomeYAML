@@ -1,5 +1,28 @@
 esphome:
   on_boot:
+    priority: 399
+    then:
+      - lambda: |-
+          if (id(boot_count) >= 2) {
+            id(emergency_light_enable).execute();
+          } else {
+            id(boot_count) += 1;
+          }
+      # Need a delay for globals loop to save before committing
+      - delay: 40ms
+      - lambda: |-
+          global_preferences.sync();
+      - delay: 30sec
+      - lambda: |-
+          id(boot_count) = 0;
+globals:
+  - id: boot_count
+    type: uint8_t
+    restore_value: true
+    initial_value: '0'
+
+script:
+  - id: emergency_light_enable
     then:
       - light.turn_on:
           id: rgbct_led

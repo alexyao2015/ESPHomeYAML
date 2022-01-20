@@ -1,9 +1,18 @@
 esphome:
   platform: ESP8266
   board: esp01_1m
+  esp8266_restore_from_flash: true
 
 packages:
-  core: !include ../core/core.yaml
-  buttons: !include buttons.yaml
-  led: !include led.yaml
-  relay: !include relay.yaml
+  core:
+    ref: remote-packages
+    url: https://github.com/alexyao2015/ESPHomeYAML
+    files:
+      - yaml/switches/core/core.yaml
+  kuled-switch:
+    ref: remote-packages
+    url: https://github.com/alexyao2015/ESPHomeYAML
+    files:
+      - yaml/switches/kuled-switch/buttons.yaml
+      - yaml/switches/kuled-switch/led.yaml
+      - yaml/switches/kuled-switch/relay.yaml

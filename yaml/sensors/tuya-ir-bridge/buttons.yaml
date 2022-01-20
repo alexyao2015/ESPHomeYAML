@@ -1,10 +1,21 @@
 binary_sensor:
   - platform: gpio
     pin:
-      number: GPIO13
+      number: ${button_gpio}
       mode: INPUT_PULLUP
-      inverted: True
+      inverted: ${button_inverted}
     id: button
+    on_press:
+      then:
+        - light.turn_on:
+            id: led_1
+            brightness: 100%
+            transition_length: 0s
+    on_release:
+      then:
+        - light.turn_off: 
+            id: led_1
+            transition_length: 0s
     on_click:
       # - min_length: 50ms
       #   max_length: 750ms

@@ -1,18 +1,15 @@
-esphome:
-  name: ${devicename}
-
-ota:
-  password: !secret otapassword
-
 api:
-  password: !secret apipassword
   reboot_timeout: 0s
 
 wifi:
   reboot_timeout: 0s
 
-logger:
-  baud_rate: 0
-    
-web_server:
-  port: 80
+# logger:
+#   baud_rate: 0
+
+packages:
+  base-core:
+    ref: remote-packages
+    url: https://github.com/alexyao2015/ESPHomeYAML
+    files:
+      - yaml/core/core.yaml

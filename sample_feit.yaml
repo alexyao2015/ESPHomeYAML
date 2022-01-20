@@ -12,22 +12,26 @@ wifi:
     subnet: 255.255.255.0
 
 packages:
-  diyhue: !include yaml/lights/diyhue/core.yaml
-  device_model: !include yaml/lights/feit/core.yaml
-  lifx: !include yaml/lights/lifxemulation/core.yaml
-  wifi: !include yaml/wifi.yaml
+  device:
+    refresh: 0s
+    ref: remote-packages
+    url: https://github.com/alexyao2015/ESPHomeYAML
+    files:
+      - yaml/lights/feit/core.yaml
+#   diyhue: !include yaml/lights/diyhue/core.yaml
+#   lifx: !include yaml/lights/lifxemulation/core.yaml
 
-custom_component:
-  - lambda: |-
-      auto LifxLAN = new lifxUdp();
-      LifxLAN->set_bulbLabel( App.get_name().c_str() );
-      WiFi.macAddress(LifxLAN->mac);
+# custom_component:
+#   - lambda: |-
+#       auto LifxLAN = new lifxUdp();
+#       LifxLAN->set_bulbLabel( App.get_name().c_str() );
+#       WiFi.macAddress(LifxLAN->mac);
       
-      LifxLAN->bulbLocationTime = 1600530356000000000;
-      LifxLAN->set_bulbLocation( "My Home" );
-      LifxLAN->set_bulbLocationGUID( "c019266d-0535-4b57-86ef-aca609ee9915" );
-      LifxLAN->bulbGroupTime = 1600358586632000000;
-      LifxLAN->set_bulbGroup( "Outside" );
-      LifxLAN->set_bulbGroupGUID( "59d16606-0a70-4ba8-8d98-45521a6e1669" );
-      LifxLAN->beginUDP();
-      return {LifxLAN};
+#       LifxLAN->bulbLocationTime = 1600530356000000000;
+#       LifxLAN->set_bulbLocation( "My Home" );
+#       LifxLAN->set_bulbLocationGUID( "c019266d-0535-4b57-86ef-aca609ee9915" );
+#       LifxLAN->bulbGroupTime = 1600358586632000000;
+#       LifxLAN->set_bulbGroup( "Outside" );
+#       LifxLAN->set_bulbGroupGUID( "59d16606-0a70-4ba8-8d98-45521a6e1669" );
+#       LifxLAN->beginUDP();
+#       return {LifxLAN};

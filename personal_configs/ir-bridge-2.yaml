@@ -1,0 +1,47 @@
+substitutions:
+  devicename: ir-bridge-2
+  real_devicename: IR Bridge 2
+  button_inverted: "true"
+  button_gpio: GPIO13
+  led_inverted: "false"
+  led_gpio: GPIO4
+  ir_receiver_gpio: GPIO05
+  ir_receiver_inverted: "true"
+  ir_transmitter_gpio: GPIO14
+  ir_transmitter_inverted: "false"
+
+packages:
+  device:
+    refresh: 0s
+    ref: remote-packages
+    url: https://github.com/alexyao2015/ESPHomeYAML
+    files:
+      - yaml/sensors/tuya-ir-bridge/core.yaml
+
+script:
+  - id: on_gicable
+    then:
+
+  - id: on_xmp
+    then:
+
+  - id: on_raw
+    then:
+      - homeassistant.event:
+          event: esphome.${devicename}-raw-received
+          data_template:
+            code: !lambda |-
+              char buf[20];
+              std::string res;
+              res += "[";
+              size_t len = id(raw_data).size();
+              for (int i = 0; i < len; i++) {
+                if (i + 1 != len) {
+                  sprintf(buf, "%d,", id(raw_data).at(i));
+                } else {
+                  sprintf(buf, "%d ", id(raw_data).at(i));
+                }
+                res += buf;
+              }
+              res += "]";
+              return res;

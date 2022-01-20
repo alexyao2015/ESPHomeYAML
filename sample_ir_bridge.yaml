@@ -9,5 +9,9 @@ wifi:
     subnet: 255.255.255.0
 
 packages:
-  device_model: !include yaml/sensors/tuya-ir-bridge/core.yaml
-  wifi: !include yaml/wifi.yaml
+  device:
+    refresh: 0s
+    ref: remote-packages
+    url: https://github.com/alexyao2015/ESPHomeYAML
+    files:
+      - yaml/sensors/tuya-ir-bridge/core.yaml
