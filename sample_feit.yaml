@@ -14,7 +14,7 @@ wifi:
 packages:
   device:
     refresh: 0s
-    ref: remote-packages
+    ref: main
     url: https://github.com/alexyao2015/ESPHomeYAML
     files:
       - yaml/lights/feit/core.yaml

@@ -5,12 +5,12 @@ esphome:
 
 packages:
   core:
-    ref: remote-packages
+    ref: main
     url: https://github.com/alexyao2015/ESPHomeYAML
     files:
       - yaml/lights/core/core.yaml
   feit:
-    ref: remote-packages
+    ref: main
     url: https://github.com/alexyao2015/ESPHomeYAML
     files:
       - yaml/lights/feit/lights.yaml

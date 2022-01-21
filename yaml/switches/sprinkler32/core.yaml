@@ -4,12 +4,12 @@ esphome:
 
 packages:
   core:
-    ref: remote-packages
+    ref: main
     url: https://github.com/alexyao2015/ESPHomeYAML
     files:
       - yaml/switches/core/core.yaml
   sprinkler32:
-    ref: remote-packages
+    ref: main
     url: https://github.com/alexyao2015/ESPHomeYAML
     files:
       # - yaml/switches/sprinkler/buttons.yaml

@@ -5,12 +5,12 @@ esphome:
 
 packages:
   core:
-    ref: remote-packages
+    ref: main
     url: https://github.com/alexyao2015/ESPHomeYAML
     files:
       - yaml/switches/core/core.yaml
   kuled-switch:
-    ref: remote-packages
+    ref: main
     url: https://github.com/alexyao2015/ESPHomeYAML
     files:
       - yaml/switches/kuled-switch/buttons.yaml
