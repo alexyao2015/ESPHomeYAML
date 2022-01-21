@@ -11,7 +11,7 @@ esphome:
       # Need a delay for globals loop to save before committing
       - delay: 40ms
       - lambda: |-
-          global_preferences.sync();
+          global_preferences->sync();
       - delay: 30sec
       - lambda: |-
           id(boot_count) = 0;
