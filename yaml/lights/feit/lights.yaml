@@ -16,7 +16,8 @@ sm16716:
 #     pin: GPIO13
 
 output:
-  - id: rgb_power
+  - platform: gpio
+    id: rgb_power
     pin: GPIO13
     inverted: True
 
