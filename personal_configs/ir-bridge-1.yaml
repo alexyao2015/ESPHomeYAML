@@ -1,5 +1,7 @@
 substitutions:
+  # basement closet
   devicename: ir-bridge-1
+  device_name_id: ir_bridge_1
   real_devicename: IR Bridge 1
   button_inverted: "true"
   button_gpio: GPIO13
@@ -18,114 +20,87 @@ packages:
     files:
       - yaml/sensors/tuya-ir-bridge/core.yaml
 
-switch:
+button:
   - platform: template
     name: "Xiaomi Home"
-    id: xiaomi_home
-    optimistic: false
-    restore_state: false
-    turn_on_action:
+    id: ${device_name_id}_xiaomi_home
+    on_press:
       then:
         - remote_transmitter.transmit_raw:
             carrier_frequency: 36kHz
             code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1160,580,-580,580,-870,580,-1160,580,-12180]
-        - switch.turn_off: xiaomi_home
 
   - platform: template
     name: "Xiaomi Back"
-    id: xiaomi_back
-    optimistic: false
-    restore_state: false
-    turn_on_action:
+    id: ${device_name_id}_xiaomi_back
+    on_press:
       then:
         - remote_transmitter.transmit_raw:
             carrier_frequency: 36kHz
             code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-870,580,-1450,580,-1160,580,-870,580,-12180]
-        - switch.turn_off: xiaomi_back
 
   - platform: template
     name: "Xiaomi Up"
-    id: xiaomi_up
-    optimistic: false
-    restore_state: false
-    turn_on_action:
+    id: ${device_name_id}_xiaomi_up
+    on_press:
       then:
         - remote_transmitter.transmit_raw:
             carrier_frequency: 36kHz
             code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-870,580,-870,580,-1160,580,-1450,580,-12180]
-        - switch.turn_off: xiaomi_up
 
   - platform: template
     name: "Xiaomi Left"
-    id: xiaomi_left
-    optimistic: false
-    restore_state: false
-    turn_on_action:
+    id: ${device_name_id}_xiaomi_left
+    on_press:
       then:
         - remote_transmitter.transmit_raw:
             carrier_frequency: 36kHz
             code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1160,580,-1450,580,-870,580,-870,580,-12180]
-        - switch.turn_off: xiaomi_back
 
   - platform: template
     name: "Xiaomi Right"
-    id: xiaomi_right
-    optimistic: false
-    restore_state: false
-    turn_on_action:
+    id: ${device_name_id}_xiaomi_right
+    on_press:
       then:
         - remote_transmitter.transmit_raw:
             carrier_frequency: 36kHz
             code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-580,580,-580,580,-1160,580,-12180]
-        - switch.turn_off: xiaomi_back
 
   - platform: template
     name: "Xiaomi Down"
-    id: xiaomi_down
-    optimistic: false
-    restore_state: false
-    turn_on_action:
+    id: ${device_name_id}_xiaomi_down
+    on_press:
       then:
         - remote_transmitter.transmit_raw:
             carrier_frequency: 36kHz
             code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-870,580,-1160,580,-1160,580,-580,580,-12180]
-        - switch.turn_off: xiaomi_down
 
   - platform: template
     name: "Xiaomi Ok"
-    id: xiaomi_ok
-    optimistic: false
-    restore_state: false
-    turn_on_action:
+    id: ${device_name_id}_xiaomi_ok
+    on_press:
       then:
         - remote_transmitter.transmit_raw:
             carrier_frequency: 36kHz
             code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-870,580,-580,580,-1450,580,-12180]
-        - switch.turn_off: xiaomi_ok
 
   - platform: template
     name: "Xiaomi Vol Up"
-    id: xiaomi_vol_up
-    optimistic: false
-    restore_state: false
-    turn_on_action:
+    id: ${device_name_id}_xiaomi_vol_up
+    on_press:
       then:
         - remote_transmitter.transmit_raw:
             carrier_frequency: 36kHz
             code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-1160,580,-580,580,-580,580,-12180,1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-1160,580,-580,580,-580,580,-12180]
-        - switch.turn_off: xiaomi_back
 
   - platform: template
     name: "Xiaomi Vol Down"
-    id: xiaomi_vol_down
-    optimistic: false
-    restore_state: false
-    turn_on_action:
+    id: ${device_name_id}_xiaomi_vol_down
+    on_press:
       then:
         - remote_transmitter.transmit_raw:
             carrier_frequency: 36kHz
             code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-1450,580,-580,580,-870,580,-12180,1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-1450,580,-580,580,-870,580,-12180]
-        - switch.turn_off: xiaomi_vol_down
 
 binary_sensor:
   - platform: remote_receiver
@@ -135,7 +110,7 @@ binary_sensor:
       command: 0x16002700
     on_press:
       then:
-        - switch.turn_on: xiaomi_home
+        - button.press: ${device_name_id}_xiaomi_home
 
   - platform: remote_receiver
     name: "XMP Last -> Xiaomi Back"
@@ -144,7 +119,7 @@ binary_sensor:
       command: 0x19005100
     on_press:
       then:
-        - switch.turn_on: xiaomi_back
+        - button.press: ${device_name_id}_xiaomi_back
 
   - platform: remote_receiver
     name: "XMP UP Repeat -> Xiaomi UP"
@@ -153,7 +128,7 @@ binary_sensor:
       command: 0x14802100
     on_press:
       then:
-        - switch.turn_on: xiaomi_up
+        - button.press: ${device_name_id}_xiaomi_up
 
   - platform: remote_receiver
     name: "XMP Left Repeat -> Xiaomi Left"
@@ -162,7 +137,7 @@ binary_sensor:
       command: 0x12802300
     on_press:
       then:
-        - switch.turn_on: xiaomi_left
+        - button.press: ${device_name_id}_xiaomi_left
 
   - platform: remote_receiver
     name: "XMP Right Repeat -> Xiaomi Right"
@@ -171,7 +146,7 @@ binary_sensor:
       command: 0x11802400
     on_press:
       then:
-        - switch.turn_on: xiaomi_right
+        - button.press: ${device_name_id}_xiaomi_right
 
   - platform: remote_receiver
     name: "XMP Down Repeat -> Xiaomi Down"
@@ -180,7 +155,7 @@ binary_sensor:
       command: 0x13802200
     on_press:
       then:
-        - switch.turn_on: xiaomi_down
+        - button.press: ${device_name_id}_xiaomi_down
 
   - platform: remote_receiver
     name: "XMP Select -> Xiaomi Ok"
@@ -189,7 +164,7 @@ binary_sensor:
       command: 0x18002500
     on_press:
       then:
-        - switch.turn_on: xiaomi_ok
+        - button.press: ${device_name_id}_xiaomi_ok
 
   - platform: remote_receiver
     name: "NEC2 Vol Up Repeat -> Xiaomi Vol UP"
@@ -199,7 +174,7 @@ binary_sensor:
       repeat: true
     on_press:
       then:
-        - switch.turn_on: xiaomi_vol_up
+        - button.press: ${device_name_id}_xiaomi_vol_up
 
   - platform: remote_receiver
     name: "NEC2 Vol Down Repeat -> Xiaomi Vol Down"
@@ -209,33 +184,31 @@ binary_sensor:
       repeat: true
     on_press:
       then:
-        - switch.turn_on: xiaomi_vol_down
+        - button.press: ${device_name_id}_xiaomi_vol_down
 
 script:
   - id: on_gicable
     then:
       - homeassistant.event:
-          event: esphome.${devicename}-gicable-received
+          event: esphome.${device_name_id}-gicable-received
           data:
             code: !lambda |-
               char formatted[100];
               sprintf(formatted, "Received GiCable: command=0x%04X, repeat=%d", id(gicable_data).command, id(gicable_data).repeat);
               return std::string(formatted);
-
   - id: on_xmp
     then:
       - homeassistant.event:
-          event: esphome.${devicename}-xmp-received
+          event: esphome.${device_name_id}-xmp-received
           data:
             code: !lambda |-
               char formatted[100];
               sprintf(formatted, "Received XMP: address=0x%08X, command=0x%08X", id(xmp_data).address, id(xmp_data).command);
               return std::string(formatted);
-
   - id: on_raw
     then:
       - homeassistant.event:
-          event: esphome.${devicename}-raw-received
+          event: esphome.${device_name_id}-raw-received
           data_template:
             code: !lambda |-
               char buf[20];

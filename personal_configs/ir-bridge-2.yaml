@@ -1,4 +1,5 @@
 substitutions:
+  # upstairs tv
   devicename: ir-bridge-2
   real_devicename: IR Bridge 2
   button_inverted: "true"
