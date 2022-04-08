@@ -4,7 +4,7 @@ binary_sensor:
       number: ${button_gpio}
       mode: INPUT_PULLUP
       inverted: ${button_inverted}
-    id: button
+    id: button_onboard
     on_press:
       then:
         - light.turn_on:
