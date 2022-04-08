@@ -1,7 +1,6 @@
 substitutions:
   # basement closet
   devicename: ir-bridge-1
-  device_name_id: ir_bridge_1
   real_devicename: IR Bridge 1
   button_inverted: "true"
   button_gpio: GPIO13
@@ -22,8 +21,8 @@ packages:
 
 button:
   - platform: template
-    name: "Xiaomi Home"
-    id: ${device_name_id}_xiaomi_home
+    name: "${devicename}_Xiaomi Home"
+    id: xiaomi_home
     on_press:
       then:
         - remote_transmitter.transmit_raw:
@@ -31,8 +30,8 @@ button:
             code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1160,580,-580,580,-870,580,-1160,580,-12180]
 
   - platform: template
-    name: "Xiaomi Back"
-    id: ${device_name_id}_xiaomi_back
+    name: "${devicename}_Xiaomi Back"
+    id: xiaomi_back
     on_press:
       then:
         - remote_transmitter.transmit_raw:
@@ -40,8 +39,8 @@ button:
             code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-870,580,-1450,580,-1160,580,-870,580,-12180]
 
   - platform: template
-    name: "Xiaomi Up"
-    id: ${device_name_id}_xiaomi_up
+    name: "${devicename}_Xiaomi Up"
+    id: xiaomi_up
     on_press:
       then:
         - remote_transmitter.transmit_raw:
@@ -49,8 +48,8 @@ button:
             code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-870,580,-870,580,-1160,580,-1450,580,-12180]
 
   - platform: template
-    name: "Xiaomi Left"
-    id: ${device_name_id}_xiaomi_left
+    name: "${devicename}_Xiaomi Left"
+    id: xiaomi_left
     on_press:
       then:
         - remote_transmitter.transmit_raw:
@@ -58,8 +57,8 @@ button:
             code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1160,580,-1450,580,-870,580,-870,580,-12180]
 
   - platform: template
-    name: "Xiaomi Right"
-    id: ${device_name_id}_xiaomi_right
+    name: "${devicename}_Xiaomi Right"
+    id: xiaomi_right
     on_press:
       then:
         - remote_transmitter.transmit_raw:
@@ -67,8 +66,8 @@ button:
             code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-580,580,-580,580,-1160,580,-12180]
 
   - platform: template
-    name: "Xiaomi Down"
-    id: ${device_name_id}_xiaomi_down
+    name: "${devicename}_Xiaomi Down"
+    id: xiaomi_down
     on_press:
       then:
         - remote_transmitter.transmit_raw:
@@ -76,8 +75,8 @@ button:
             code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-870,580,-1160,580,-1160,580,-580,580,-12180]
 
   - platform: template
-    name: "Xiaomi Ok"
-    id: ${device_name_id}_xiaomi_ok
+    name: "${devicename}_Xiaomi Ok"
+    id: xiaomi_ok
     on_press:
       then:
         - remote_transmitter.transmit_raw:
@@ -85,8 +84,8 @@ button:
             code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-870,580,-580,580,-1450,580,-12180]
 
   - platform: template
-    name: "Xiaomi Vol Up"
-    id: ${device_name_id}_xiaomi_vol_up
+    name: "${devicename}_Xiaomi Vol Up"
+    id: xiaomi_vol_up
     on_press:
       then:
         - remote_transmitter.transmit_raw:
@@ -94,8 +93,8 @@ button:
             code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-1160,580,-580,580,-580,580,-12180,1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-1160,580,-580,580,-580,580,-12180]
 
   - platform: template
-    name: "Xiaomi Vol Down"
-    id: ${device_name_id}_xiaomi_vol_down
+    name: "${devicename}_Xiaomi Vol Down"
+    id: xiaomi_vol_down
     on_press:
       then:
         - remote_transmitter.transmit_raw:
@@ -104,93 +103,93 @@ button:
 
 binary_sensor:
   - platform: remote_receiver
-    name: "XMP Guide Button -> Xiaomi Home"
+    name: "${devicename}_XMP Guide Button -> Xiaomi Home"
     xmp:
       address: 0x170F443E
       command: 0x16002700
     on_press:
       then:
-        - button.press: ${device_name_id}_xiaomi_home
+        - button.press: xiaomi_home
 
   - platform: remote_receiver
-    name: "XMP Last -> Xiaomi Back"
+    name: "${devicename}_XMP Last -> Xiaomi Back"
     xmp:
       address: 0x170F443E
       command: 0x19005100
     on_press:
       then:
-        - button.press: ${device_name_id}_xiaomi_back
+        - button.press: xiaomi_back
 
   - platform: remote_receiver
-    name: "XMP UP Repeat -> Xiaomi UP"
+    name: "${devicename}_XMP UP Repeat -> Xiaomi UP"
     xmp:
       address: 0x170F443E
       command: 0x14802100
     on_press:
       then:
-        - button.press: ${device_name_id}_xiaomi_up
+        - button.press: xiaomi_up
 
   - platform: remote_receiver
-    name: "XMP Left Repeat -> Xiaomi Left"
+    name: "${devicename}_XMP Left Repeat -> Xiaomi Left"
     xmp:
       address: 0x170F443E
       command: 0x12802300
     on_press:
       then:
-        - button.press: ${device_name_id}_xiaomi_left
+        - button.press: xiaomi_left
 
   - platform: remote_receiver
-    name: "XMP Right Repeat -> Xiaomi Right"
+    name: "${devicename}_XMP Right Repeat -> Xiaomi Right"
     xmp:
       address: 0x170F443E
       command: 0x11802400
     on_press:
       then:
-        - button.press: ${device_name_id}_xiaomi_right
+        - button.press: xiaomi_right
 
   - platform: remote_receiver
-    name: "XMP Down Repeat -> Xiaomi Down"
+    name: "${devicename}_XMP Down Repeat -> Xiaomi Down"
     xmp:
       address: 0x170F443E
       command: 0x13802200
     on_press:
       then:
-        - button.press: ${device_name_id}_xiaomi_down
+        - button.press: xiaomi_down
 
   - platform: remote_receiver
-    name: "XMP Select -> Xiaomi Ok"
+    name: "${devicename}_XMP Select -> Xiaomi Ok"
     xmp:
       address: 0x170F443E
       command: 0x18002500
     on_press:
       then:
-        - button.press: ${device_name_id}_xiaomi_ok
+        - button.press: xiaomi_ok
 
   - platform: remote_receiver
-    name: "NEC2 Vol Up Repeat -> Xiaomi Vol UP"
+    name: "${devicename}_NEC2 Vol Up Repeat -> Xiaomi Vol UP"
     nec2:
       address: 0x20DF
       command: 0x40BF
       repeat: true
     on_press:
       then:
-        - button.press: ${device_name_id}_xiaomi_vol_up
+        - button.press: xiaomi_vol_up
 
   - platform: remote_receiver
-    name: "NEC2 Vol Down Repeat -> Xiaomi Vol Down"
+    name: "${devicename}_NEC2 Vol Down Repeat -> Xiaomi Vol Down"
     nec2:
       address: 0x20DF
       command: 0xC03F
       repeat: true
     on_press:
       then:
-        - button.press: ${device_name_id}_xiaomi_vol_down
+        - button.press: xiaomi_vol_down
 
 script:
   - id: on_gicable
     then:
       - homeassistant.event:
-          event: esphome.${device_name_id}-gicable-received
+          event: esphome.${devicename}-gicable-received
           data:
             code: !lambda |-
               char formatted[100];
@@ -199,7 +198,7 @@ script:
   - id: on_xmp
     then:
       - homeassistant.event:
-          event: esphome.${device_name_id}-xmp-received
+          event: esphome.${devicename}-xmp-received
           data:
             code: !lambda |-
               char formatted[100];
@@ -208,7 +207,7 @@ script:
   - id: on_raw
     then:
       - homeassistant.event:
-          event: esphome.${device_name_id}-raw-received
+          event: esphome.${devicename}-raw-received
           data_template:
             code: !lambda |-
               char buf[20];
