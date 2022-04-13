@@ -101,66 +101,93 @@ button:
             carrier_frequency: 36kHz
             code: [1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-1450,580,-580,580,-870,580,-12180,1000,-580,580,-1160,580,-580,580,-870,580,-1160,580,-580,580,-580,580,-1450,580,-1450,580,-580,580,-870,580,-12180]
 
+  - platform: template
+    name: "${devicename}_LG Power"
+    id: lg_power
+    on_press:
+      then:
+        - remote_transmitter.transmit_nec:
+            address: 0xFB04
+            command: 0xF708
+
+  - platform: template
+    name: "${devicename}_LG Volume Up"
+    id: lg_vol_up
+    on_press:
+      then:
+        - remote_transmitter.transmit_nec:
+            address: 0x20DF
+            command: 0x40BF
+
+  - platform: template
+    name: "${devicename}_LG Volume Down"
+    id: lg_vol_down
+    on_press:
+      then:
+        - remote_transmitter.transmit_nec:
+            address: 0x20DF
+            command: 0xC03F
+
 binary_sensor:
   - platform: remote_receiver
-    name: "${devicename}_XMP Guide Button -> Xiaomi Home"
-    xmp:
-      address: 0x170F443E
-      command: 0x16002700
+    name: "${devicename}_GiCable Guide Button -> Xiaomi Home"
+    gicable:
+      command: 0x0C0B
+      repeat: false
     on_press:
       then:
         - button.press: xiaomi_home
 
   - platform: remote_receiver
-    name: "${devicename}_XMP Last -> Xiaomi Back"
-    xmp:
-      address: 0x170F443E
-      command: 0x19005100
+    name: "${devicename}_GiCable Last -> Xiaomi Back"
+    gicable:
+      command: 0xC803
+      repeat: false
     on_press:
       then:
         - button.press: xiaomi_back
 
   - platform: remote_receiver
-    name: "${devicename}_XMP UP Repeat -> Xiaomi UP"
-    xmp:
-      address: 0x170F443E
-      command: 0x14802100
+    name: "${devicename}_GiCable UP -> Xiaomi UP"
+    gicable:
+      command: 0x2C09
+      repeat: false
     on_press:
       then:
         - button.press: xiaomi_up
 
   - platform: remote_receiver
-    name: "${devicename}_XMP Left Repeat -> Xiaomi Left"
-    xmp:
-      address: 0x170F443E
-      command: 0x12802300
+    name: "${devicename}_GiCable Left -> Xiaomi Left"
+    gicable:
+      command: 0x6C0E
+      repeat: false
     on_press:
       then:
         - button.press: xiaomi_left
 
   - platform: remote_receiver
-    name: "${devicename}_XMP Right Repeat -> Xiaomi Right"
-    xmp:
-      address: 0x170F443E
-      command: 0x11802400
+    name: "${devicename}_GiCable Right -> Xiaomi Right"
+    gicable:
+      command: 0xEC06
+      repeat: false
     on_press:
       then:
         - button.press: xiaomi_right
 
   - platform: remote_receiver
-    name: "${devicename}_XMP Down Repeat -> Xiaomi Down"
-    xmp:
-      address: 0x170F443E
-      command: 0x13802200
+    name: "${devicename}_GiCable Down -> Xiaomi Down"
+    gicable:
+      command: 0xAC01
+      repeat: false
     on_press:
       then:
         - button.press: xiaomi_down
 
   - platform: remote_receiver
-    name: "${devicename}_XMP Select -> Xiaomi Ok"
-    xmp:
-      address: 0x170F443E
-      command: 0x18002500
+    name: "${devicename}_GiCable Select -> Xiaomi Ok"
+    gicable:
+      command: 0x8807
+      repeat: false
     on_press:
       then:
         - button.press: xiaomi_ok
@@ -168,7 +195,7 @@ binary_sensor:
   - platform: remote_receiver
     name: "${devicename}_NEC2 Vol Up Repeat -> Xiaomi Vol UP"
     nec2:
-      address: 0x20DF
+      address: 0x0AF5
       command: 0x40BF
       repeat: true
     on_press:
@@ -178,12 +205,49 @@ binary_sensor:
   - platform: remote_receiver
     name: "${devicename}_NEC2 Vol Down Repeat -> Xiaomi Vol Down"
     nec2:
-      address: 0x20DF
-      command: 0xC03F
+      address: 0x0AF5
+      command: 0xA857
       repeat: true
     on_press:
       then:
         - button.press: xiaomi_vol_down
+
+  - platform: remote_receiver
+    name: "${devicename}_GiCable Channel Up -> LG Vol Up"
+    gicable:
+      command: 0xD00A
+      repeat: true
+    on_press:
+      then:
+        - button.press: lg_vol_up
+
+  - platform: remote_receiver
+    name: "${devicename}_GiCable Channel Down -> LG Vol Down"
+    gicable:
+      command: 0x3002
+      repeat: true
+    on_press:
+      then:
+        - button.press: lg_vol_down
+  
+  - platform: remote_receiver
+    name: "${devicename}_GiCable Cable Power -> LG Power"
+    gicable:
+      command: 0x5006
+      repeat: false
+    on_press:
+      then:
+        - button.press: lg_power
+  
+  - platform: remote_receiver
+    name: "${devicename}_GiCable TV Power -> LG Power"
+    nec2:
+      address: 0x0AF5
+      command: 0xE817
+      repeat: true
+    on_press:
+      then:
+        - button.press: lg_power  
 
 script:
   - id: on_gicable
