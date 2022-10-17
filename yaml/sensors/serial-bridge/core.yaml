@@ -11,7 +11,7 @@ packages:
     url: https://github.com/alexyao2015/ESPHomeYAML
     files:
       - yaml/sensors/core/core.yaml
-  sprinkler32:
+  serial-bridge:
     ref: main
     url: https://github.com/alexyao2015/ESPHomeYAML
     files:
