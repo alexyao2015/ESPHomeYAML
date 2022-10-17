@@ -35,4 +35,16 @@ wifi:
     password: !secret ap-password
   domain: !secret wifi-domain
 
+sensor:
+  - platform: wifi_signal
+    name: "${real_devicename} WiFi Signal"
+    update_interval: 60s
+
+text_sensor:
+  - platform: wifi_info
+    ip_address:
+      name: "${real_devicename} IP Address"
+  - platform: version
+    name: "${real_devicename} ESPHome Version"
+
 captive_portal:
