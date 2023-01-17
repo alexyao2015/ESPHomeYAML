@@ -3,7 +3,6 @@ esphome:
   board: node32s
 
 logger:
-  baud_rate: 0
 
 packages:
   # no onboard led so no need to include led pulsing
