@@ -1,5 +1,4 @@
-esphome:
-  platform: ESP32
+esp32:
   board: node32s
 
 logger:
