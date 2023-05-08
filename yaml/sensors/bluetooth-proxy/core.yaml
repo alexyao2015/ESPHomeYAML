@@ -1,0 +1,17 @@
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+
+packages:
+  core:
+    ref: main
+    url: https://github.com/alexyao2015/ESPHomeYAML
+    files:
+      - yaml/sensors/core/core.yaml
+  bluetooth-proxy:
+    ref: main
+    url: https://github.com/alexyao2015/ESPHomeYAML
+    files:
+      - yaml/sensors/bluetooth-proxy/proxy.yaml
+      - yaml/sensors/bluetooth-proxy/led.yaml
