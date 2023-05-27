@@ -9,43 +9,10 @@ globals:
     restore_value: no
     initial_value: '0'
 
-  - id: relay_status # relay number if activated; else 0; currently only using 1 and 0 until figure out a solution to get relay number
-    type: int
-    restore_value: no
-    initial_value: '0'
-
 font:
   - file: "arial.ttf"
     id: arial
     size: 12
-
-script:
-  - id: update_relay_state
-    then:
-      - lambda: |-
-          if (id(template_relay_1).state) {
-            id(relay_status) = 1;
-          } else if (id(template_relay_2).state) {
-            id(relay_status) = 2;
-          } else if (id(template_relay_3).state) {
-            id(relay_status) = 3;
-          } else if (id(template_relay_4).state) {
-            id(relay_status) = 4;
-          } else if (id(template_relay_5).state) {
-            id(relay_status) = 5;
-          } else if (id(template_relay_6).state) {
-            id(relay_status) = 6;
-          } else if (id(template_relay_7).state) {
-            id(relay_status) = 7;
-          } else if (id(template_relay_8).state) {
-            id(relay_status) = 8;
-          } else if (id(template_relay_9).state) {
-            id(relay_status) = 9;
-          } else if (id(template_relay_10).state) {
-            id(relay_status) = 10;
-          } else {
-            id(relay_status) = 0;
-          }
 
 display:
   - platform: ssd1306_i2c
@@ -91,7 +58,7 @@ interval:
           condition:
             - lambda: 'return id(hold_screen) == 0;'
           then:
-            - script.execute: update_relay_state
-            - script.wait: update_relay_state
+            - script.execute: update_relay_active
+            - script.wait: update_relay_active
             - display.page.show_next: display_1
             - component.update: display_1
