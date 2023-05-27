@@ -85,9 +85,9 @@ script:
           const std::vector<switch_::Switch *>& switch_list = App.get_switches();
           std::string target_switch_name = "template_relay_" + to_string(id(template_relay_id));
 
-          for (switch_::Switch* const switch_loop : switch_list) {
-            if (switch_loop->get_object_id() == target_switch_name) {
-              switch_loop->turn_on();
+          for (switch_::Switch* const switch_obj : switch_list) {
+            if (switch_obj->get_object_id() == target_switch_name) {
+              switch_obj->turn_on();
               break;
             }
           }
@@ -98,9 +98,9 @@ script:
           const std::vector<switch_::Switch *>& switch_list = App.get_switches();
           std::string target_switch_name = "template_relay_" + to_string(id(template_relay_id));
 
-          for (switch_::Switch* const switch_loop : switch_list) {
-            if (switch_loop->get_object_id() == target_switch_name) {
-              switch_loop->turn_off();
+          for (switch_::Switch* const switch_obj : switch_list) {
+            if (switch_obj->get_object_id() == target_switch_name) {
+              switch_obj->turn_off();
               break;
             }
           }
@@ -108,14 +108,16 @@ script:
   - id: update_relay_active # updates variable 'relay_active' to ensure relay on led is accurate
     then:
       - lambda: |-
+          const std::vector<switch_::Switch *>& switch_list = App.get_switches();
           bool found = false;
-          for (switch_::Switch* const switch : switch_list) {
+
+          for (switch_::Switch* const switch_obj : switch_list) {
             // only care about template switches
-            if (switch->get_object_id().rfind("template_relay_", 0) == 0) {
+            if (switch_obj->get_object_id().rfind("template_relay_", 0) == 0) {
               // check if the switch is on
-              if (switch.state) {
+              if (switch_obj->state) {
                 // get the number of the relay that is active
-                id(relay_active) = stoi(switch->get_object_id().substr(15))
+                id(relay_active) = stoi(switch_obj->get_object_id().substr(15));
                 found = true;
                 break;
               }
