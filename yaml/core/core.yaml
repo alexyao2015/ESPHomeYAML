@@ -48,4 +48,8 @@ text_sensor:
   - platform: version
     name: "${real_devicename} ESPHome Version"
 
+button:
+  - platform: restart
+    name: "${real_devicename} Restart"
+
 captive_portal:
