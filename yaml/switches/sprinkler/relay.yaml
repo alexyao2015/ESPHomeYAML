@@ -15,7 +15,6 @@ switch:
       mcp23xxx: mcp23017_hub
       number: 0
       mode: OUTPUT
-      inverted: True
   - platform: gpio
     id: relay_2
     interlock: *interlock_group
