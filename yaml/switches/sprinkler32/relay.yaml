@@ -19,7 +19,6 @@ switch:
     pin:
       number: GPIO18
       mode: OUTPUT
-      inverted: True
   - platform: gpio
     id: relay_4
     interlock: *interlock_group
