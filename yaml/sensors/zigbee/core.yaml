@@ -22,3 +22,4 @@ packages:
       - yaml/sensors/zigbee/buttons.yaml
       - yaml/sensors/zigbee/ethernet.yaml
       - yaml/sensors/zigbee/i2c.yaml
+      - yaml/sensors/zigbee/led.yaml
