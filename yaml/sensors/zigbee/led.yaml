@@ -1,0 +1,52 @@
+# Define led output pin
+output:
+  - platform: ledc
+    id: red_led
+    inverted: True
+    pin: GPIO15
+  - platform: ledc
+    id: green_led
+    inverted: True
+    pin: GPIO14
+
+# Setup light
+light:
+  - platform: monochromatic
+    id: led_1
+    output: red_led
+    default_transition_length: 0s
+    restore_mode: ALWAYS_OFF
+  - platform: monochromatic
+    id: led_2
+    output: green_led
+    default_transition_length: 0s
+    restore_mode: ALWAYS_OFF
+
+script:
+  - id: pulse_led_standard_wifi
+    then:
+      - light.turn_on:
+          id: led_1
+          brightness: 100%
+          transition_length: 1s
+      - delay: 1s
+      - light.turn_off:
+          id: led_1
+          transition_length: 750ms
+      - delay: 750ms
+
+  - id: pulse_led_standard_api
+    then:
+      - light.turn_on:
+          id: led_2
+          brightness: 100%
+          transition_length: 250ms
+      - delay: 250ms
+      - light.turn_on:
+          id: led_2
+          brightness: 50%
+          transition_length: 250ms
+      - delay: 250ms
+      - light.turn_off:
+          id: led_2
+          transition_length: 750ms
