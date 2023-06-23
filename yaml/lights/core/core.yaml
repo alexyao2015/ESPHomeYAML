@@ -8,8 +8,9 @@ wifi:
 #   baud_rate: 0
 
 packages:
-  base-core:
+  core:
     ref: main
     url: https://github.com/alexyao2015/ESPHomeYAML
     files:
+      # core
       - yaml/core/core.yaml

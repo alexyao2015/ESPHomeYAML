@@ -6,11 +6,9 @@ packages:
     ref: main
     url: https://github.com/alexyao2015/ESPHomeYAML
     files:
+      # core
       - yaml/switches/core/core.yaml
-  sprinkler32:
-    ref: main
-    url: https://github.com/alexyao2015/ESPHomeYAML
-    files:
+      # sprinkler32
       # - yaml/switches/sprinkler/buttons.yaml
       - yaml/switches/sprinkler32/display.yaml
       - yaml/switches/sprinkler32/led.yaml

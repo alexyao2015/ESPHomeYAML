@@ -6,12 +6,9 @@ packages:
     ref: main
     url: https://github.com/alexyao2015/ESPHomeYAML
     files:
+      # core
       - yaml/core/core.yaml
-
-  core:
-    ref: main
-    url: https://github.com/alexyao2015/ESPHomeYAML
-    files:
+      # switches
       - yaml/switches/core/globals.yaml
       - yaml/switches/core/interval.yaml
       - yaml/switches/core/scripts.yaml

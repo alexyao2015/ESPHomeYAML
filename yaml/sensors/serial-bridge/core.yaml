@@ -9,10 +9,8 @@ packages:
     ref: main
     url: https://github.com/alexyao2015/ESPHomeYAML
     files:
+      # core
       - yaml/sensors/core/core.yaml
-  serial-bridge:
-    ref: main
-    url: https://github.com/alexyao2015/ESPHomeYAML
-    files:
+      # serial-bridge:
       - yaml/sensors/serial-bridge/bridge.yaml
       - yaml/sensors/serial-bridge/led.yaml

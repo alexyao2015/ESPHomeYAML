@@ -7,10 +7,8 @@ packages:
     ref: main
     url: https://github.com/alexyao2015/ESPHomeYAML
     files:
+      # core
       - yaml/lights/core/core.yaml
-  feit:
-    ref: main
-    url: https://github.com/alexyao2015/ESPHomeYAML
-    files:
+      # feit
       - yaml/lights/feit/lights.yaml
       - yaml/lights/feit/poweron.yaml

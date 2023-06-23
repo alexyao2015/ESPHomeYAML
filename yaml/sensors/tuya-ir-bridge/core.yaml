@@ -7,11 +7,9 @@ packages:
     ref: main
     url: https://github.com/alexyao2015/ESPHomeYAML
     files:
+      # core
       - yaml/sensors/core/core.yaml
-  tuya-ir-bridge:
-    ref: main
-    url: https://github.com/alexyao2015/ESPHomeYAML
-    files:
+      # tuya-ir-bridge
       - yaml/sensors/tuya-ir-bridge/buttons.yaml
       - yaml/sensors/tuya-ir-bridge/led.yaml
       - yaml/sensors/tuya-ir-bridge/remote.yaml

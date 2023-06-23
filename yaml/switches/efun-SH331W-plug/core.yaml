@@ -7,11 +7,9 @@ packages:
     ref: main
     url: https://github.com/alexyao2015/ESPHomeYAML
     files:
+      # core
       - yaml/switches/core/core.yaml
-  efun-SH331W-plug:
-    ref: main
-    url: https://github.com/alexyao2015/ESPHomeYAML
-    files:
+      # efun-SH331W-plug
       - yaml/switches/efun-SH331W-plug/buttons.yaml
       - yaml/switches/efun-SH331W-plug/led.yaml
       - yaml/switches/efun-SH331W-plug/relay.yaml
