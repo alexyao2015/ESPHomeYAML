@@ -1,3 +1,6 @@
+esp32:
+  board: esp-wrover-kit
+
 esphome:
   on_boot:
     priority: 600
