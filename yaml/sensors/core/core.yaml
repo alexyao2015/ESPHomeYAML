@@ -7,7 +7,7 @@ packages:
     url: https://github.com/alexyao2015/ESPHomeYAML
     files:
       # core
-      - yaml/core/core.yaml
+      - yaml/core-wifi/core.yaml
       # sensors
       - yaml/sensors/core/globals.yaml
       - yaml/sensors/core/scripts.yaml

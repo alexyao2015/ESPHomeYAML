@@ -28,28 +28,10 @@ web_server:
     username: !secret web-user
     password: !secret web-password
 
-wifi:
-  ssid: !secret ssid
-  password: !secret ssid-password
-  ap:
-    ssid: "ESPHome ${real_devicename}"
-    password: !secret ap-password
-  domain: !secret wifi-domain
-
-sensor:
-  - platform: wifi_signal
-    name: "${real_devicename} WiFi Signal"
-    update_interval: 60s
-
-text_sensor:
-  - platform: wifi_info
-    ip_address:
-      name: "${real_devicename} IP Address"
-  - platform: version
-    name: "${real_devicename} ESPHome Version"
-
 button:
   - platform: restart
     name: "${real_devicename} Restart"
 
-captive_portal:
+text_sensor:
+  - platform: version
+    name: "${real_devicename} ESPHome Version"
