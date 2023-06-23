@@ -4,13 +4,10 @@ esp32:
     type: esp-idf
 
 esphome:
-  name: ${name}
-  comment: ${device_description}
   on_boot:
     priority: 600
     then:
-      - switch.turn_off: download_mode
-      - switch.turn_on: zigbee_reset
+      - button.press: zigbee_reset
 
 packages:
   # no onboard led so no need to include led pulsing
@@ -22,6 +19,6 @@ packages:
       - yaml/core-wired/core.yaml
       # zigbee bridge
       - yaml/sensors/zigbee/bridge.yaml
+      - yaml/sensors/zigbee/buttons.yaml
       - yaml/sensors/zigbee/ethernet.yaml
       - yaml/sensors/zigbee/i2c.yaml
-      - yaml/sensors/zigbee/switches.yaml

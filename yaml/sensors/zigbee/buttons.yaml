@@ -25,7 +25,8 @@ button:
       - switch.turn_off: download_mode
 
   - platform: template
-    name: "${real_devicename} Zigbee Reset Button"
+    name: "${real_devicename} Zigbee Reset"
+    id: zigbee_reset
     on_press:
       - switch.turn_on: zigbee_rst
       - delay: 10ms
