@@ -4,6 +4,7 @@ ethernet:
   mdio_pin: GPIO18
   clk_mode: GPIO0_IN
   phy_addr: 0
+  domain: !secret wifi-domain
 
 text_sensor:
   - platform: ethernet_info
