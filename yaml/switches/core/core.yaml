@@ -6,8 +6,6 @@ packages:
     ref: main
     url: https://github.com/alexyao2015/ESPHomeYAML
     files:
-      # core
-      - yaml/core-wifi/core.yaml
       # switches
       - yaml/switches/core/globals.yaml
       - yaml/switches/core/interval.yaml

@@ -1,0 +1,5 @@
+api:
+  reboot_timeout: 0s
+
+wifi:
+  reboot_timeout: 0s

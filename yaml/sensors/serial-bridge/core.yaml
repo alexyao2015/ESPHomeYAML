@@ -10,6 +10,8 @@ packages:
     url: https://github.com/alexyao2015/ESPHomeYAML
     files:
       # core
+      - yaml/core-wifi/core.yaml
+      # core-sensor
       - yaml/sensors/core/core.yaml
       # serial-bridge:
       - yaml/sensors/serial-bridge/bridge.yaml
