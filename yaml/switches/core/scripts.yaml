@@ -12,7 +12,7 @@ script:
   - id: pulse_led
     then:
       - lambda: |-
-          if (!(wifi_wificomponent->is_connected())) {
+          if (!(network::is_connected())) {
             id(connection_status) = 1;
           } else if (!(api_apiserver->is_connected())) {
             id(connection_status) = 2;
