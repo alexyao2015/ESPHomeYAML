@@ -1,0 +1,32 @@
+switch:
+  # SM-011 V1.0 nRST
+  - platform: gpio
+    id: zigbee_rst
+    pin: GPIO13
+    name: "${name} Zigbee nRST"
+    inverted: true
+    internal: true
+    restore_mode: ALWAYS_OFF
+
+  # SM-011 V1.0 PA00
+  - platform: gpio
+    id: download_mode
+    pin: GPIO12
+    name: "${name} Zigbee Download Mode"
+    inverted: true
+    restore_mode: ALWAYS_OFF
+
+button:
+  - platform: template
+    name: "${real_devicename} Enable Pairing Mode"
+    on_press:
+      - switch.turn_on: download_mode
+      - delay: 5s
+      - switch.turn_off: download_mode
+
+  - platform: template
+    name: "${real_devicename} Zigbee Reset Button"
+    on_press:
+      - switch.turn_on: zigbee_rst
+      - delay: 10ms
+      - switch.turn_off: zigbee_rst
