@@ -26,6 +26,7 @@ binary_sensor:
   - platform: stream_server
     connected:
       name: "Serial Connected"
+      id: serial_connected
       on_press:
         then:
           - light.turn_on:
@@ -38,7 +39,31 @@ binary_sensor:
               id: led_1
               transition_length: 0ms
 
+interval:
+  - interval: 20ms
+    then:
+      - if:
+          condition:
+            and:
+              - binary_sensor.is_on: serial_connected
+              - not:
+                  - script.is_running: pulse_connected_led
+          then:
+            - script.execute: pulse_connected_led
+
 script:
+  - id: pulse_connected_led
+    then:
+      - light.turn_on:
+          id: led_1
+          brightness: 100%
+          transition_length: 250ms
+      - delay: 1s
+      - light.turn_off:
+          id: led_1
+          transition_length: 250ms
+      - delay: 250ms
+
   - id: pulse_zigbee_led
     mode: queued
     max_runs: 2
@@ -51,3 +76,4 @@ script:
       - light.turn_off:
           id: led_2
           transition_length: 0ms
+      - delay: 50ms
