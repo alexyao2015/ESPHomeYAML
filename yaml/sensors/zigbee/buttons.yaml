@@ -16,14 +16,14 @@ switch:
 
 button:
   - platform: template
-    name: "${real_devicename} Enable Pairing Mode"
+    name: "Enable Pairing Mode"
     on_press:
       - switch.turn_on: download_mode
       - delay: 5s
       - switch.turn_off: download_mode
 
   - platform: template
-    name: "${real_devicename} Zigbee Reset"
+    name: "Zigbee Reset"
     id: zigbee_reset
     on_press:
       - switch.turn_on: zigbee_rst
