@@ -16,13 +16,7 @@ uart:
       timeout: 100ms
     sequence:
       - lambda: UARTDebug::log_hex(direction, bytes, ' ');
-      - if:
-          condition:
-            lambda: "return (direction == uart::UART_DIRECTION_RX);"
-          then:
-            - script.execute: pulse_zigbee_led_tx
-          else:
-            - script.execute: pulse_zigbee_led_rx
+      - script.execute: pulse_zigbee_led
 
 stream_server:
   uart_id: uart_bus
@@ -32,22 +26,20 @@ binary_sensor:
   - platform: stream_server
     connected:
       name: "Serial Connected"
+      on_press:
+        then:
+          - light.turn_on:
+              id: led_1
+              brightness: 100%
+              transition_length: 0ms
+      on_release:
+        then:
+          - light.turn_off:
+              id: led_1
+              transition_length: 0ms
 
 script:
-  - id: pulse_zigbee_led_tx
-    mode: queued
-    max_runs: 2
-    then:
-      - light.turn_on:
-          id: led_1
-          brightness: 100%
-          transition_length: 0ms
-      - delay: 50ms
-      - light.turn_off:
-          id: led_1
-          transition_length: 0ms
-
-  - id: pulse_zigbee_led_rx
+  - id: pulse_zigbee_led
     mode: queued
     max_runs: 2
     then:
