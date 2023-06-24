@@ -24,19 +24,14 @@ stream_server:
 
 script:
   - id: pulse_zigbee_led
-    mode: restart
+    mode: queued
+    max_runs: 2
     then:
       - light.turn_on:
           id: led_2
           brightness: 100%
-          transition_length: 50ms
-      - light.turn_off:
-          id: led_2
           transition_length: 0ms
-      - light.turn_on:
-          id: led_2
-          brightness: 100%
-          transition_length: 50ms
+      - delay: 50ms
       - light.turn_off:
           id: led_2
           transition_length: 0ms
