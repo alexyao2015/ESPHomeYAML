@@ -28,6 +28,11 @@ stream_server:
   uart_id: uart_bus
   port: 6638
 
+binary_sensor:
+  - platform: stream_server
+    connected:
+      name: "Serial Connected"
+
 script:
   - id: pulse_zigbee_led_tx
     mode: queued
