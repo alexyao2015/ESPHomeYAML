@@ -8,12 +8,12 @@ wifi:
 
 sensor:
   - platform: wifi_signal
-    name: "${real_devicename} WiFi Signal"
+    name: "WiFi Signal"
     update_interval: 60s
 
 text_sensor:
   - platform: wifi_info
     ip_address:
-      name: "${real_devicename} IP Address"
+      name: "IP Address"
 
 captive_portal:

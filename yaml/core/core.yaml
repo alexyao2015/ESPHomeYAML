@@ -30,8 +30,8 @@ web_server:
 
 button:
   - platform: restart
-    name: "${real_devicename} Restart"
+    name: "Restart"
 
 text_sensor:
   - platform: version
-    name: "${real_devicename} ESPHome Version"
+    name: "ESPHome Version"
