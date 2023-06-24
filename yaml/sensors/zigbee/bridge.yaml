@@ -16,7 +16,52 @@ uart:
       timeout: 100ms
     sequence:
       - lambda: UARTDebug::log_hex(direction, bytes, ' ');
+      - script.execute: set_zigbee_usage
 
 stream_server:
   uart_id: uart_bus
   port: 6638
+
+globals:
+  - id: zigbee_status # 0 if all not working, 1 if working
+    type: int
+    restore_value: no
+    initial_value: "0"
+
+interval:
+  - interval: 20ms
+    then:
+      - if:
+          condition:
+            not:
+              - script.is_running: pulse_zigbee_led
+          then:
+            - script.execute: pulse_zigbee_led
+
+script:
+  - id: set_zigbee_usage
+    mode: restart
+    then:
+      - lambda: id(zigbee_status) = 1;
+      - delay: 150ms
+      - lambda: id(zigbee_status) = 0;
+
+  - id: pulse_zigbee_led
+    then:
+      - if:
+          condition:
+            lambda: "return (id(zigbee_status) == 1);"
+          then:
+            - light.turn_on:
+                id: led_2
+                brightness: 100%
+                transition_length: 250ms
+            - delay: 250ms
+            - light.turn_on:
+                id: led_2
+                brightness: 50%
+                transition_length: 250ms
+            - delay: 250ms
+            - light.turn_off:
+                id: led_2
+                transition_length: 750ms

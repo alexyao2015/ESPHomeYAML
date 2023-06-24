@@ -38,15 +38,15 @@ script:
   - id: pulse_led_standard_api
     then:
       - light.turn_on:
-          id: led_2
+          id: led_1
           brightness: 100%
           transition_length: 250ms
       - delay: 250ms
       - light.turn_on:
-          id: led_2
+          id: led_1
           brightness: 50%
           transition_length: 250ms
       - delay: 250ms
       - light.turn_off:
-          id: led_2
+          id: led_1
           transition_length: 750ms
