@@ -5,6 +5,6 @@ globals:
     initial_value: "false"
   # 0: unknown, 1: closed, 2: open
   - id: garage_target
-    type: uint_8
+    type: uint8_t
     restore_value: false
     initial_value: "0"
