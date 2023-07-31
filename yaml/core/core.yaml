@@ -28,6 +28,7 @@ button:
   - platform: restart
     id: restart_button
     name: "Restart ESPHome Node"
+    disabled_by_default: true
 
 text_sensor:
   - platform: version
