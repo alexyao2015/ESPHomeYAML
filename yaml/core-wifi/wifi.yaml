@@ -8,11 +8,13 @@ wifi:
 
 sensor:
   - platform: wifi_signal
+    disabled_by_default: true
     name: "WiFi Signal"
     update_interval: 60s
 
 text_sensor:
   - platform: wifi_info
+    disabled_by_default: true
     ip_address:
       name: "IP Address"
 
