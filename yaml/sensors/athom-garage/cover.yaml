@@ -15,7 +15,7 @@ binary_sensor:
       number: GPIO14
       mode: INPUT_PULLUP
       inverted: true
-    name: "Button"
+    name: "ESP Button Pressed"
     disabled_by_default: true
     on_multi_click:
       - timing:
@@ -34,7 +34,7 @@ switch:
     id: relay_1
 
   - platform: template
-    name: "Relay"
+    name: "Garage Relay"
     id: template_relay_1
     disabled_by_default: true
     optimistic: true

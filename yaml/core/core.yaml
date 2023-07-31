@@ -27,7 +27,7 @@ web_server:
 button:
   - platform: restart
     id: restart_button
-    name: "Restart"
+    name: "Restart ESPHome Node"
 
 text_sensor:
   - platform: version
@@ -43,5 +43,5 @@ sensor:
 binary_sensor:
   - platform: status
     id: status_sensor
-    name: "Status"
+    name: "API Connection"
     disabled_by_default: true
