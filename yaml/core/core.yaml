@@ -18,10 +18,6 @@ time:
 
 logger:
 
-switch:
-  - platform: restart
-    id: restart_switch
-
 web_server:
   port: 80
   auth:
@@ -30,8 +26,22 @@ web_server:
 
 button:
   - platform: restart
+    id: restart
     name: "Restart"
 
 text_sensor:
   - platform: version
+    id: esphome_version
     name: "ESPHome Version"
+    disabled_by_default: true
+
+sensor:
+  - platform: uptime
+    id: uptime
+    name: "Uptime"
+
+binary_sensor:
+  - platform: status
+    id: status
+    name: "Status"
+    disabled_by_default: true
