@@ -106,11 +106,7 @@ cover:
     device_class: garage
     id: garage_door
     name: "Garage Door"
-    lambda: |-
-      if (id(garage_door).current_operation == COVER_OPERATION_OPENING || id(garage_door).current_operation == COVER_OPERATION_CLOSING) {
-        return id(garage_door).position;
-      }
-      return id(contact).state ? COVER_OPEN : COVER_CLOSED;
+    lambda: "return id(contact).state ? COVER_OPEN : COVER_CLOSED;"
     open_action:
       - if:
           condition:
