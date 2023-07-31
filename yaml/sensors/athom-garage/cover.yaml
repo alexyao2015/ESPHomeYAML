@@ -79,9 +79,6 @@ script:
       - script.execute: trigger_garage_motion
       - delay: 16s
       - lambda: |-
-          if (!garage_close) {
-            id(garage_door).position = COVER_OPEN;
-          }
           id(garage_door).current_operation = COVER_OPERATION_IDLE;
           id(garage_door).publish_state();
 
@@ -90,16 +87,13 @@ script:
     then:
       - while:
           condition:
-            lambda: "return id(contact).state;"
+            lambda: "return id(garage_door).position == COVER_OPEN;"
           then:
             - script.execute:
                 id: trigger_garage_open_close
                 garage_close: true
             - script.wait: trigger_garage_open_close
             - delay: 5s
-      - lambda: |-
-          id(garage_door).position = COVER_CLOSED;
-          id(garage_door).publish_state();
 
 cover:
   - platform: template
