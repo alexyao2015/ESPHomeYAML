@@ -26,7 +26,7 @@ web_server:
 
 button:
   - platform: restart
-    id: restart
+    id: restart_button
     name: "Restart"
 
 text_sensor:
@@ -37,11 +37,11 @@ text_sensor:
 
 sensor:
   - platform: uptime
-    id: uptime
+    id: uptime_sensor
     name: "Uptime"
 
 binary_sensor:
   - platform: status
-    id: status
+    id: status_sensor
     name: "Status"
     disabled_by_default: true
