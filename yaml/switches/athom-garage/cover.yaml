@@ -1,0 +1,99 @@
+binary_sensor:
+  - platform: gpio
+    name: "Garage Contact"
+    disabled_by_default: true
+    device_class: garage_door
+    id: contact
+    pin:
+      number: GPIO4
+      inverted: true
+    filters:
+      - delayed_on: 20ms
+
+  - platform: gpio
+    pin:
+      number: GPIO14
+      mode: INPUT_PULLUP
+      inverted: true
+    name: "Button"
+    disabled_by_default: true
+    on_multi_click:
+      - timing:
+          - ON for at most 1s
+          - OFF for at least 0.2s
+        then:
+          - script.execute: trigger_garage_motion
+      - timing:
+          - ON for at least 4s
+        then:
+          - button.press: restart
+
+switch:
+  - platform: gpio
+    pin: GPIO5
+    id: relay_1
+
+  - platform: template
+    name: "Relay"
+    id: template_relay_1
+    disabled_by_default: true
+    optimistic: true
+    lambda: |-
+      if (id(relay_1).state) {
+        return true;
+      } else {
+        return false;
+      }
+    turn_on_action:
+      then:
+        - switch.turn_on: relay_1
+        - script.execute: check_relay_then_turn_light_on_off
+    turn_off_action:
+      - switch.turn_off: relay_1
+      - script.execute: check_relay_then_turn_light_on_off
+
+script:
+  - id: trigger_garage_motion
+    mode: queued
+    then:
+      - switch.turn_on: template_relay_1
+      - delay: 1s
+      - switch.turn_off: template_relay_1
+
+  - id: trigger_garage_open_close
+    mode: queued
+    then:
+      - lambda: "id(garage_moving) = true;"
+      - script.execute: trigger_garage_motion
+      - delay: 15s
+      - lambda: "id(garage_moving) = false;"
+
+  - id: ensure_garage_closed
+    mode: single
+    then:
+      - lambda: "id(garage_target) = 1;"
+      - while:
+          condition:
+            lambda: "return id(contact).state;"
+          then:
+            - script.execute: trigger_garage_open_close
+            - delay: 30s
+
+cover:
+  - platform: template
+    device_class: garage
+    name: "${friendly_name}"
+    lambda: "return id(contact).state ? COVER_OPEN : COVER_CLOSED;"
+    open_action:
+      then:
+        - if:
+            condition:
+              lambda: "return (!id(contact).state && !id(garage_moving)) || (id(garage_target) == 1);"
+            then:
+              - script.stop: ensure_garage_closed
+              - lambda: "id(garage_target) = 2;"
+              - script.execute: trigger_garage_open_close
+    stop_action:
+      - script.execute: trigger_garage_motion
+    close_action:
+      - script.execute: ensure_garage_closed
