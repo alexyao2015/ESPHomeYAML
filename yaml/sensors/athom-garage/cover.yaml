@@ -70,18 +70,18 @@ script:
       garage_close: bool
     then:
       - lambda: |-
-          if (id(garage_close)) {
+          if (garage_close) {
             id(garage_door).position = COVER_OPERATION_CLOSING;
           } else {
             id(garage_door).position = COVER_OPERATION_OPENING;
           }
-          id(template_cov).publish_state();
+          id(garage_door).publish_state();
       - script.execute: trigger_garage_motion
       - delay: 16s
       - lambda: |-
-          if (!id(garage_close)) {
+          if (!garage_close) {
             id(garage_door).position = COVER_OPEN;
-            id(template_cov).publish_state();
+            id(garage_door).publish_state();
           }
 
   - id: ensure_garage_closed
@@ -98,7 +98,7 @@ script:
             - delay: 5s
       - lambda: |-
           id(garage_door).position = COVER_CLOSED;
-          id(template_cov).publish_state();
+          id(garage_door).publish_state();
 
 cover:
   - platform: template
@@ -109,7 +109,7 @@ cover:
       if (id(garage_door).position == COVER_OPERATION_OPENING || id(garage_door).position == COVER_OPERATION_CLOSING) {
         return id(garage_door).position;
       }
-      return id(contact).position ? COVER_OPEN : COVER_CLOSED;
+      return id(contact).state ? COVER_OPEN : COVER_CLOSED;
     open_action:
       then:
         - if:
