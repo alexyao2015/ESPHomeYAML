@@ -12,5 +12,4 @@ packages:
       - yaml/sensors/core/core.yaml
       # athom-garage
       - yaml/sensors/athom-garage/cover.yaml
-      - yaml/sensors/athom-garage/globals.yaml
       - yaml/sensors/athom-garage/led.yaml

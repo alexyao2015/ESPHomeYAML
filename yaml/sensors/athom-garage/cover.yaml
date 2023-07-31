@@ -66,38 +66,60 @@ script:
 
   - id: trigger_garage_open_close
     mode: queued
+    parameters:
+      garage_close: bool
     then:
-      - lambda: "id(garage_moving) = true;"
+      - lambda: |-
+          if (id(garage_close)) {
+            id(garage_door).position = COVER_OPERATION_CLOSING;
+          } else {
+            id(garage_door).position = COVER_OPERATION_OPENING;
+          }
+          id(template_cov).publish_state();
       - script.execute: trigger_garage_motion
       - delay: 16s
-      - lambda: "id(garage_moving) = false;"
+      - lambda: |-
+          if (!id(garage_close)) {
+            id(garage_door).position = COVER_OPEN;
+            id(template_cov).publish_state();
+          }
 
   - id: ensure_garage_closed
     mode: single
     then:
-      - lambda: "id(garage_target) = 1;"
       - while:
           condition:
             lambda: "return id(contact).state;"
           then:
-            - script.execute: trigger_garage_open_close
+            - script.execute:
+                id: trigger_garage_open_close
+                garage_close: true
             - script.wait: trigger_garage_open_close
             - delay: 5s
+      - lambda: |-
+          id(garage_door).position = COVER_CLOSED;
+          id(template_cov).publish_state();
 
 cover:
   - platform: template
     device_class: garage
+    id: garage_door
     name: "Garage Door"
-    lambda: "return id(contact).state ? COVER_OPEN : COVER_CLOSED;"
+    lambda: |-
+      if (id(garage_door).position == COVER_OPERATION_OPENING || id(garage_door).position == COVER_OPERATION_CLOSING) {
+        return id(garage_door).position;
+      }
+      return id(contact).position ? COVER_OPEN : COVER_CLOSED;
     open_action:
       then:
         - if:
             condition:
-              lambda: "return (!id(contact).state && !id(garage_moving)) || (id(garage_target) == 1);"
+              lambda: "return id(garage_door).position == COVER_OPERATION_CLOSING || id(garage_door).position == COVER_CLOSED;"
             then:
               - script.stop: ensure_garage_closed
-              - lambda: "id(garage_target) = 2;"
-              - script.execute: trigger_garage_open_close
+              - script.execute:
+                  id: trigger_garage_open_close
+                  garage_close: false
     stop_action:
       - script.stop: ensure_garage_closed
       - script.execute: trigger_garage_motion
