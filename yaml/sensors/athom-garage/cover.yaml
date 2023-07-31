@@ -69,7 +69,7 @@ script:
     then:
       - lambda: "id(garage_moving) = true;"
       - script.execute: trigger_garage_motion
-      - delay: 15s
+      - delay: 16s
       - lambda: "id(garage_moving) = false;"
 
   - id: ensure_garage_closed
@@ -81,7 +81,8 @@ script:
             lambda: "return id(contact).state;"
           then:
             - script.execute: trigger_garage_open_close
-            - delay: 30s
+            - script.wait: trigger_garage_open_close
+            - delay: 5s
 
 cover:
   - platform: template
