@@ -1,0 +1,43 @@
+# Define led output pin
+output:
+  - platform: ledc
+    id: nodemcu_led
+    inverted: False
+    pin: GPIO2
+
+# Setup light
+light:
+  - platform: monochromatic
+    id: led_1
+    output: nodemcu_led
+    default_transition_length: 0s
+    restore_mode: ALWAYS_OFF
+
+script:
+  - id: pulse_led_standard_wifi
+    then:
+      - light.turn_on:
+          id: led_1
+          brightness: 100%
+          transition_length: 1s
+      - delay: 1s
+      - light.turn_off:
+          id: led_1
+          transition_length: 750ms
+      - delay: 750ms
+
+  - id: pulse_led_standard_api
+    then:
+      - light.turn_on:
+          id: led_1
+          brightness: 100%
+          transition_length: 250ms
+      - delay: 250ms
+      - light.turn_on:
+          id: led_1
+          brightness: 50%
+          transition_length: 250ms
+      - delay: 250ms
+      - light.turn_off:
+          id: led_1
+          transition_length: 750ms
