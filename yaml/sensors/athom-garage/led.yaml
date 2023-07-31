@@ -1,9 +1,9 @@
 # Define led output pin
 output:
-  - platform: ledc
+  - platform: esp8266_pwm
     id: nodemcu_led
     inverted: False
-    pin: GPIO2
+    pin: GPIO12
 
 # Setup light
 light:

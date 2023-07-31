@@ -49,12 +49,12 @@ switch:
       - light.turn_on:
           id: led_1
           brightness: 100%
-          transition_length: 0
+          transition_length: 0s
     turn_off_action:
       - switch.turn_off: relay_1
       - light.turn_off:
           id: led_1
-          transition_length: 0
+          transition_length: 0s
 
 script:
   - id: trigger_garage_motion
