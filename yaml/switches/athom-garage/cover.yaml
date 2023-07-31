@@ -82,7 +82,7 @@ script:
 cover:
   - platform: template
     device_class: garage
-    name: "${friendly_name}"
+    name: "Garage Door"
     lambda: "return id(contact).state ? COVER_OPEN : COVER_CLOSED;"
     open_action:
       then:
