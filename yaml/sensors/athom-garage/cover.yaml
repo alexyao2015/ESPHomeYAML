@@ -98,6 +98,7 @@ cover:
               - lambda: "id(garage_target) = 2;"
               - script.execute: trigger_garage_open_close
     stop_action:
+      - script.stop: ensure_garage_closed
       - script.execute: trigger_garage_motion
     close_action:
       - script.execute: ensure_garage_closed
