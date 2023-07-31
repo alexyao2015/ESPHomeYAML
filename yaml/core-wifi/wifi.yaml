@@ -14,8 +14,8 @@ sensor:
 
 text_sensor:
   - platform: wifi_info
-    disabled_by_default: true
     ip_address:
       name: "IP Address"
+      disabled_by_default: true
 
 captive_portal:
