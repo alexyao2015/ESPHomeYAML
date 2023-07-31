@@ -1,8 +1,3 @@
-logger:
-  level: VERBOSE
-  logs:
-    light: INFO
-
 # Define led output pin
 output:
   - platform: esp8266_pwm
