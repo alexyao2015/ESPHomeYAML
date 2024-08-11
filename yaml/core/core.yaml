@@ -5,7 +5,8 @@ preferences: #<< in 2021.10 release
   flash_write_interval: 1min
 
 ota:
-  password: !secret ota-password
+  - platform: esphome
+    password: !secret ota-password
 
 api:
   password: !secret api-password
