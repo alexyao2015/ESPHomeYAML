@@ -9,6 +9,7 @@ ota:
     password: !secret ota-password
 
 api:
+  id: api_apiserver_id
   password: !secret api-password
   # encryption:
   #   key: !secret api-encryption-key
