@@ -37,7 +37,6 @@ switch:
       mcp23xxx: mcp23017_hub
       number: 3
       mode: OUTPUT
-      inverted: True
   - platform: gpio
     id: relay_5
     interlock: *interlock_group
@@ -45,7 +44,6 @@ switch:
       mcp23xxx: mcp23017_hub
       number: 4
       mode: OUTPUT
-      inverted: True
   - platform: gpio
     id: relay_6
     interlock: *interlock_group
