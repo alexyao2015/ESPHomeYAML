@@ -2,7 +2,6 @@
 light:
   - platform: esp32_rmt_led_strip
     id: status_led
-    name: "Status Led"
     rgb_order: RGB
     pin: GPIO38
     num_leds: 1
@@ -10,6 +9,7 @@ light:
     chipset: ws2812
     default_transition_length: 0s
     restore_mode: ALWAYS_OFF
+    internal: true
 
 script:
   - id: pulse_led_relay_on_wifi
