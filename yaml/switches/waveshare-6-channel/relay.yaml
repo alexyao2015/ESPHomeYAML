@@ -17,7 +17,6 @@ switch:
     pin:
       number: GPIO2
       mode: OUTPUT
-      inverted: True
   - platform: gpio
     id: relay_3
     interlock: *interlock_group
@@ -30,21 +29,18 @@ switch:
     pin:
       number: GPIO42
       mode: OUTPUT
-      inverted: True
   - platform: gpio
     id: relay_5
     interlock: *interlock_group
     pin:
       number: GPIO45
       mode: OUTPUT
-      inverted: True
   - platform: gpio
     id: relay_6
     interlock: *interlock_group
     pin:
       number: GPIO46
       mode: OUTPUT
-      inverted: True
 
   - platform: template
     name: "template_relay_1"
