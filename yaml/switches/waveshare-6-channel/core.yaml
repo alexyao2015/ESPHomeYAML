@@ -13,4 +13,5 @@ packages:
       # waveshare-6-channel
       - yaml/switches/waveshare-6-channel/led.yaml
       - yaml/switches/waveshare-6-channel/relay.yaml
-      # - yaml/switches/waveshare-6-channel/sensor.yaml
+      - yaml/switches/waveshare-6-channel/sensor.yaml
+      - yaml/switches/waveshare-6-channel/climate.yaml

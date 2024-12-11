@@ -7,6 +7,7 @@ sensor:
   - platform: bme680
     temperature:
       name: "Temperature"
+      id: temperature_sensor
       oversampling: 16x
     pressure:
       name: "Pressure"

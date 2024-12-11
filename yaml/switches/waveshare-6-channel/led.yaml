@@ -9,7 +9,6 @@ light:
     chipset: ws2812
     default_transition_length: 0s
     restore_mode: ALWAYS_OFF
-    internal: true
 
 script:
   - id: pulse_led_relay_on_wifi
