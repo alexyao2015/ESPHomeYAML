@@ -1,0 +1,15 @@
+esp32:
+  board: esp32-s3-devkitc-1
+
+packages:
+  core:
+    ref: main
+    url: https://github.com/alexyao2015/ESPHomeYAML
+    files:
+      # core
+      - yaml/core-wifi/core.yaml
+      # core-switches
+      - yaml/switches/core/core.yaml
+      # waveshare-6-channel
+      - yaml/switches/waveshare-6-channel/led.yaml
+      - yaml/switches/waveshare-6-channel/relay.yaml
