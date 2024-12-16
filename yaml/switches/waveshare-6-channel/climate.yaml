@@ -17,18 +17,18 @@ climate:
       - switch.turn_off: template_relay_3
       - switch.turn_off: template_relay_6
     fan_mode_high_action:
-      - switch.turn_on: template_relay_6
-    fan_mode_low_action:
       - switch.turn_on: template_relay_3
+    fan_mode_low_action:
+      - switch.turn_on: template_relay_6
 
     idle_action:
-      # low fan
+      # high fan
       - switch.turn_off: template_relay_3
       # heat
       - switch.turn_off: template_relay_4
       # cool
       - switch.turn_off: template_relay_5
-      # high fan
+      # low fan
       - switch.turn_off: template_relay_6
     default_preset: Freeze Prevention
     preset:
