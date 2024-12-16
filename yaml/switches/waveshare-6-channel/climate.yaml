@@ -9,9 +9,9 @@ climate:
     min_fan_mode_switching_time: 0s
     min_idle_time: 30s
     heat_action:
-      - switch.turn_on: template_relay_4
-    cool_action:
       - switch.turn_on: template_relay_5
+    cool_action:
+      - switch.turn_on: template_relay_4
 
     fan_mode_auto_action:
       - switch.turn_off: template_relay_3
@@ -24,9 +24,9 @@ climate:
     idle_action:
       # high fan
       - switch.turn_off: template_relay_3
-      # heat
-      - switch.turn_off: template_relay_4
       # cool
+      - switch.turn_off: template_relay_4
+      # heat
       - switch.turn_off: template_relay_5
       # low fan
       - switch.turn_off: template_relay_6
