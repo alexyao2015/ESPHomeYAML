@@ -12,6 +12,6 @@ packages:
       # core-switches
       - yaml/switches/core/core.yaml
       # intertek-plug
-      - yaml/switches/esicoo-plug/buttons.yaml
-      - yaml/switches/esicoo-plug/led.yaml
-      - yaml/switches/esicoo-plug/relay.yaml
+      - yaml/switches/intertek-plug/buttons.yaml
+      - yaml/switches/intertek-plug/led.yaml
+      - yaml/switches/intertek-plug/relay.yaml

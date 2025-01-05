@@ -8,7 +8,7 @@ switch:
     name: "template_relay_1"
     id: template_relay_1
     optimistic: true
-    restore_state: true
+    restore_mode: RESTORE_DEFAULT_OFF
     lambda: |-
       if (id(relay_1).state) {
         return true;
@@ -17,8 +17,8 @@ switch:
       }
     turn_on_action:
       then:
-      - switch.turn_on: relay_1
-      - script.execute: check_relay_then_turn_light_on_off
+        - switch.turn_on: relay_1
+        - script.execute: check_relay_then_turn_light_on_off
     turn_off_action:
       - switch.turn_off: relay_1
       - script.execute: check_relay_then_turn_light_on_off
