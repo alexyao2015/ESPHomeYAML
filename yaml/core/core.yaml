@@ -20,6 +20,10 @@ time:
 
 logger:
 
+switch:
+  - platform: restart
+    id: restart_switch
+
 web_server:
   port: 80
   auth:
