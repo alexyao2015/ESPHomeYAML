@@ -33,16 +33,16 @@ climate:
     default_preset: Freeze Prevention
     preset:
       - name: Freeze Prevention
-        default_target_temperature_low: 60F
+        default_target_temperature_low: 50F
         default_target_temperature_high: 88F
         mode: HEAT_COOL
       # Add a second preset because the UI has a bug
       # Where you cannot reselect the preset after changing it
       - name: Freeze Prevention 2
-        default_target_temperature_low: 60F
+        default_target_temperature_low: 50F
         default_target_temperature_high: 88F
         mode: HEAT_COOL
     visual:
-      min_temperature: 50F
+      min_temperature: 40F
       max_temperature: 95F
       temperature_step: 0.5F
