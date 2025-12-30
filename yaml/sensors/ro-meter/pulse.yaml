@@ -36,3 +36,4 @@ button:
     on_press:
       - lambda: |-
           id(total_meter_pulses) = 0;
+          id(ro_water_meter_total).update();
