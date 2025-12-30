@@ -19,10 +19,10 @@ sensor:
       filters:
         - multiply: 10  # (10 pulses per Gallon)
 
-api:
-  actions:
-    - action: reset_pulse_total
-      then:
-        - pulse_counter.set_total_pulses:
-            id: ro_pulse_counter
-            value: !lambda 'return 0;'
+button:
+  - platform: template
+    name: "Reset RO Water Meter Total"
+    on_press:
+      - pulse_counter.set_total_pulses:
+          id: ro_pulse_counter
+          value: !lambda 'return 0;'
