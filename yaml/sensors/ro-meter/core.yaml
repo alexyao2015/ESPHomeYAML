@@ -1,9 +1,6 @@
 esp32:
   board: node32s
 
-logger:
-  baud_rate: 0
-
 packages:
   core:
     ref: main
