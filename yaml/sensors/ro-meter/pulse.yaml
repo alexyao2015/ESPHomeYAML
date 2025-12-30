@@ -1,7 +1,7 @@
 sensor:
   - platform: pulse_counter
     pin:
-      number: 12
+      number: 13
       inverted: true
       mode:
         input: true
