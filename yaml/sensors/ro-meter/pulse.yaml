@@ -1,0 +1,27 @@
+sensor:
+  - platform: pulse_counter
+    pin:
+      number: 12
+      inverted: true
+      mode:
+        input: true
+        pullup: true
+    unit_of_measurement: 'Gallons/min'
+    update_interval: 60s
+    name: 'RO Water Meter Flow Rate'
+    filters:
+      - multiply: 10  # (10 pulses per Gallon)
+
+    total:
+      unit_of_measurement: 'Gallons'
+      name: 'RO Water Meter Total'
+      filters:
+        - multiply: 10  # (10 pulses per Gallon)
+
+api:
+  actions:
+    - action: reset_pulse_total
+      then:
+        - pulse_counter.set_total_pulses:
+            id: pulse_counter_id
+            value: !lambda 'return 0;'
