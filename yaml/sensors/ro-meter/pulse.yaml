@@ -22,9 +22,12 @@ sensor:
       then:
        - lambda: |-
           id(total_meter_pulses) += 1;
+          id(ro_water_meter_total).update();
   - platform: template
     unit_of_measurement: 'Gallons'
     name: 'RO Water Meter Total'
+    update_interval: never
+    id: ro_water_meter_total
     lambda: |-
       return id(total_meter_pulses) / 10.0;
 button:
