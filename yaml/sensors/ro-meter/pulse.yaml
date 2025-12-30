@@ -1,28 +1,35 @@
+globals:
+  - id: total_meter_pulses
+    type: int
+    restore_value: false
+    initial_value: "0"
+
 sensor:
-  - platform: pulse_counter
+  - platform: pulse_meter
     pin:
-      number: 13
+      number: GPIO13
       inverted: true
       mode:
         input: true
         pullup: true
-    unit_of_measurement: 'Gallons/min'
-    update_interval: 60s
+    internal_filter: 50ms
+    internal_filter_mode: PULSE
     name: 'RO Water Meter Flow Rate'
-    id: ro_pulse_counter
+    unit_of_measurement: "gallons/min"
     filters:
-      - multiply: 10  # (10 pulses per Gallon)
-
-    total:
-      unit_of_measurement: 'Gallons'
-      name: 'RO Water Meter Total'
-      filters:
-        - multiply: 10  # (10 pulses per Gallon)
-
+      - multiply: 0.1
+    on_value:
+      then:
+       - lambda: |-
+          id(total_meter_pulses) += 1;
+  - platform: template
+    unit_of_measurement: 'Gallons'
+    name: 'RO Water Meter Total'
+    lambda: |-
+      return id(total_meter_pulses) / 10.0;
 button:
   - platform: template
     name: "Reset RO Water Meter Total"
     on_press:
-      - pulse_counter.set_total_pulses:
-          id: ro_pulse_counter
-          value: !lambda 'return 0;'
+      - lambda: |-
+          id(total_meter_pulses) = 0;
