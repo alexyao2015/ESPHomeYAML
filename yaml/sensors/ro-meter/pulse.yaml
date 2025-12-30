@@ -1,7 +1,7 @@
 globals:
   - id: total_meter_pulses
     type: int
-    restore_value: false
+    restore_value: true
     initial_value: "0"
 
 sensor:
@@ -26,7 +26,6 @@ sensor:
   - platform: template
     unit_of_measurement: 'Gallons'
     name: 'RO Water Meter Total'
-    update_interval: never
     id: ro_water_meter_total
     lambda: |-
       return id(total_meter_pulses) / 10.0;
