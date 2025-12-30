@@ -9,6 +9,7 @@ sensor:
     unit_of_measurement: 'Gallons/min'
     update_interval: 60s
     name: 'RO Water Meter Flow Rate'
+    id: ro_pulse_counter
     filters:
       - multiply: 10  # (10 pulses per Gallon)
 
@@ -23,5 +24,5 @@ api:
     - action: reset_pulse_total
       then:
         - pulse_counter.set_total_pulses:
-            id: pulse_counter_id
+            id: ro_pulse_counter
             value: !lambda 'return 0;'
