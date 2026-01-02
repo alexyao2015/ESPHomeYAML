@@ -8,12 +8,12 @@ sensor:
   - platform: pulse_meter
     pin:
       number: GPIO13
-      inverted: true
-      mode:
-        input: true
-        pullup: true
-    internal_filter: 50ms
-    internal_filter_mode: PULSE
+      # inverted: true
+      # mode:
+      #   input: true
+      #   pullup: true
+    # internal_filter: 50ms
+    # internal_filter_mode: PULSE
     name: 'RO Water Meter Flow Rate'
     unit_of_measurement: "gallons/min"
     accuracy_decimals: 4
