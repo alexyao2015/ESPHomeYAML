@@ -17,18 +17,25 @@ sensor:
     name: 'RO Water Meter Flow Rate'
     unit_of_measurement: "gallons/min"
     filters:
-      - multiply: 0.1
+      - lambda: return (x / 38.0) * 0.264172; # 38 pulses per liter, 0.264172 gallons per liter
     on_value:
       then:
        - lambda: |-
           id(total_meter_pulses) += 1;
           id(ro_water_meter_total).update();
+          id(ro_water_meter_total_pulses).update();
   - platform: template
     unit_of_measurement: 'Gallons'
     name: 'RO Water Meter Total'
     id: ro_water_meter_total
     lambda: |-
-      return id(total_meter_pulses) / 10.0;
+      return (id(total_meter_pulses) / 38.0) * 0.264172;
+  - platform: template
+    unit_of_measurement: 'Pulses'
+    name: 'RO Water Meter Total Pulses'
+    id: ro_water_meter_total_pulses
+    lambda: |-
+      return id(total_meter_pulses);
 button:
   - platform: template
     name: "Reset RO Water Meter Total"
@@ -36,3 +43,4 @@ button:
       - lambda: |-
           id(total_meter_pulses) = 0;
           id(ro_water_meter_total).update();
+          id(ro_water_meter_total_pulses).update();
