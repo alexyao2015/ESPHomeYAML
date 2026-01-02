@@ -16,6 +16,7 @@ sensor:
     internal_filter_mode: PULSE
     name: 'RO Water Meter Flow Rate'
     unit_of_measurement: "gallons/min"
+    accuracy_decimals: 4
     filters:
       - lambda: return (x / 38.0) * 0.264172; # 38 pulses per liter, 0.264172 gallons per liter
     on_value:
@@ -28,6 +29,7 @@ sensor:
     unit_of_measurement: 'Gallons'
     name: 'RO Water Meter Total'
     id: ro_water_meter_total
+    accuracy_decimals: 4
     lambda: |-
       return (id(total_meter_pulses) / 38.0) * 0.264172;
   - platform: template
